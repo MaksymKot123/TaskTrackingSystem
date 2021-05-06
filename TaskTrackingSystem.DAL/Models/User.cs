@@ -8,7 +8,5 @@ namespace TaskTrackingSystem.DAL.Models
         public string Name { get; set; }
         //public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<EmployeesInProject> EmployeesInProject { get; set; }
-
-
     }
 }
