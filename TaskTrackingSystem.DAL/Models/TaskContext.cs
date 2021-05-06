@@ -8,9 +8,24 @@ namespace TaskTrackingSystem.DAL.Models
 {
     public class TaskContext : IdentityDbContext<User>
     {
+        public DbSet<User> Users { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<TaskProject> Tasks { get; set; }
+
         public TaskContext(DbContextOptions<TaskContext> option) : base(option)
         {
             Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Project>()
+                .HasMany(p => p.Tasks)
+                .WithOne(t => t.Project)
+                .IsRequired();
+
+            builder.Entity<EmployeesInProject>()
+                .HasKey(e => new { e.EmployeeId, e.ProjectId });
         }
     }
 }
