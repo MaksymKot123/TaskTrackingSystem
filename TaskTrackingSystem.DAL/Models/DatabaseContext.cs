@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TaskTrackingSystem.DAL.Models
 {
-    public class TaskContext : IdentityDbContext<User>
+    public class DatabaseContext : IdentityDbContext<User>
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<TaskProject> Tasks { get; set; }
 
-        public TaskContext(DbContextOptions<TaskContext> option) : base(option)
+        public DatabaseContext(DbContextOptions<DatabaseContext> option) : base(option)
         {
             Database.EnsureCreated();
         }
