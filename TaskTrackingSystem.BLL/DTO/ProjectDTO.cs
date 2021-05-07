@@ -11,7 +11,7 @@ namespace TaskTrackingSystem.BLL.DTO
         public string Name { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public DAL.Enums.Status Status { get; set; }
+        public BLL.Enums.StatusDTO Status { get; set; }
         public string Description { get; set; }
         public string ClientEmail { get; set; }
         public double PercentCompletion { get; set; }
