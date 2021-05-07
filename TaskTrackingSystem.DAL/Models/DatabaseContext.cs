@@ -24,8 +24,15 @@ namespace TaskTrackingSystem.DAL.Models
                 .WithOne(t => t.Project)
                 .IsRequired();
 
-            builder.Entity<EmployeesInProject>()
-                .HasKey(e => new { e.EmployeeId, e.ProjectId });
+            builder.Entity<Project>()
+                .HasMany(p => p.Employees)
+                .WithMany(e => e.Projects)
+                .UsingEntity(x => x.ToTable("ProjectEmployee"));
+
+
+
+            //builder.Entity<EmployeesInProject>()
+            //    .HasKey(e => new { e.EmployeeId, e.ProjectId });
         }
     }
 }

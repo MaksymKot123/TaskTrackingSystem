@@ -6,7 +6,7 @@ using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.DAL.Interfaces
 {
-    public interface IUnifOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         UserManager<User> UserManager { get; }
         RoleManager<User> RoleManager { get; }
