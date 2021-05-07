@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackingSystem", "TaskTrackingSystem\TaskTrackingSystem.csproj", "{F7C547BC-556E-44C1-B6B6-832853030651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTrackingSystem", "TaskTrackingSystem\TaskTrackingSystem.csproj", "{F7C547BC-556E-44C1-B6B6-832853030651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackingSystem.DAL", "TaskTrackingSystem.DAL\TaskTrackingSystem.DAL.csproj", "{5A06AF62-2F8B-4FF5-9FE6-7B622D942276}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTrackingSystem.DAL", "TaskTrackingSystem.DAL\TaskTrackingSystem.DAL.csproj", "{5A06AF62-2F8B-4FF5-9FE6-7B622D942276}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackingSystem.BLL", "TaskTrackingSystem.BLL\TaskTrackingSystem.BLL.csproj", "{B998E777-B4B5-4150-8D00-8527C51CD8DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5A06AF62-2F8B-4FF5-9FE6-7B622D942276}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A06AF62-2F8B-4FF5-9FE6-7B622D942276}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A06AF62-2F8B-4FF5-9FE6-7B622D942276}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B998E777-B4B5-4150-8D00-8527C51CD8DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B998E777-B4B5-4150-8D00-8527C51CD8DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B998E777-B4B5-4150-8D00-8527C51CD8DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B998E777-B4B5-4150-8D00-8527C51CD8DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
