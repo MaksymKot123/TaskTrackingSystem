@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TaskTrackingSystem.BLL.DTO;
 
 namespace TaskTrackingSystem.BLL
@@ -10,7 +11,7 @@ namespace TaskTrackingSystem.BLL
         IEnumerable<UserDTO> GetAllUsers();
         UserDTO GetUser(int? id);
         IEnumerable<UserDTO> Find(Func<UserDTO, bool> func);
-        UserDTO GetUser(string login);
+        Task<UserDTO> GetUser(string login);
         void AddUser(UserDTO user, string password);
         void EditUser(UserDTO userE);
         void DeleteUser(UserDTO user);
