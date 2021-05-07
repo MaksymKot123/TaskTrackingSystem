@@ -45,32 +45,17 @@ namespace TaskTrackingSystem.DAL.Repositories
 
         public IRepository<TaskProject> TaskRepo
         {
-            get
-            {
-                if (taskRepo == null)
-                    taskRepo = new TaskRepository(db);
-                return taskRepo;
-            }
+            get => taskRepo ??= new TaskRepository(db);
         }
 
         public IRepository<Project> ProjectRepo
         {
-            get
-            {
-                if (projectRepo == null)
-                    projectRepo = new ProjectRepository(db);
-                return projectRepo;
-            }
+            get => projectRepo ??= new ProjectRepository(db);
         }
 
         public IRepository<User> UserRepo
         {
-            get
-            {
-                if (userRepo == null)
-                    userRepo = new UserRepository(db);
-                return userRepo;
-            }
+            get => userRepo ??= new UserRepository(db);
         }
 
         protected virtual void Dispose(bool disposing)
