@@ -21,7 +21,7 @@ namespace TaskTrackingSystem.BLL.Services
             unifOfWork = uow;
         }
 
-        public void AddToProject(ProjectDTO project)
+        public void AddToProject(ProjectDTO project, TaskDTO task)
         {
             throw new NotImplementedException();
         }
