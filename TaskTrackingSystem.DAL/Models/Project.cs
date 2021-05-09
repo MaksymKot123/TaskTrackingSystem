@@ -16,8 +16,7 @@ namespace TaskTrackingSystem.DAL.Models
         public string ClientEmail { get; set; }
         public double PercentCompletion { get; set; }
 
-        public virtual ICollection<User> Employees { get; set; }
-        //public virtual ICollection<EmployeesInProject> EmployeesInProject { get; set; }
-        public virtual ICollection<TaskProject> Tasks { get; set; }
+        public ICollection<User> Employees { get; set; }
+        public ICollection<TaskProject> Tasks { get; set; }
     }
 }

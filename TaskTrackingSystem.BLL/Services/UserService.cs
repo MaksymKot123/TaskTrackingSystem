@@ -71,9 +71,7 @@ namespace TaskTrackingSystem.BLL.Services
 
             if (usr != null)
             {
-                var res = await unifOfWork.UserManager.DeleteAsync(usr);
-
-
+                await unifOfWork.UserManager.DeleteAsync(usr);
             }
         }
 
@@ -83,6 +81,7 @@ namespace TaskTrackingSystem.BLL.Services
 
             if (usr != null)
                 unifOfWork.UserRepo.Edit(usr);
+            
         }
 
         public IEnumerable<UserDTO> GetAllUsers()
@@ -119,17 +118,6 @@ namespace TaskTrackingSystem.BLL.Services
                     var mapper = new Mapper(config);
 
                     return mapper.Map<UserDTO>(user);
-
-                    //return new User()
-                    //{
-                    //    Email = user.Email,
-                    //    Id = user.Id,
-                    //    Name = user.Name,
-                    //    //AccessFailedCount
-                    //    Projects = mapper.Map<ICollection<Project>, ICollection<ProjectDTO>>(
-                    //        user.Projects),
-
-                    //};
                 }
                 
             }

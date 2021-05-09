@@ -9,6 +9,6 @@ namespace TaskTrackingSystem.BLL.Interfaces
     {
         void AddToProject(ProjectDTO project);
         void Change(TaskDTO task);
-        void Delete(string name);
+        void Delete(TaskDTO task);
     }
 }

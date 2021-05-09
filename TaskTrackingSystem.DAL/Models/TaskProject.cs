@@ -11,6 +11,6 @@ namespace TaskTrackingSystem.DAL.Models
         public DateTime EndTime { get; set; }
         public Status Status { get; set; }
         public string Description { get; set; }
-        public virtual Project Project { get; set; }
+        public Project Project { get; set; }
     }
 }
