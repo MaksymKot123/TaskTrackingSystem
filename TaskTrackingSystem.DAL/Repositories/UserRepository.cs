@@ -47,6 +47,6 @@ namespace TaskTrackingSystem.DAL.Repositories
                 return db.Users.Find(id);
         }
 
-        public IEnumerable<User> GetAll() => db.Users;
+        public IEnumerable<User> GetAll() => db.Users.Include(x => x.Projects);
     }
 }
