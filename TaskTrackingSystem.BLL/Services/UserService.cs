@@ -17,23 +17,24 @@ namespace TaskTrackingSystem.BLL.Services
     public class UserService : IUserService
     {
         private bool disposedValue;
-        private readonly IUnitOfWork unifOfWork;
+        private readonly IUnitOfWork _unifOfWork;
+        private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork uow)
+        public UserService(IUnitOfWork unifOfWork, IMapper mapper)
         {
-            unifOfWork = uow;
+            _unifOfWork = unifOfWork;
+            _mapper = mapper;
+
         }
 
         public async void AddToProject(UserDTO user, ProjectDTO project)
         {
-            var userFromDatabase = await unifOfWork.UserManager.FindByEmailAsync(user.Email);
+            var userFromDatabase = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (userFromDatabase != null)
             {
-                var mapper = new MapperConfiguration(cfg => cfg
-                .CreateMap<ProjectDTO, Project>()).CreateMapper();
 
-                var proj = mapper.Map<Project>(project);
+                var proj = _mapper.Map<Project>(project);
 
                 userFromDatabase.Projects.Add(proj);
             }
@@ -44,7 +45,7 @@ namespace TaskTrackingSystem.BLL.Services
             var email = user.Email;
             var name = user.Name;
 
-            var usr = await unifOfWork.UserManager.FindByEmailAsync(email);
+            var usr = await _unifOfWork.UserManager.FindByEmailAsync(email);
 
             if (usr == null)
             {
@@ -55,49 +56,39 @@ namespace TaskTrackingSystem.BLL.Services
                     UserName = email,
                 };
 
-                var res = await unifOfWork.UserManager.CreateAsync(usr, password);
+                var res = await _unifOfWork.UserManager.CreateAsync(usr, password);
 
                 if (res.Succeeded)
                 {
-                    var createdUser = await unifOfWork.UserManager.FindByNameAsync(email);
-                    await unifOfWork.UserManager.AddToRoleAsync(createdUser, "Employee");
+                    var createdUser = await _unifOfWork.UserManager.FindByNameAsync(email);
+                    await _unifOfWork.UserManager.AddToRoleAsync(createdUser, "Employee");
                 }
             }
         }
 
         public async void DeleteUser(UserDTO user)
         {
-            var usr = await unifOfWork.UserManager.FindByEmailAsync(user.Email);
+            var usr = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (usr != null)
             {
-                await unifOfWork.UserManager.DeleteAsync(usr);
+                await _unifOfWork.UserManager.DeleteAsync(usr);
             }
         }
 
         public async void EditUser(UserDTO user)
         {
-            var usr = await unifOfWork.UserManager.FindByEmailAsync(user.Email);
+            var usr = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (usr != null)
-                unifOfWork.UserRepo.Edit(usr);
+                _unifOfWork.UserRepo.Edit(usr);
             
         }
 
         public IEnumerable<UserDTO> GetAllUsers()
         {
-            var config = new MapperConfiguration(cfg => cfg
-                .CreateMap<User, UserDTO>()
-                .ForMember("Id", x => x.MapFrom(u => u.Id))
-                .ForMember("Name", x => x.MapFrom(u => u.Name))
-                .ForMember("Email", x => x.MapFrom(u => u.Email))
-                .ForMember("Role", x => x.MapFrom(u => u.Role))
-                .ForMember("Projects", x => x.MapFrom(u => u.Projects)));
-
-            var mapper = new Mapper(config);
-
-            return mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(
-                unifOfWork.UserRepo.GetAll());
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(
+                _unifOfWork.UserRepo.GetAll());
         }
 
         public UserDTO GetUser(int? id)
@@ -106,26 +97,19 @@ namespace TaskTrackingSystem.BLL.Services
                 return null;
             else
             {
-                var user = unifOfWork.UserRepo.Get(id);
+                var user = _unifOfWork.UserRepo.Get(id);
                 if (user == null)
                     return null;
                 else
                 {
-                    var config = new MapperConfiguration(cfg => cfg
-                        .CreateMap<User, UserDTO>()
-                        .ForMember("Projects", x => x.MapFrom(u => u.Projects)));
-
-                    var mapper = new Mapper(config);
-
-                    return mapper.Map<UserDTO>(user);
+                    return _mapper.Map<UserDTO>(user);
                 }
-                
             }
         }
 
         public async Task<UserDTO> GetUser(string login)
         {
-            var user = await unifOfWork.UserManager.FindByEmailAsync(login);
+            var user = await _unifOfWork.UserManager.FindByEmailAsync(login);
 
             if (user == null)
                 return null;
@@ -146,7 +130,7 @@ namespace TaskTrackingSystem.BLL.Services
             {
                 if (disposing)
                 {
-                    unifOfWork.Dispose();
+                    _unifOfWork.Dispose();
                 }
 
                 disposedValue = true;

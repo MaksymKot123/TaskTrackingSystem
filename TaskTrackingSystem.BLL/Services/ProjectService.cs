@@ -14,102 +14,58 @@ namespace TaskTrackingSystem.BLL.Services
     public class ProjectService : IProjectService
     {
         private bool disposedValue;
-        private IUnitOfWork unifOfWork;
+        private readonly IUnitOfWork _unifOfWork;
+        private readonly IMapper _mapper;
 
-        public ProjectService(IUnitOfWork uow)
+        public ProjectService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            unifOfWork = uow;
+            _unifOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public void EditProject(ProjectDTO project)
         {
             var name = project.Name;
 
-            var proj = unifOfWork.ProjectRepo.Find(x => x.Name.Equals(name)).First();
-
-            var statusConfig = new MapperConfiguration(cfg => cfg
-                .CreateMap<BLL.Enums.StatusDTO, DAL.Enums.Status > ());
-            
-            var statusMapper = new Mapper(statusConfig);
+            var proj = _unifOfWork.ProjectRepo.GetAll()
+                .FirstOrDefault(x => x.Name.Equals(name));
 
             if (proj != null)
             {
                 proj.EndTime = project.EndTime;
                 proj.Description = project.Description;
                 proj.Name = project.Name;
-                proj.Status = statusMapper
-                    .Map<DAL.Enums.Status>(proj.Status);
+                proj.Status = _mapper.Map<DAL.Enums.Status>(project.Status);
 
-                unifOfWork.ProjectRepo.Edit(proj);
+                _unifOfWork.ProjectRepo.Edit(proj);
             }
-
-        }
-
-        public IEnumerable<ProjectDTO> Find(Func<ProjectDTO, bool> func)
-        {
-            var configGet = new MapperConfiguration(cfg => cfg
-                .CreateMap<Func<ProjectDTO, bool>, Func<Project, bool>>());
-            var mapperGet = new Mapper(configGet);
-            var pred = mapperGet.Map<Func<Project, bool>>(func);
-
-            var user = unifOfWork.ProjectRepo.Find(pred);
-
-            var config_return = new MapperConfiguration(cfg => cfg
-                .CreateMap<IEnumerable<Project>, IEnumerable<ProjectDTO>>());
-            var mapperReturn = new Mapper(config_return);
-            return mapperReturn.Map<IEnumerable<ProjectDTO>>(user);
         }
 
         public IEnumerable<ProjectDTO> GetAllProjects()
         {
-            var config = new MapperConfiguration(cfg => cfg
-                .CreateMap<IEnumerable<Project>, IEnumerable<ProjectDTO>>());
-
-            var mapper = new Mapper(config);
-
-            return mapper.Map<IEnumerable<Project>, IEnumerable<ProjectDTO>>(
-                unifOfWork.ProjectRepo.GetAll());
+            return _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectDTO>>(
+                _unifOfWork.ProjectRepo.GetAll());
         }
 
         public ProjectDTO GetProject(string name)
         {
-            var proj = unifOfWork.ProjectRepo.Find(x => x.Name.Equals(name)).First();
+            var proj = _unifOfWork.ProjectRepo.GetAll()
+                .FirstOrDefault(x => x.Name.Equals(name));
 
             if (proj != null)
             {
-                var taskConfig = new MapperConfiguration(cfg => cfg
-                    .CreateMap<ICollection<TaskProject>, ICollection<TaskDTO>>());
-                var taskMapper = new Mapper(taskConfig);
-
-                var projectTasks = taskMapper.Map<ICollection<TaskProject>,
-                    ICollection<TaskDTO>>(proj.Tasks);
-
-                var employeesConfig = new MapperConfiguration(cfg => cfg
-                    .CreateMap<ICollection<User>, ICollection<UserDTO>>());
-                var employeeMapper = new Mapper(employeesConfig);
-
-                var projectEmployees = employeeMapper.Map<ICollection<User>,
-                        ICollection<UserDTO>>(proj.Employees);
-
-
-                var statusConfig = new MapperConfiguration(cfg => cfg
-                    .CreateMap<BLL.Enums.StatusDTO, DAL.Enums.Status>());
-                var statusMapper = new Mapper(statusConfig);
-
-                var projectStatus = statusMapper.Map<BLL.Enums.StatusDTO>(proj.Status);
-
                 return new ProjectDTO()
                 {
                     ClientEmail = proj.ClientEmail,
                     Description = proj.Description,
-                    Employees = projectEmployees,
+                    Employees = _mapper.Map<ICollection<UserDTO>>(proj.Employees),
                     EndTime = proj.EndTime,
                     Id = proj.Id,
                     Name = proj.Name,
                     PercentCompletion = proj.PercentCompletion,
                     StartTime = proj.StartTime,
-                    Status = projectStatus,
-                    Tasks = projectTasks,
+                    Status = _mapper.Map<BLL.Enums.StatusDTO>(proj.Status),
+                    Tasks = _mapper.Map<ICollection<TaskDTO>>(proj.Tasks)
                 };
             }
             else return null;
@@ -121,7 +77,7 @@ namespace TaskTrackingSystem.BLL.Services
             {
                 if (disposing)
                 {
-                    unifOfWork.Dispose();
+                    _unifOfWork.Dispose();
                 }
                 disposedValue = true;
             }
