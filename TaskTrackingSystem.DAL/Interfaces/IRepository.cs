@@ -10,7 +10,6 @@ namespace TaskTrackingSystem.DAL.Interfaces
     {
         T Get(int? id);
         IEnumerable<T> GetAll();
-        IEnumerable<T> Find(Func<T, bool> func);
         void Create(T item);
         void Edit(T item);
         void Delete(T item);

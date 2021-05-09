@@ -49,10 +49,5 @@ namespace TaskTrackingSystem.DAL.Repositories
         }
 
         public IEnumerable<TaskProject> GetAll() => db.Tasks;
-
-        public IEnumerable<TaskProject> Find(Func<TaskProject, bool> func)
-        {
-            return db.Tasks.Where(func);
-        }
     }
 }

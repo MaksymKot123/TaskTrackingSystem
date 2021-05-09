@@ -10,7 +10,6 @@ namespace TaskTrackingSystem.BLL
     {
         IEnumerable<UserDTO> GetAllUsers();
         UserDTO GetUser(int? id);
-        IEnumerable<UserDTO> Find(Func<UserDTO, bool> func);
         Task<UserDTO> GetUser(string login);
         void AddUser(UserDTO user, string password);
         void EditUser(UserDTO userE);

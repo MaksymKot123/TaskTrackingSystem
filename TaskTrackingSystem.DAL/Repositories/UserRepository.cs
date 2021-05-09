@@ -48,10 +48,5 @@ namespace TaskTrackingSystem.DAL.Repositories
         }
 
         public IEnumerable<User> GetAll() => db.Users;
-
-        public IEnumerable<User> Find(Func<User, bool> func)
-        {
-            return db.Users.Where(func);
-        }
     }
 }

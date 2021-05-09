@@ -8,7 +8,6 @@ namespace TaskTrackingSystem.BLL.Interfaces
     public interface IProjectService : IDisposable
     {
         IEnumerable<ProjectDTO> GetAllProjects();
-        IEnumerable<ProjectDTO> Find(Func<ProjectDTO, bool> func);
         ProjectDTO GetProject(string name);
         void EditProject(ProjectDTO project);
     }

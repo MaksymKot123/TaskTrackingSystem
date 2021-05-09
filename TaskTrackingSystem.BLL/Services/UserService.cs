@@ -17,7 +17,7 @@ namespace TaskTrackingSystem.BLL.Services
     public class UserService : IUserService
     {
         private bool disposedValue;
-        private IUnitOfWork unifOfWork;
+        private readonly IUnitOfWork unifOfWork;
 
         public UserService(IUnitOfWork uow)
         {
@@ -83,24 +83,6 @@ namespace TaskTrackingSystem.BLL.Services
 
             if (usr != null)
                 unifOfWork.UserRepo.Edit(usr);
-        }
-
-        public IEnumerable<UserDTO> Find(Func<UserDTO, bool> func)
-        {
-            var configGet = new MapperConfiguration(cfg => cfg
-                .CreateMap<Func<UserDTO, bool>, Func<User, bool>>());
-
-            var mapperGet = new Mapper(configGet);
-
-            var fnc = mapperGet.Map<Func<User, bool>>(func);
-
-            var users = unifOfWork.UserRepo.Find(fnc);
-
-            var configReturn = new MapperConfiguration(cfg => cfg
-                .CreateMap<IEnumerable<User>, IEnumerable<UserDTO>>());
-            var mapperReturn = new Mapper(configReturn);
-
-            return mapperReturn.Map <IEnumerable<UserDTO>>(users);
         }
 
         public IEnumerable<UserDTO> GetAllUsers()
