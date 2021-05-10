@@ -46,7 +46,7 @@ namespace TaskTrackingSystem.BLL.Services
             {
                 if (disposing)
                 {
-                    unifOfWork.Dispose();
+                    _unitOfWork.Dispose();
                 }
 
                 disposedValue = true;
