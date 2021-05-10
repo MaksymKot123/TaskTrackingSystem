@@ -36,6 +36,8 @@ namespace TaskTrackingSystem
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // In production, the Angular files will be served from this directory
 
+            services.AddScoped<DbContext, DatabaseContext>();
+
             services.AddIdentity<User, IdentityRole>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DatabaseContext>()
@@ -52,6 +54,8 @@ namespace TaskTrackingSystem
             });
 
             IMapper mapper = mapperConfig.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             //var builder = services.AddIdentityCore<User>();
             //var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
