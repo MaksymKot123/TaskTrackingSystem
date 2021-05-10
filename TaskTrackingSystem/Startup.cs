@@ -7,6 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaskTrackingSystem.DAL.Models;
+using AutoMapper;
+using TaskTrackingSystem.BLL;
+using TaskTrackingSystem.DAL.Interfaces;
+using TaskTrackingSystem.DAL.Repositories;
+using TaskTrackingSystem.BLL.Services;
+using TaskTrackingSystem.BLL.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TaskTrackingSystem
 {
@@ -25,8 +33,46 @@ namespace TaskTrackingSystem
             services.AddControllersWithViews();
 
             services.AddDbContext<DatabaseContext>(config =>
-                config.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); 
+                config.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // In production, the Angular files will be served from this directory
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<DatabaseContext>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddUserManager<UserManager<User>>()
+                .AddRoleStore<RoleStore<IdentityRole>>()
+                .AddUserStore<UserStore<User>>();
+            //  .AddUserStore<>;
+
+
+            var mapperConfig = new MapperConfiguration(profile =>
+            {
+                profile.AddProfile(new AutomapperProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+
+            //var builder = services.AddIdentityCore<User>();
+            //var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+           
+            //identityBuilder.AddEntityFrameworkStores<DatabaseContext>();
+            //identityBuilder.AddSignInManager<SignInManager<User>>();
+            //identityBuilder.AddRoleManager<RoleManager<User>>()
+            //    .AddRoles<IdentityRole>();
+            //identityBuilder.AddUserManager<UserManager<User>>();
+
+            
+
+            // DAL
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //BLL
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IUserService, UserService>();
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
