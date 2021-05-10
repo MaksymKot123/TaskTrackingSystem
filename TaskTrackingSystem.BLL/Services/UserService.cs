@@ -33,8 +33,6 @@ namespace TaskTrackingSystem.BLL.Services
 
             if (userFromDatabase != null)
             {
-
-                //var proj = _mapper.Map<Project>(project);
                 var proj = _unifOfWork.ProjectRepo.Get(projectName);
                 if (proj != null)
                     userFromDatabase.Projects.Add(proj);
@@ -112,23 +110,6 @@ namespace TaskTrackingSystem.BLL.Services
                 }
             }
         }
-
-        //public async Task<UserDTO> GetUser(string login)
-        //{
-        //    var user = await _unifOfWork.UserManager.FindByEmailAsync(login);
-
-        //    if (user == null)
-        //        return null;
-        //    else 
-        //    {
-        //        return await Task.Run(() => new UserDTO() 
-        //        {
-        //            Email = user.Email,
-        //            Id = user.Id,
-        //            Name = user.Name,
-        //        });
-        //    }
-        //}
 
         protected virtual void Dispose(bool disposing)
         {

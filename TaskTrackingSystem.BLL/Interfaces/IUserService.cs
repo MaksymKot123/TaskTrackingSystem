@@ -10,7 +10,6 @@ namespace TaskTrackingSystem.BLL
     {
         IEnumerable<UserDTO> GetAllUsers();
         UserDTO GetUser(string id);
-        //Task<UserDTO> GetUser(string login);
         void AddUser(UserDTO user, string password);
         void EditUser(UserDTO userE);
         void DeleteUser(UserDTO user);

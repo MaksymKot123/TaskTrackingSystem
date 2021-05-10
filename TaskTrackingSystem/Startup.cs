@@ -46,7 +46,6 @@ namespace TaskTrackingSystem
                 .AddUserManager<UserManager<User>>()
                 .AddRoleStore<RoleStore<IdentityRole>>()
                 .AddUserStore<UserStore<User>>();
-            //  .AddUserStore<>;
 
 
             var mapperConfig = new MapperConfiguration(profile =>
@@ -57,17 +56,6 @@ namespace TaskTrackingSystem
             IMapper mapper = mapperConfig.CreateMapper();
 
             services.AddSingleton(mapper);
-
-            //var builder = services.AddIdentityCore<User>();
-            //var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-           
-            //identityBuilder.AddEntityFrameworkStores<DatabaseContext>();
-            //identityBuilder.AddSignInManager<SignInManager<User>>();
-            //identityBuilder.AddRoleManager<RoleManager<User>>()
-            //    .AddRoles<IdentityRole>();
-            //identityBuilder.AddUserManager<UserManager<User>>();
-
-            
 
             // DAL
             services.AddScoped<IUnitOfWork, UnitOfWork>();
