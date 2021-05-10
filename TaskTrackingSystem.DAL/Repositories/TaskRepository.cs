@@ -52,7 +52,7 @@ namespace TaskTrackingSystem.DAL.Repositories
                 entity.Status = item.Status;
                 entity.EndTime = item.EndTime;
                 entity.Description = item.Description;
-
+                
                 db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
             } 

@@ -63,5 +63,21 @@ namespace TaskTrackingSystem.Controllers
 
             _projService.DeleteProject(project);
         }
+        [HttpPut]
+        public void EditProject([FromQuery] ProjectView proj)
+        {
+            var project = new ProjectDTO()
+            {
+                ClientEmail = proj.ClientEmail,
+                Description = proj.Description,
+                EndTime = proj.EndTime,
+                Name = proj.Name,
+                PercentCompletion = 0,
+                Status = proj.StartTime > DateTime.Now ? BLL.Enums.StatusDTO.Pending : BLL.Enums.StatusDTO.Started,
+                StartTime = proj.StartTime,
+            };
+
+            _projService.EditProject(project);
+        }
     }
 }

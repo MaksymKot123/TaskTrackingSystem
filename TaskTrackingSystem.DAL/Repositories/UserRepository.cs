@@ -42,6 +42,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             var entity = db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
             if (entity != null)
             {
+                entity.Name = item.Name;
                 db.Entry(entity).State = EntityState.Modified;
                 db.SaveChanges();
             }

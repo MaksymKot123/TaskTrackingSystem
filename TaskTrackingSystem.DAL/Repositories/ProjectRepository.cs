@@ -35,6 +35,7 @@ namespace TaskTrackingSystem.DAL.Repositories
 
             if (project != null)
             {
+
                 db.Projects.Remove(project);
                 db.SaveChanges();
             }

@@ -48,6 +48,8 @@ namespace TaskTrackingSystem.BLL.Services
                 proj.Description = project.Description;
                 proj.Name = project.Name;
                 proj.Status = _mapper.Map<DAL.Enums.Status>(project.Status);
+                proj.ClientEmail = project.ClientEmail;
+                proj.StartTime = project.StartTime;
 
                 _unifOfWork.ProjectRepo.Edit(proj);
                 _unifOfWork.SaveChanges();
