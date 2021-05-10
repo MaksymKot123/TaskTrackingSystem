@@ -9,11 +9,11 @@ namespace TaskTrackingSystem.BLL
     public interface IUserService : IDisposable
     {
         IEnumerable<UserDTO> GetAllUsers();
-        UserDTO GetUser(int? id);
-        Task<UserDTO> GetUser(string login);
+        UserDTO GetUser(string id);
+        //Task<UserDTO> GetUser(string login);
         void AddUser(UserDTO user, string password);
         void EditUser(UserDTO userE);
         void DeleteUser(UserDTO user);
-        void AddToProject(UserDTO user, ProjectDTO project);
+        void AddToProject(string projectName, UserDTO user);
     }
 }

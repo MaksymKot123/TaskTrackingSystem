@@ -40,9 +40,9 @@ namespace TaskTrackingSystem.DAL.Repositories
             db.Dispose();
         }
 
-        public Project Get(int? id)
+        public Project Get(string name)
         {
-            var proj = db.Projects.Find(id);
+            var proj = db.Projects.Find(name);
 
             if (proj != null)
                 return proj;

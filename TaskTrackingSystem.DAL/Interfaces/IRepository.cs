@@ -8,7 +8,7 @@ namespace TaskTrackingSystem.DAL.Interfaces
 {
     public interface IRepository<T> : IDisposable where T : class
     {
-        T Get(int? id);
+        T Get(string name);
         IEnumerable<T> GetAll();
         void Create(T item);
         void Edit(T item);

@@ -13,27 +13,31 @@ namespace TaskTrackingSystem.BLL.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly IUnitOfWork unifOfWork;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private bool disposedValue;
 
-        public TaskService(IUnitOfWork uow)
+        public TaskService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            unifOfWork = uow;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public void AddToProject(ProjectDTO project, TaskDTO task)
+        public void AddToProject(string projectName, TaskDTO task)
         {
-            throw new NotImplementedException();
+            var proj = _unitOfWork.ProjectRepo.Get(projectName);
+            if (proj != null)
+                proj.Tasks.Add(_mapper.Map<TaskProject>(task));
         }
 
         public void Change(TaskDTO task)
         {
-            throw new NotImplementedException();
+            _unitOfWork.TaskRepo.Edit(_mapper.Map<TaskProject>(task));
         }
 
         public void Delete(TaskDTO task)
         {
-            throw new NotImplementedException();
+            _unitOfWork.TaskRepo.Delete(_mapper.Map<TaskProject>(task));
         }
 
         protected virtual void Dispose(bool disposing)

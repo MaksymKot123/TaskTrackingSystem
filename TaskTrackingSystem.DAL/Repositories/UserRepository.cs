@@ -39,12 +39,12 @@ namespace TaskTrackingSystem.DAL.Repositories
             db.Dispose();
         }
 
-        public User Get(int? id)
+        public User Get(string name)
         {
-            if (id == null)
+            if (name == null)
                 return null;
             else
-                return db.Users.Find(id);
+                return db.Users.Find(name);
         }
 
         public IEnumerable<User> GetAll() => db.Users.Include(x => x.Projects);

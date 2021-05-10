@@ -27,16 +27,17 @@ namespace TaskTrackingSystem.BLL.Services
 
         }
 
-        public async void AddToProject(UserDTO user, ProjectDTO project)
+        public async void AddToProject(string projectName, UserDTO user)
         {
             var userFromDatabase = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (userFromDatabase != null)
             {
 
-                var proj = _mapper.Map<Project>(project);
-
-                userFromDatabase.Projects.Add(proj);
+                //var proj = _mapper.Map<Project>(project);
+                var proj = _unifOfWork.ProjectRepo.Get(projectName);
+                if (proj != null)
+                    userFromDatabase.Projects.Add(proj);
             }
         }
 
@@ -91,7 +92,7 @@ namespace TaskTrackingSystem.BLL.Services
                 _unifOfWork.UserRepo.GetAll());
         }
 
-        public UserDTO GetUser(int? id)
+        public UserDTO GetUser(string id)
         {
             if (id == null)
                 return null;
@@ -107,22 +108,22 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
-        public async Task<UserDTO> GetUser(string login)
-        {
-            var user = await _unifOfWork.UserManager.FindByEmailAsync(login);
+        //public async Task<UserDTO> GetUser(string login)
+        //{
+        //    var user = await _unifOfWork.UserManager.FindByEmailAsync(login);
 
-            if (user == null)
-                return null;
-            else 
-            {
-                return await Task.Run(() => new UserDTO() 
-                {
-                    Email = user.Email,
-                    Id = user.Id,
-                    Name = user.Name,
-                });
-            }
-        }
+        //    if (user == null)
+        //        return null;
+        //    else 
+        //    {
+        //        return await Task.Run(() => new UserDTO() 
+        //        {
+        //            Email = user.Email,
+        //            Id = user.Id,
+        //            Name = user.Name,
+        //        });
+        //    }
+        //}
 
         protected virtual void Dispose(bool disposing)
         {

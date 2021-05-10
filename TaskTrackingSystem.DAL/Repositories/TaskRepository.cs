@@ -40,12 +40,12 @@ namespace TaskTrackingSystem.DAL.Repositories
             db.Dispose();
         }
 
-        public TaskProject Get(int? id)
+        public TaskProject Get(string name)
         {
-            if (id == null)
+            if (name == null)
                 return null;
             else
-                return db.Tasks.Find(id);
+                return db.Tasks.Find(name);
         }
 
         public IEnumerable<TaskProject> GetAll() 

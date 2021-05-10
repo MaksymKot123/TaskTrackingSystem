@@ -7,7 +7,7 @@ namespace TaskTrackingSystem.BLL.Interfaces
 {
     public interface ITaskService : IDisposable
     {
-        void AddToProject(ProjectDTO project, TaskDTO task);
+        void AddToProject(string projectName, TaskDTO task);
         void Change(TaskDTO task);
         void Delete(TaskDTO task);
     }
