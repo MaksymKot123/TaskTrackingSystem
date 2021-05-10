@@ -26,6 +26,13 @@ namespace TaskTrackingSystem.BLL.Services
         public void DeleteProject(ProjectDTO project)
         {
             var proj = _unifOfWork.ProjectRepo.Get(project.Name);
+
+            if (proj != null)
+            {
+                var projct = _mapper.Map<Project>(proj);
+                _unifOfWork.ProjectRepo.Delete(projct);
+                _unifOfWork.SaveChanges();
+            }
         }
 
         public void EditProject(ProjectDTO project)

@@ -19,14 +19,26 @@ namespace TaskTrackingSystem.DAL.Repositories
 
         public void Create(TaskProject item)
         {
-            db.Tasks.Add(item);
-            db.SaveChanges();
+            var entity = db.Tasks
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName));
+            if (entity == null)
+            {
+                db.Tasks.Add(item);
+                db.SaveChanges();
+            }
+            
         }
 
         public void Delete(TaskProject item)
         {
-            db.Tasks.Remove(item);
-            db.SaveChanges();
+            var entity = db.Tasks
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName));
+            if (entity != null)
+            {
+                db.Tasks.Remove(entity);
+                db.SaveChanges();
+            }
+            
         }
 
         public void Edit(TaskProject item)
@@ -34,14 +46,16 @@ namespace TaskTrackingSystem.DAL.Repositories
             var entity = db.Tasks
                 .FirstOrDefault(x => x.TaskName.Equals(item.TaskName));
 
-            entity.StartTime = item.StartTime;
-            entity.Status = item.Status;
-            entity.TaskName = item.TaskName;
-            entity.EndTime = item.EndTime;
-            entity.Description = item.Description;
+            if (entity != null)
+            {
+                entity.StartTime = item.StartTime;
+                entity.Status = item.Status;
+                entity.EndTime = item.EndTime;
+                entity.Description = item.Description;
 
-            db.Entry(entity).State = EntityState.Modified;
-            db.SaveChanges();
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+            } 
         }
 
         public void Dispose()

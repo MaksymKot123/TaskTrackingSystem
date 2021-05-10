@@ -19,20 +19,37 @@ namespace TaskTrackingSystem.DAL.Repositories
 
         public void Create(Project item)
         {
-            db.Projects.Add(item);
-            db.SaveChanges();
+            var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
+
+            if (project == null)
+            {
+                db.Projects.Add(item);
+                db.SaveChanges();
+            }
+            
         }
 
         public void Delete(Project item)
         {
-            db.Projects.Remove(item);
-            db.SaveChanges();
+            var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
+
+            if (project != null)
+            {
+                db.Projects.Remove(project);
+                db.SaveChanges();
+            }
         }
 
         public void Edit(Project item)
         {
-            db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
+
+            if (project != null)
+            {
+                db.Entry(project).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            
         }
 
         public void Dispose()
@@ -47,9 +64,7 @@ namespace TaskTrackingSystem.DAL.Repositories
                 .Include(x => x.Employees)
                 .FirstOrDefault(x => x.Name.Equals(name));
 
-            if (proj != null)
-                return proj;
-            else return null;
+            return proj;
         }
 
         public IEnumerable<Project> GetAll() 
