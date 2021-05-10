@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.BLL.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TaskTrackingSystem.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    //[AllowAnonymous]
     [ApiController]
     public class ProjectController : Controller
     {

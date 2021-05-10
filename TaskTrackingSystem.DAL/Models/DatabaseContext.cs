@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,11 +15,19 @@ namespace TaskTrackingSystem.DAL.Models
 
         public DatabaseContext(DbContextOptions<DatabaseContext> option) : base(option)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+            builder.Ignore<IdentityUserLogin<string>>();
+            builder.Ignore<IdentityUserRole<string>>();
+            builder.Ignore<IdentityUserClaim<string>>();
+            builder.Ignore<IdentityUserToken<string>>();
+            builder.Ignore<IdentityUser<string>>();
+
             builder.Entity<Project>()
                 .HasMany(p => p.Tasks)
                 .WithOne(t => t.Project)
@@ -28,11 +37,6 @@ namespace TaskTrackingSystem.DAL.Models
                 .HasMany(p => p.Employees)
                 .WithMany(e => e.Projects)
                 .UsingEntity(x => x.ToTable("ProjectEmployee"));
-
-
-
-            //builder.Entity<EmployeesInProject>()
-            //    .HasKey(e => new { e.EmployeeId, e.ProjectId });
         }
     }
 }
