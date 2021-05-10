@@ -9,7 +9,7 @@ namespace TaskTrackingSystem.DAL.Interfaces
     public interface IUnitOfWork : IDisposable
     {
         UserManager<User> UserManager { get; }
-        RoleManager<string> RoleManager { get; }
+        RoleManager<IdentityRole> RoleManager { get; }
 
         IRepository<TaskProject> TaskRepo { get; }
         IRepository<Project> ProjectRepo { get; }

@@ -14,7 +14,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         private readonly DatabaseContext db;
 
         private UserManager<User> userManager;
-        private RoleManager<string> roleManager;
+        private RoleManager<IdentityRole> roleManager;
         private IRepository<TaskProject> taskRepo;
         private IRepository<Project> projectRepo;
         private IRepository<User> userRepo;
@@ -22,7 +22,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         private bool disposedValue;
 
         public UnitOfWork(DatabaseContext db, UserManager<User> userManager,
-            RoleManager<string> roleManager)
+            RoleManager<IdentityRole> roleManager)
         {
             this.db = db;
             this.userManager = userManager;
@@ -38,7 +38,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             get => userManager;
         }
 
-        public RoleManager<string> RoleManager
+        public RoleManager<IdentityRole> RoleManager
         {
             get => roleManager;
         }
