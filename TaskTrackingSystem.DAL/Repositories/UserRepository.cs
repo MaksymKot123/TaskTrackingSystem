@@ -18,20 +18,34 @@ namespace TaskTrackingSystem.DAL.Repositories
 
         public void Create(User item)
         {
-            db.Users.Add(item);
-            db.SaveChanges();
+            var entity = db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
+            if (entity != null)
+            {
+                db.Users.Add(item);
+                db.SaveChanges();
+            }
         }
 
         public void Delete(User item)
         {
-            db.Users.Remove(item);
-            db.SaveChanges();
+            var entity = db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
+            if (entity != null)
+            {
+                db.Users.Remove(entity);
+                db.SaveChanges();
+            }
+                
         }
 
         public void Edit(User item)
         {
-            db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            var entity = db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
+            if (entity != null)
+            {
+                db.Entry(entity).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            
         }
 
         public void Dispose()
@@ -39,12 +53,14 @@ namespace TaskTrackingSystem.DAL.Repositories
             db.Dispose();
         }
 
-        public User Get(string name)
+        public User Get(string email)
         {
-            if (name == null)
+            if (email == null)
                 return null;
             else
-                return db.Users.Find(name);
+                return db.Users
+                    .Include(x => x.Projects)
+                    .FirstOrDefault(x => x.Email.Equals(email));
         }
 
         public IEnumerable<User> GetAll() => db.Users.Include(x => x.Projects);

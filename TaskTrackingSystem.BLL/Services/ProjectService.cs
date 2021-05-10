@@ -23,6 +23,11 @@ namespace TaskTrackingSystem.BLL.Services
             _mapper = mapper;
         }
 
+        public void DeleteProject(ProjectDTO project)
+        {
+            var proj = _unifOfWork.ProjectRepo.Get(project.Name);
+        }
+
         public void EditProject(ProjectDTO project)
         {
             var name = project.Name;

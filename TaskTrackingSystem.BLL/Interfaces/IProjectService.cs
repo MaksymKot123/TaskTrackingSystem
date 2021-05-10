@@ -11,5 +11,6 @@ namespace TaskTrackingSystem.BLL.Interfaces
         ProjectDTO GetProject(string name);
         void EditProject(ProjectDTO project);
         void AddProject(ProjectDTO project);
+        void DeleteProject(ProjectDTO project);
     }
 }

@@ -97,13 +97,13 @@ namespace TaskTrackingSystem.BLL.Services
                 _unifOfWork.UserRepo.GetAll());
         }
 
-        public UserDTO GetUser(string id)
+        public UserDTO GetUser(string email)
         {
-            if (id == null)
+            if (email == null)
                 return null;
             else
             {
-                var user = _unifOfWork.UserRepo.Get(id);
+                var user = _unifOfWork.UserRepo.Get(email);
                 if (user == null)
                     return null;
                 else

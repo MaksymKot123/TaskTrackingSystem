@@ -45,7 +45,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             var proj = db.Projects
                 .Include(x => x.Tasks)
                 .Include(x => x.Employees)
-                .FirstOrDefault(x => x.Name.Equals(name));//.Find(name);
+                .FirstOrDefault(x => x.Name.Equals(name));
 
             if (proj != null)
                 return proj;
