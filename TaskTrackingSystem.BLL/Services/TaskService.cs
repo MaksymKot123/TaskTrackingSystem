@@ -54,8 +54,13 @@ namespace TaskTrackingSystem.BLL.Services
 
         public void Delete(TaskDTO task)
         {
-            _unitOfWork.TaskRepo.Delete(_mapper.Map<TaskProject>(task));
-            _unitOfWork.SaveChanges();
+            var tsk = _unitOfWork.TaskRepo.Get(task.TaskName);
+            if (tsk != null)
+            {
+                _unitOfWork.TaskRepo.Delete(tsk);
+                _unitOfWork.SaveChanges();
+            }
+            
         }
 
         protected virtual void Dispose(bool disposing)

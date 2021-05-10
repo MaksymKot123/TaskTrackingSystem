@@ -54,7 +54,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (name == null)
                 return null;
             else
-                return db.Tasks.Find(name);
+                return db.Tasks.FirstOrDefault(x => x.TaskName.Equals(name));
         }
 
         public IEnumerable<TaskProject> GetAll() 

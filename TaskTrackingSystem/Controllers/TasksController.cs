@@ -49,5 +49,20 @@ namespace TaskTrackingSystem.Controllers
             _taskService.Change(changedTask);
         }
 
+        [HttpDelete("project/{projName}")]
+        public void DeleteTaskInProject(string projName, [FromQuery] TaskView task)
+        {
+            var taskDTO = new TaskDTO()
+            {
+                Description = task.Description,
+                Status = task.Status,
+                StartTime = task.StartTime,
+                TaskName = task.TaskName,
+                EndTime = task.EndTime,
+            };
+            _taskService.Delete(taskDTO);
+        }
+
+
     }
 }
