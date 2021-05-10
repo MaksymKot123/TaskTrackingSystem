@@ -15,7 +15,7 @@ namespace TaskTrackingSystem.BLL.DTO
         public string Description { get; set; }
         public string ClientEmail { get; set; }
         public double PercentCompletion { get; set; }
-        public virtual ICollection<UserDTO> Employees { get; set; }
-        public virtual ICollection<TaskDTO> Tasks { get; set; }
+        public ICollection<UserDTO> Employees { get; set; }
+        public ICollection<TaskDTO> Tasks { get; set; }
     }
 }

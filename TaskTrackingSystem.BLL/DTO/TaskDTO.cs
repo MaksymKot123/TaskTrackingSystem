@@ -1,5 +1,6 @@
 ﻿using System;
 using TaskTrackingSystem;
+using TaskTrackingSystem.BLL;
 
 namespace TaskTrackingSystem.BLL.DTO
 {
@@ -9,8 +10,8 @@ namespace TaskTrackingSystem.BLL.DTO
         public string TaskName { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public DAL.Enums.Status Status { get; set; }
+        public Enums.StatusDTO Status { get; set; }
         public string Description { get; set; }
-        public virtual ProjectDTO Project { get; set; }
+        public ProjectDTO Project { get; set; }
     }
 }

@@ -14,20 +14,17 @@ namespace TaskTrackingSystem.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
-    //[AllowAnonymous]
     [ApiController]
-    public class ProjectController : Controller
+    public class ProjectsController : Controller
     {
         private readonly IProjectService _projService;
-        private readonly IMapper _mapper;
-        public ProjectController(IProjectService projService, IMapper mapper)
+
+        public ProjectsController(IProjectService projService)
         {
             _projService = projService;
-            _mapper = mapper;
         }
 
         [HttpGet]
-        //public ActionResult<IEnumerable<ProjectDTO>> GetProjects()
         public IEnumerable<ProjectDTO> GetProjects()
         {
             var projects = _projService.GetAllProjects();
