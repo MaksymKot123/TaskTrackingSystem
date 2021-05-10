@@ -21,7 +21,7 @@ namespace TaskTrackingSystem.Controllers
             _taskService = taskService;
         }
 
-        [HttpPost("addtoproject/{name}/")]
+        [HttpPost("addtoproject/{name}")]
         public void AddTaskToProject(string name, [FromQuery] TaskView task)
         {
             var newTask = new TaskDTO()
@@ -34,5 +34,20 @@ namespace TaskTrackingSystem.Controllers
             };
             _taskService.AddToProject(name, newTask);
         }
+
+        [HttpPut("project/{projName}/edittask")]
+        public void EditTaskOfProject(string projName, [FromQuery] TaskView task)
+        {
+            var changedTask = new TaskDTO()
+            {
+                Description = task.Description,
+                Status = task.Status,
+                StartTime = task.StartTime,
+                TaskName = task.TaskName,
+                EndTime = task.EndTime,
+            };
+            _taskService.Change(changedTask);
+        }
+
     }
 }

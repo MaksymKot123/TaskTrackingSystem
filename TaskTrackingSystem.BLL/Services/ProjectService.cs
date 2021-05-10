@@ -38,6 +38,7 @@ namespace TaskTrackingSystem.BLL.Services
                 proj.Status = _mapper.Map<DAL.Enums.Status>(project.Status);
 
                 _unifOfWork.ProjectRepo.Edit(proj);
+                _unifOfWork.SaveChanges();
             }
         }
 
@@ -50,6 +51,7 @@ namespace TaskTrackingSystem.BLL.Services
         public void AddProject(ProjectDTO project)
         {
             _unifOfWork.ProjectRepo.Create(_mapper.Map<Project>(project));
+            _unifOfWork.SaveChanges();
         }
 
         public ProjectDTO GetProject(string name)

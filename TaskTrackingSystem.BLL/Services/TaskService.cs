@@ -27,17 +27,35 @@ namespace TaskTrackingSystem.BLL.Services
         {
             var proj = _unitOfWork.ProjectRepo.Get(projectName);
             if (proj != null)
-                proj.Tasks.Add(_mapper.Map<TaskProject>(task));
+            {
+                var newTask = _mapper.Map<TaskProject>(task);
+                if (proj.Tasks == null)
+                {
+
+                    proj.Tasks = new List<TaskProject>() { newTask };
+                    _unitOfWork.SaveChanges();
+                }
+                else
+                {
+
+                    proj.Tasks.Add(newTask);
+                    _unitOfWork.SaveChanges();
+                }
+                //_unitOfWork.TaskRepo.
+            }
+                
         }
 
         public void Change(TaskDTO task)
         {
             _unitOfWork.TaskRepo.Edit(_mapper.Map<TaskProject>(task));
+            _unitOfWork.SaveChanges();
         }
 
         public void Delete(TaskDTO task)
         {
             _unitOfWork.TaskRepo.Delete(_mapper.Map<TaskProject>(task));
+            _unitOfWork.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)

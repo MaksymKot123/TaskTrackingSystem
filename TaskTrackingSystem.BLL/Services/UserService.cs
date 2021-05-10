@@ -38,6 +38,7 @@ namespace TaskTrackingSystem.BLL.Services
                 var proj = _unifOfWork.ProjectRepo.Get(projectName);
                 if (proj != null)
                     userFromDatabase.Projects.Add(proj);
+                _unifOfWork.SaveChanges();
             }
         }
 
@@ -63,6 +64,7 @@ namespace TaskTrackingSystem.BLL.Services
                 {
                     var createdUser = await _unifOfWork.UserManager.FindByNameAsync(email);
                     await _unifOfWork.UserManager.AddToRoleAsync(createdUser, "Employee");
+                    _unifOfWork.SaveChanges();
                 }
             }
         }
@@ -74,6 +76,7 @@ namespace TaskTrackingSystem.BLL.Services
             if (usr != null)
             {
                 await _unifOfWork.UserManager.DeleteAsync(usr);
+                _unifOfWork.SaveChanges();
             }
         }
 
@@ -82,8 +85,10 @@ namespace TaskTrackingSystem.BLL.Services
             var usr = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (usr != null)
+            {
                 _unifOfWork.UserRepo.Edit(usr);
-            
+                _unifOfWork.SaveChanges();
+            }
         }
 
         public IEnumerable<UserDTO> GetAllUsers()

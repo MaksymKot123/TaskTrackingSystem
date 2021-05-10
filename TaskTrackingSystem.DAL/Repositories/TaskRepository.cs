@@ -31,7 +31,16 @@ namespace TaskTrackingSystem.DAL.Repositories
 
         public void Edit(TaskProject item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            var entity = db.Tasks
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName));
+
+            entity.StartTime = item.StartTime;
+            entity.Status = item.Status;
+            entity.TaskName = item.TaskName;
+            entity.EndTime = item.EndTime;
+            entity.Description = item.Description;
+
+            db.Entry(entity).State = EntityState.Modified;
             db.SaveChanges();
         }
 

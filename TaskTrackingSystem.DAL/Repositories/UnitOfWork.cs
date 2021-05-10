@@ -58,6 +58,11 @@ namespace TaskTrackingSystem.DAL.Repositories
             get => userRepo ??= new UserRepository(db);
         }
 
+        public void SaveChanges()
+        {
+            db.SaveChanges();
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)

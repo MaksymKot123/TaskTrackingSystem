@@ -42,7 +42,10 @@ namespace TaskTrackingSystem.DAL.Repositories
 
         public Project Get(string name)
         {
-            var proj = db.Projects.Find(name);
+            var proj = db.Projects
+                .Include(x => x.Tasks)
+                .Include(x => x.Employees)
+                .FirstOrDefault(x => x.Name.Equals(name));//.Find(name);
 
             if (proj != null)
                 return proj;
@@ -50,7 +53,8 @@ namespace TaskTrackingSystem.DAL.Repositories
         }
 
         public IEnumerable<Project> GetAll() 
-            => db.Projects.Include(x => x.Tasks)
+            => db.Projects
+            .Include(x => x.Tasks)
             .Include(x => x.Employees);
     }
 }
