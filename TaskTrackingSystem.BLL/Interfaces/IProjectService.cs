@@ -10,5 +10,6 @@ namespace TaskTrackingSystem.BLL.Interfaces
         IEnumerable<ProjectDTO> GetAllProjects();
         ProjectDTO GetProject(string name);
         void EditProject(ProjectDTO project);
+        void AddProject(ProjectDTO project);
     }
 }

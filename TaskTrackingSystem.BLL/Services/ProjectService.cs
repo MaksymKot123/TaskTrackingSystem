@@ -47,6 +47,11 @@ namespace TaskTrackingSystem.BLL.Services
                 _unifOfWork.ProjectRepo.GetAll());
         }
 
+        public void AddProject(ProjectDTO project)
+        {
+            _unifOfWork.ProjectRepo.Create(_mapper.Map<Project>(project));
+        }
+
         public ProjectDTO GetProject(string name)
         {
             var proj = _unifOfWork.ProjectRepo.GetAll()

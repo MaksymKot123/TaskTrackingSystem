@@ -34,6 +34,7 @@ namespace TaskTrackingSystem
 
             services.AddDbContext<DatabaseContext>(config =>
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             // In production, the Angular files will be served from this directory
 
             services.AddScoped<DbContext, DatabaseContext>();
