@@ -10,7 +10,7 @@ namespace TaskTrackingSystem.DAL.Interfaces
     {
         UserManager<User> UserManager { get; }
         RoleManager<IdentityRole> RoleManager { get; }
-
+        SignInManager<User> SignInManager { get; }
         IRepository<TaskProject> TaskRepo { get; }
         IRepository<Project> ProjectRepo { get; }
         void SaveChanges();
