@@ -26,7 +26,7 @@ namespace TaskTrackingSystem.BLL.Registation
         {
             if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(newUser.Email)))
             {
-
+                throw new Exception();
             }
             else
             {
@@ -43,6 +43,7 @@ namespace TaskTrackingSystem.BLL.Registation
                 {
                     var userFromDatabase = await _unitOfWork.UserManager
                         .FindByEmailAsync(usr.Email);
+                    await _unitOfWork.UserManager.AddToRoleAsync(userFromDatabase, "Employee");
 
                     return new UserDTO()
                     {
@@ -54,9 +55,11 @@ namespace TaskTrackingSystem.BLL.Registation
                         
                     };
                 }
+                else
+                {
+                    throw new Exception();
+                }
             }
-
-            
         }
     }
 }
