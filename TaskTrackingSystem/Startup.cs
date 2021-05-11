@@ -39,7 +39,12 @@ namespace TaskTrackingSystem
 
             services.AddScoped<DbContext, DatabaseContext>();
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.SignIn.RequireConfirmedAccount = false;
+                opt.SignIn.RequireConfirmedEmail = false;
+                opt.SignIn.RequireConfirmedPhoneNumber = false;
+            })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DatabaseContext>()
                 .AddRoleManager<RoleManager<IdentityRole>>()
