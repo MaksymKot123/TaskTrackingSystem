@@ -70,6 +70,9 @@ namespace TaskTrackingSystem
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ITaskService, TaskService>();
 
+            services.AddAuthentication();
+            services.AddAuthorization();
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
