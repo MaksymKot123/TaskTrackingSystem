@@ -73,6 +73,8 @@ namespace TaskTrackingSystem
             services.AddAuthentication();
             services.AddAuthorization();
 
+            
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
