@@ -84,24 +84,26 @@ namespace TaskTrackingSystem.BLL.Services
 
             if (usr != null)
             {
-                _unifOfWork.UserRepo.Edit(usr);
-                _unifOfWork.SaveChanges();
+                usr.Email = user.Email;
+                usr.Name = user.Name;
+                usr.UserName = usr.Email;
+                await _unifOfWork.UserManager.UpdateAsync(usr);
             }
         }
 
         public IEnumerable<UserDTO> GetAllUsers()
         {
-            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(
-                _unifOfWork.UserRepo.GetAll());
+            var users = _unifOfWork.UserManager.Users.AsEnumerable();
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
         }
 
-        public UserDTO GetUser(string email)
+        public async Task<UserDTO> GetUser(string email)
         {
             if (email == null)
                 return null;
             else
             {
-                var user = _unifOfWork.UserRepo.Get(email);
+                var user = await _unifOfWork.UserManager.FindByEmailAsync(email);
                 if (user == null)
                     return null;
                 else

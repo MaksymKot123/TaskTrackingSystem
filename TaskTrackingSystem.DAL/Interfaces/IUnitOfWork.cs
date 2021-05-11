@@ -13,7 +13,6 @@ namespace TaskTrackingSystem.DAL.Interfaces
 
         IRepository<TaskProject> TaskRepo { get; }
         IRepository<Project> ProjectRepo { get; }
-        IRepository<User> UserRepo { get; }
         void SaveChanges();
     }
 }

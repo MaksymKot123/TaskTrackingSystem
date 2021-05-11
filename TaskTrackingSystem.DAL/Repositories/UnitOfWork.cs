@@ -17,7 +17,6 @@ namespace TaskTrackingSystem.DAL.Repositories
         private RoleManager<IdentityRole> roleManager;
         private IRepository<TaskProject> taskRepo;
         private IRepository<Project> projectRepo;
-        private IRepository<User> userRepo;
 
         private bool disposedValue;
 
@@ -30,7 +29,6 @@ namespace TaskTrackingSystem.DAL.Repositories
 
             taskRepo = new TaskRepository(db);  
             projectRepo = new ProjectRepository(db);
-            userRepo = new UserRepository(db);
         }
 
         public UserManager<User> UserManager
@@ -51,11 +49,6 @@ namespace TaskTrackingSystem.DAL.Repositories
         public IRepository<Project> ProjectRepo
         {
             get => projectRepo ??= new ProjectRepository(db);
-        }
-
-        public IRepository<User> UserRepo
-        {
-            get => userRepo ??= new UserRepository(db);
         }
 
         public void SaveChanges()
