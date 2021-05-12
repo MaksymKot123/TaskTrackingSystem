@@ -30,7 +30,7 @@ namespace TaskTrackingSystem.BLL.Services
             _jwtGenerator = jwt;
         }
 
-        public async Task<UserDTO> Login(UserDTO user, string password)
+        public async Task<UserDTO> Authenticate(UserDTO user, string password)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
 
@@ -92,7 +92,7 @@ namespace TaskTrackingSystem.BLL.Services
                         Name = userFromDatabase.Name,
                         Projects = _mapper.Map<ICollection<ProjectDTO>>(
                             userFromDatabase.Projects),
-                        Token = _jwtGenerator.CreateToken(usr),
+                        //Token = _jwtGenerator.CreateToken(usr),
                     };
                 }
                 else

@@ -11,19 +11,19 @@ using TaskTrackingSystem.ViewModels;
 
 namespace TaskTrackingSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [AllowAnonymous]
     [ApiController]
-    public class UserController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public LoginController(IUserService userService)
         {
             _userService = userService;
         }
 
-        [HttpPost("login")]
+        [HttpPost]
         public async  Task<ActionResult<UserDTO>> Login([FromQuery] UserView user)
         {
             var usr = new UserDTO()
@@ -35,20 +35,7 @@ namespace TaskTrackingSystem.Controllers
             //var a = await _userService.UnifOwWork.UserManager.FindByIdAsync("");
             //a.
 
-            return await _userService.Login(usr, user.Password);
+            return await _userService.Authenticate(usr, user.Password);
         }
-
-        [HttpPost("register")]
-        public async Task<ActionResult<UserDTO>> Register([FromQuery] UserView user)
-        {
-            var usr = new UserDTO()
-            {
-                Email = user.Email,
-                Name = user.Name,
-            };
-
-            return await _userService.Register(usr, user.Password);
-        }
-
     }
 }
