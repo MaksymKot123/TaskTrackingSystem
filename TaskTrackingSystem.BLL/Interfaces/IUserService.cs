@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TaskTrackingSystem.BLL.DTO;
+using TaskTrackingSystem.DAL.Interfaces;
 
 namespace TaskTrackingSystem.BLL
 {
     public interface IUserService : IDisposable
     {
+        public IUnitOfWork UnitOfWork { get; }
         IEnumerable<UserDTO> GetAllUsers();
         Task<UserDTO> GetUser(string id);
         void AddUser(UserDTO user, string password);

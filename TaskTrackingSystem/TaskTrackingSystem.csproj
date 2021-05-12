@@ -30,6 +30,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\app-routing.module.ts" />
+    <None Remove="ClientApp\src\app\auth.interceptor.ts" />
+    <None Remove="ClientApp\src\app\auth.service.ts" />
+    <None Remove="ClientApp\src\app\board-admin.component.ts" />
+    <None Remove="ClientApp\src\app\board-moderator.component.ts" />
+    <None Remove="ClientApp\src\app\home.component.ts" />
+    <None Remove="ClientApp\src\app\home\board-user.component.ts" />
+    <None Remove="ClientApp\src\app\home\profile.ts" />
+    <None Remove="ClientApp\src\app\login.component.ts" />
+    <None Remove="ClientApp\src\app\register.component.ts" />
+    <None Remove="ClientApp\src\app\token-storage.service.ts" />
+    <None Remove="ClientApp\src\app\user.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TaskTrackingSystem.BLL\TaskTrackingSystem.BLL.csproj" />
   </ItemGroup>
 

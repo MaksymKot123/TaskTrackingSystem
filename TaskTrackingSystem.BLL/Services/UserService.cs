@@ -21,6 +21,8 @@ namespace TaskTrackingSystem.BLL.Services
         private readonly IMapper _mapper;
         private readonly IJwtGenerator _jwtGenerator;
 
+        public IUnitOfWork UnitOfWork { get => _unitOfWork; }
+
         public UserService(IUnitOfWork unifOfWork, IMapper mapper, IJwtGenerator jwt)
         {
             _unitOfWork = unifOfWork;

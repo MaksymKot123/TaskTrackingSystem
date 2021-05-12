@@ -81,6 +81,7 @@ namespace TaskTrackingSystem
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {
+                opt.SaveToken = true;
                 opt.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -124,7 +125,7 @@ namespace TaskTrackingSystem
 
             app.UseAuthentication();
             app.UseRouting();
-            app.UseAuthorization();
+            app.UseAuthorization(); 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

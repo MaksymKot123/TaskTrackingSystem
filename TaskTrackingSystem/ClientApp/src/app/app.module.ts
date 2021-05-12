@@ -1,23 +1,19 @@
-import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ProfileComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule,
     FormsModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: '/', pathMatch: 'full' },
-      { path: 'login', component: LoginComponent },
-      { path: 'profile', component: ProfileComponent }
-
-
-    ]),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

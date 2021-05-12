@@ -25,13 +25,14 @@ namespace TaskTrackingSystem.Controllers
             _projService = projService;
         }
 
+        //[AllowAnonymous]
         [HttpGet]
         public IEnumerable<ProjectDTO> GetProjects()
         {
             var projects = _projService.GetAllProjects();
             return projects;
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public void AddProject([FromQuery] ProjectView proj)
         {

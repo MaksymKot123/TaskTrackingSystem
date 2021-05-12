@@ -32,7 +32,10 @@ namespace TaskTrackingSystem.Controllers
                 Name = user.Name,
             };
 
-            return await _userService.Register(usr, user.Password);
+            //var a = await _userService.UnifOwWork.UserManager.FindByIdAsync("");
+            //a.
+
+            return await _userService.Login(usr, user.Password);
         }
 
         [HttpPost("register")]
