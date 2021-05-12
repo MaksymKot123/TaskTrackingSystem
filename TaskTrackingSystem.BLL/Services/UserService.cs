@@ -17,26 +17,99 @@ namespace TaskTrackingSystem.BLL.Services
     public class UserService : IUserService
     {
         private bool disposedValue;
-        private readonly IUnitOfWork _unifOfWork;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IJwtGenerator _jwtGenerator;
 
-        public UserService(IUnitOfWork unifOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unifOfWork, IMapper mapper, IJwtGenerator jwt)
         {
-            _unifOfWork = unifOfWork;
+            _unitOfWork = unifOfWork;
             _mapper = mapper;
+            _jwtGenerator = jwt;
+        }
 
+        public async Task<UserDTO> Login(UserDTO user, string password)
+        {
+            var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
+
+            if (usr != null)
+            {
+                var res = await _unitOfWork.SignInManager
+                    .CheckPasswordSignInAsync(usr, password, false);
+
+                if (res.Succeeded)
+                {
+                    return new UserDTO()
+                    {
+                        Email = usr.Email,
+                        Id = usr.Id,
+                        Name = usr.Name,
+                        Projects = _mapper.Map<ICollection<ProjectDTO>>(usr.Projects),
+                        Token = _jwtGenerator.CreateToken(usr),
+                    };
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+
+        public async Task<UserDTO> Register(UserDTO newUser, string password)
+        {
+            if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(newUser.Email)))
+            {
+                throw new Exception();
+            }
+            else
+            {
+                var usr = new User()
+                {
+                    Email = newUser.Email,
+                    Name = newUser.Name,
+                    UserName = newUser.Email,
+                };
+
+                var res = await _unitOfWork.UserManager.CreateAsync(usr, password);
+
+                if (res.Succeeded)
+                {
+                    var userFromDatabase = await _unitOfWork.UserManager
+                        .FindByEmailAsync(usr.Email);
+
+                    await _unitOfWork.UserManager.AddToRoleAsync(userFromDatabase, "Employee");
+                    _unitOfWork.SaveChanges();
+                    return new UserDTO()
+                    {
+                        Email = userFromDatabase.Email,
+                        Id = userFromDatabase.Id,
+                        Name = userFromDatabase.Name,
+                        Projects = _mapper.Map<ICollection<ProjectDTO>>(
+                            userFromDatabase.Projects),
+                        Token = _jwtGenerator.CreateToken(usr),
+                    };
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
         }
 
         public async void AddToProject(string projectName, UserDTO user)
         {
-            var userFromDatabase = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
+            var userFromDatabase = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (userFromDatabase != null)
             {
-                var proj = _unifOfWork.ProjectRepo.Get(projectName);
+                var proj = _unitOfWork.ProjectRepo.Get(projectName);
                 if (proj != null)
                     userFromDatabase.Projects.Add(proj);
-                _unifOfWork.SaveChanges();
+                _unitOfWork.SaveChanges();
             }
         }
 
@@ -45,7 +118,7 @@ namespace TaskTrackingSystem.BLL.Services
             var email = user.Email;
             var name = user.Name;
 
-            var usr = await _unifOfWork.UserManager.FindByEmailAsync(email);
+            var usr = await _unitOfWork.UserManager.FindByEmailAsync(email);
 
             if (usr == null)
             {
@@ -56,44 +129,44 @@ namespace TaskTrackingSystem.BLL.Services
                     UserName = email,
                 };
 
-                var res = await _unifOfWork.UserManager.CreateAsync(usr, password);
+                var res = await _unitOfWork.UserManager.CreateAsync(usr, password);
 
                 if (res.Succeeded)
                 {
-                    var createdUser = await _unifOfWork.UserManager.FindByNameAsync(email);
-                    await _unifOfWork.UserManager.AddToRoleAsync(createdUser, "Employee");
-                    _unifOfWork.SaveChanges();
+                    var createdUser = await _unitOfWork.UserManager.FindByNameAsync(email);
+                    await _unitOfWork.UserManager.AddToRoleAsync(createdUser, "Employee");
+                    _unitOfWork.SaveChanges();
                 }
             }
         }
 
         public async void DeleteUser(UserDTO user)
         {
-            var usr = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
+            var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (usr != null)
             {
-                await _unifOfWork.UserManager.DeleteAsync(usr);
-                _unifOfWork.SaveChanges();
+                await _unitOfWork.UserManager.DeleteAsync(usr);
+                _unitOfWork.SaveChanges();
             }
         }
 
         public async void EditUser(UserDTO user)
         {
-            var usr = await _unifOfWork.UserManager.FindByEmailAsync(user.Email);
+            var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
 
             if (usr != null)
             {
                 usr.Email = user.Email;
                 usr.Name = user.Name;
                 usr.UserName = usr.Email;
-                await _unifOfWork.UserManager.UpdateAsync(usr);
+                await _unitOfWork.UserManager.UpdateAsync(usr);
             }
         }
 
         public IEnumerable<UserDTO> GetAllUsers()
         {
-            var users = _unifOfWork.UserManager.Users.AsEnumerable();
+            var users = _unitOfWork.UserManager.Users.AsEnumerable();
             return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
         }
 
@@ -103,7 +176,7 @@ namespace TaskTrackingSystem.BLL.Services
                 return null;
             else
             {
-                var user = await _unifOfWork.UserManager.FindByEmailAsync(email);
+                var user = await _unitOfWork.UserManager.FindByEmailAsync(email);
                 if (user == null)
                     return null;
                 else
@@ -119,7 +192,7 @@ namespace TaskTrackingSystem.BLL.Services
             {
                 if (disposing)
                 {
-                    _unifOfWork.Dispose();
+                    _unitOfWork.Dispose();
                 }
 
                 disposedValue = true;

@@ -14,5 +14,7 @@ namespace TaskTrackingSystem.BLL
         void EditUser(UserDTO userE);
         void DeleteUser(UserDTO user);
         void AddToProject(string projectName, UserDTO user);
+        Task<UserDTO> Register(UserDTO user, string password);
+        Task<UserDTO> Login(UserDTO user, string password);
     }
 }
