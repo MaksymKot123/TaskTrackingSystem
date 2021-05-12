@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using TaskTrackingSystem.ViewModels;
 namespace TaskTrackingSystem.Controllers
 {
     [Route("api/[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -24,7 +26,25 @@ namespace TaskTrackingSystem.Controllers
         [HttpPost("login")]
         public async  Task<ActionResult<UserDTO>> Login([FromQuery] UserView user)
         {
-            return _userService.
+            var usr = new UserDTO()
+            {
+                Email = user.Email,
+                Name = user.Name,
+            };
+
+            return await _userService.Register(usr, user.Password);
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<UserDTO>> Register([FromQuery] UserView user)
+        {
+            var usr = new UserDTO()
+            {
+                Email = user.Email,
+                Name = user.Name,
+            };
+
+            return await _userService.Register(usr, user.Password);
         }
 
     }
