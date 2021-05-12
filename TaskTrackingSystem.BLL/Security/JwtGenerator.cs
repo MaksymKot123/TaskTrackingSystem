@@ -19,7 +19,7 @@ namespace TaskTrackingSystem.BLL.Security
 
         public JwtGenerator(IConfiguration config)
         {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
         }
 
         public string CreateToken(User user)

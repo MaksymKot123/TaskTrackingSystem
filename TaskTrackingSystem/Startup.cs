@@ -77,7 +77,8 @@ namespace TaskTrackingSystem
 
             
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(Configuration.GetSection("AppSettings:Token").Value));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
             {
