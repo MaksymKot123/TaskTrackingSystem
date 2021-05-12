@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TaskTrackingSystem.BLL.Security;
+using Microsoft.IdentityModel.Logging;
 
 namespace TaskTrackingSystem
 {
@@ -75,8 +76,6 @@ namespace TaskTrackingSystem
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ITaskService, TaskService>();
 
-            
-
             var key = new SymmetricSecurityKey(Encoding.UTF8
                 .GetBytes(Configuration.GetSection("AppSettings:Token").Value));
 
@@ -103,6 +102,8 @@ namespace TaskTrackingSystem
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            IdentityModelEventSource.ShowPII = false;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -113,7 +114,7 @@ namespace TaskTrackingSystem
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseAuthentication();
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -121,8 +122,9 @@ namespace TaskTrackingSystem
                 app.UseSpaStaticFiles();
             }
 
+            app.UseAuthentication();
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

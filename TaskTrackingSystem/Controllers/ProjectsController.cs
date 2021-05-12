@@ -14,6 +14,7 @@ namespace TaskTrackingSystem.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Admin, Manager")]
     [ApiController]
     public class ProjectsController : Controller
     {
