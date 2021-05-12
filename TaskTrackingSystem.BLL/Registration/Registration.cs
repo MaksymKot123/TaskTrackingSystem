@@ -6,6 +6,8 @@ using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.DAL.Interfaces;
 using TaskTrackingSystem.DAL.Models;
 using AutoMapper;
+using TaskTrackingSystem.BLL.Interfaces;
+using System.Threading;
 
 namespace TaskTrackingSystem.BLL.Registation
 {
@@ -13,13 +15,16 @@ namespace TaskTrackingSystem.BLL.Registation
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly DatabaseContext _database;
+        private readonly IJwtGenerator _jwtGenerator;
         private readonly IMapper _mapper;
 
-        public Registration(IUnitOfWork unitOfWork, DatabaseContext database, IMapper mapper)
+        public Registration(IUnitOfWork unitOfWork, DatabaseContext database, 
+            IMapper mapper, IJwtGenerator jwtGenerator) 
         {
             _unitOfWork = unitOfWork;
             _database = database;
             _mapper = mapper;
+            _jwtGenerator = jwtGenerator;
         }
 
         public async Task<UserDTO> Register(UserDTO newUser, string password)
@@ -52,7 +57,7 @@ namespace TaskTrackingSystem.BLL.Registation
                         Name = userFromDatabase.Name,
                         Projects = _mapper.Map<ICollection<ProjectDTO>>(
                             userFromDatabase.Projects),
-                        
+                        Token = _jwtGenerator.CreateToken(usr),
                     };
                 }
                 else

@@ -12,5 +12,6 @@ namespace TaskTrackingSystem.BLL.DTO
         public string Email { get; set; }
         public IdentityRole Role { get; set; }
         public ICollection<ProjectDTO> Projects { get; set; }
+        public string Token { get; set; }
     }
 }
