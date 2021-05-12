@@ -6,7 +6,7 @@ using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.DAL.Interfaces;
 using TaskTrackingSystem.DAL.Models;
 using AutoMapper;
-
+using TaskTrackingSystem.BLL.Interfaces;
 
 namespace TaskTrackingSystem.BLL.Login
 {
@@ -15,12 +15,15 @@ namespace TaskTrackingSystem.BLL.Login
         private readonly IUnitOfWork _unitOfWork;
         private readonly DatabaseContext _database;
         private readonly IMapper _mapper;
+        private readonly IJwtGenerator _jwtGenerator;
 
-        public Login(IUnitOfWork unitOfWork, DatabaseContext database, IMapper mapper)
+        public Login(IUnitOfWork unitOfWork, DatabaseContext database, 
+            IMapper mapper, IJwtGenerator jwtGenerator)
         {
             _unitOfWork = unitOfWork;
             _database = database;
             _mapper = mapper;
+            _jwtGenerator = jwtGenerator;
         }
 
         public async Task<UserDTO> LogInAccount(UserDTO user, string password)
@@ -40,6 +43,7 @@ namespace TaskTrackingSystem.BLL.Login
                         Id = usr.Id,
                         Name = usr.Name,
                         Projects = _mapper.Map<ICollection<ProjectDTO>>(usr.Projects),
+                        Token = _jwtGenerator.CreateToken(usr),
                     };
                 }
                 else
