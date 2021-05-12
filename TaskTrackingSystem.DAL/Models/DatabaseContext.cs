@@ -15,17 +15,17 @@ namespace TaskTrackingSystem.DAL.Models
         public DatabaseContext(DbContextOptions<DatabaseContext> option) : base(option)
         {
             Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Ignore<IdentityUserLogin<string>>();
-            builder.Ignore<IdentityUserRole<string>>();
-            builder.Ignore<IdentityUserClaim<string>>();
-            builder.Ignore<IdentityUserToken<string>>();
-            builder.Ignore<IdentityUser<string>>();
+            //builder.Ignore<IdentityUserLogin<string>>();
+            //builder.Ignore<IdentityUserRole<string>>();
+            //builder.Ignore<IdentityUserClaim<string>>();
+            //builder.Ignore<IdentityUserToken<string>>();
+            //builder.Ignore<IdentityUser<string>>();
 
             builder.Entity<Project>()
                 .HasMany(p => p.Tasks)
@@ -88,8 +88,17 @@ namespace TaskTrackingSystem.DAL.Models
                 UserName = "john@yahoo.com",
             };
 
+            var ph = new PasswordHasher<User>();
+
+            user1.PasswordHash = ph.HashPassword(user1, "qwe123Aa");
+            user2.PasswordHash = ph.HashPassword(user2, "qwe123Aa");
+            user3.PasswordHash = ph.HashPassword(user3, "qwe123Aa");
+
+
             builder.Entity<User>()
                 .HasData(user1, user2, user3);
+
+
 
             builder.Entity<IdentityUserRole<string>>()
                 .HasData(new IdentityUserRole<string>()
@@ -111,6 +120,8 @@ namespace TaskTrackingSystem.DAL.Models
                     RoleId = "Manager_Id",
                     UserId = "dasdqwe1",
                 });
+
+
         }
     }
 }
