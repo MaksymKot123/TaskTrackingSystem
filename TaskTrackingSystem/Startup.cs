@@ -88,6 +88,8 @@ namespace TaskTrackingSystem
                     ValidateIssuer = false,
                 };
             });
+
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddAuthorization();
 
             services.AddSpaStaticFiles(configuration =>
