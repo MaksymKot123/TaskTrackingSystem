@@ -14,8 +14,8 @@ namespace TaskTrackingSystem.DAL.Models
 
         public DatabaseContext(DbContextOptions<DatabaseContext> option) : base(option)
         {
-            Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

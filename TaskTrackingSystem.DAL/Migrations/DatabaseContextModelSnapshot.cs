@@ -347,14 +347,14 @@ namespace TaskTrackingSystem.DAL.Migrations
                         {
                             Id = "3123123",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a5bdab7f-0aee-47ee-a1e4-1bb3d0237f5c",
+                            ConcurrencyStamp = "7a2cea56-cf6f-4bf3-ad88-7a25c1587219",
                             Email = "mymail@mail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Bob",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMF0MreH62lY2pijqKg1x9Ch3u2QOVLn7aKxfX4wV066hzHpN5pDfolNRQFRVw49Ag==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPUkKiy4jRqAVmVNwFCZ1aVmOzFiZyOdPlU+Ikl+VygzasmUgb9I+XwqrmNzdIeZfA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca408075-4391-496a-836c-2b0052e6fbb4",
+                            SecurityStamp = "1d3816cd-50b7-4cea-8a28-dce86c0dfd4c",
                             TwoFactorEnabled = false,
                             UserName = "mymail@mail.com"
                         },
@@ -362,14 +362,14 @@ namespace TaskTrackingSystem.DAL.Migrations
                         {
                             Id = "dasdqwe1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d32628f0-8fc9-4cf3-8b42-6ee25ebca7cb",
+                            ConcurrencyStamp = "5756f669-32d6-4d4e-a42f-20df553655a6",
                             Email = "joe@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Joe",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMVe/w6Nwc0t3Eci3HlTxp1YpDTsNsNU6HGmEHEqTZsycHz8H6Xc/th1FNzaD3KhEA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECht5D9alg5cLIVTk8dD1cF6COxCkCRvOBvZWJ3B/X8FBmiLNxpaYLH7z+lE8y3TMA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8654fc11-c525-4835-b36d-fdcfcd376959",
+                            SecurityStamp = "4387d50b-e89d-4d4f-b9eb-5049c664942f",
                             TwoFactorEnabled = false,
                             UserName = "joe@gmail.com"
                         },
@@ -377,14 +377,14 @@ namespace TaskTrackingSystem.DAL.Migrations
                         {
                             Id = "drrj321tr",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "763332d6-4722-4adf-87e3-ef1660a2f3b8",
+                            ConcurrencyStamp = "05366b35-db15-421e-b9a1-7205dcdee5c5",
                             Email = "john@yahoo.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Name = "Zack",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC4MiTGBcxmQChy/7zerNDtzTm8q56vxCuDDJo1ELrIeVE6GqAHb0xLdb4BQ7WhqQQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIsgcJKxmGJ7QKn8mmnRe179H9em16zVqNa1PdggdbQaVlcaaM9u5bV7glSNlSZytg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "37e38718-374a-420c-84b5-20127621fd0a",
+                            SecurityStamp = "4d987f04-a685-4ee5-807c-a47d81c36c65",
                             TwoFactorEnabled = false,
                             UserName = "john@yahoo.com"
                         });

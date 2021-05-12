@@ -2,7 +2,7 @@
 
 namespace TaskTrackingSystem.DAL.Migrations
 {
-    public partial class added_roles_and_users : Migration
+    public partial class Roles_And_Users : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,9 +106,9 @@ namespace TaskTrackingSystem.DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RoleId", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "3123123", 0, "a5bdab7f-0aee-47ee-a1e4-1bb3d0237f5c", "mymail@mail.com", false, false, null, "Bob", null, null, "AQAAAAEAACcQAAAAEMF0MreH62lY2pijqKg1x9Ch3u2QOVLn7aKxfX4wV066hzHpN5pDfolNRQFRVw49Ag==", null, false, null, "ca408075-4391-496a-836c-2b0052e6fbb4", false, "mymail@mail.com" },
-                    { "dasdqwe1", 0, "d32628f0-8fc9-4cf3-8b42-6ee25ebca7cb", "joe@gmail.com", false, false, null, "Joe", null, null, "AQAAAAEAACcQAAAAEMVe/w6Nwc0t3Eci3HlTxp1YpDTsNsNU6HGmEHEqTZsycHz8H6Xc/th1FNzaD3KhEA==", null, false, null, "8654fc11-c525-4835-b36d-fdcfcd376959", false, "joe@gmail.com" },
-                    { "drrj321tr", 0, "763332d6-4722-4adf-87e3-ef1660a2f3b8", "john@yahoo.com", false, false, null, "Zack", null, null, "AQAAAAEAACcQAAAAEC4MiTGBcxmQChy/7zerNDtzTm8q56vxCuDDJo1ELrIeVE6GqAHb0xLdb4BQ7WhqQQ==", null, false, null, "37e38718-374a-420c-84b5-20127621fd0a", false, "john@yahoo.com" }
+                    { "3123123", 0, "7a2cea56-cf6f-4bf3-ad88-7a25c1587219", "mymail@mail.com", false, false, null, "Bob", null, null, "AQAAAAEAACcQAAAAEPUkKiy4jRqAVmVNwFCZ1aVmOzFiZyOdPlU+Ikl+VygzasmUgb9I+XwqrmNzdIeZfA==", null, false, null, "1d3816cd-50b7-4cea-8a28-dce86c0dfd4c", false, "mymail@mail.com" },
+                    { "dasdqwe1", 0, "5756f669-32d6-4d4e-a42f-20df553655a6", "joe@gmail.com", false, false, null, "Joe", null, null, "AQAAAAEAACcQAAAAECht5D9alg5cLIVTk8dD1cF6COxCkCRvOBvZWJ3B/X8FBmiLNxpaYLH7z+lE8y3TMA==", null, false, null, "4387d50b-e89d-4d4f-b9eb-5049c664942f", false, "joe@gmail.com" },
+                    { "drrj321tr", 0, "05366b35-db15-421e-b9a1-7205dcdee5c5", "john@yahoo.com", false, false, null, "Zack", null, null, "AQAAAAEAACcQAAAAEIsgcJKxmGJ7QKn8mmnRe179H9em16zVqNa1PdggdbQaVlcaaM9u5bV7glSNlSZytg==", null, false, null, "4d987f04-a685-4ee5-807c-a47d81c36c65", false, "john@yahoo.com" }
                 });
 
             migrationBuilder.InsertData(
