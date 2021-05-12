@@ -11,6 +11,7 @@ using TaskTrackingSystem.ViewModels;
 
 namespace TaskTrackingSystem.Controllers
 {
+    [Produces("application/json")]
     [Route("[controller]")]
     [AllowAnonymous]
     [ApiController]

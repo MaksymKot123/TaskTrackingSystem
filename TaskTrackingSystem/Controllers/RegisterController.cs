@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ using TaskTrackingSystem.ViewModels;
 
 namespace TaskTrackingSystem.Controllers
 {
+    [Produces("application/json")]
     [Route("[controller]")]
+    [AllowAnonymous]
     [ApiController]
     public class RegisterController : ControllerBase
     {
@@ -21,7 +24,7 @@ namespace TaskTrackingSystem.Controllers
             _userService = userService;
         }
 
-        [HttpPost("register")]
+        [HttpPost]
         public async Task<ActionResult<UserDTO>> Register([FromQuery] UserView user)
         {
             var usr = new UserDTO()
