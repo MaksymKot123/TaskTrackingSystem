@@ -15,6 +15,9 @@ using TaskTrackingSystem.BLL.Services;
 using TaskTrackingSystem.BLL.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace TaskTrackingSystem
 {
@@ -45,6 +48,7 @@ namespace TaskTrackingSystem
                 opt.SignIn.RequireConfirmedEmail = false;
                 opt.SignIn.RequireConfirmedPhoneNumber = false;
             })
+                .AddSignInManager<SignInManager<User>>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DatabaseContext>()
                 .AddRoleManager<RoleManager<IdentityRole>>()
@@ -70,10 +74,12 @@ namespace TaskTrackingSystem
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<ITaskService, TaskService>();
 
-            services.AddAuthentication();
-            services.AddAuthorization();
-
             
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
+
+            services.AddAuthentication(JwtBearerDefaults
+            services.AddAuthorization();
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -94,7 +100,7 @@ namespace TaskTrackingSystem
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())

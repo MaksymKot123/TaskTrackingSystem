@@ -44,7 +44,7 @@ namespace TaskTrackingSystem.BLL.Registation
                     var userFromDatabase = await _unitOfWork.UserManager
                         .FindByEmailAsync(usr.Email);
                     await _unitOfWork.UserManager.AddToRoleAsync(userFromDatabase, "Employee");
-
+                    _unitOfWork.SaveChanges();
                     return new UserDTO()
                     {
                         Email = userFromDatabase.Email,
