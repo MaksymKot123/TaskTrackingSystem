@@ -30,17 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\app\models\Role.ts" />
-    <None Remove="ClientApp\src\app\models\user.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TaskTrackingSystem.BLL\TaskTrackingSystem.BLL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\models\Role.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\models\user.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

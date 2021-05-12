@@ -1,6 +1,13 @@
-<body>
-  <app-nav-menu></app-nav-menu>
-  <div class="container">
-    <router-outlet></router-outlet>
+<div style="text-align:center">
+  <ul>
+    <li><a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>  </li>
+    <li><a class="nav-link" routerLink="profile" routerLinkActive="active">Profile</a>  </li>
+    <li style="float:right"> <a class="nav-link" style="float:right" routerLink="login" routerLinkActive="active">Login</a> </li>
+    <li style="float:right"> <a class="nav-link" (click)="logout()" href="#">Logout</a></li>
+  </ul>
+  <div class="text-center">
+    <p>
+      Angular 6 Authentication with JWT Tutorial
+    </p>
   </div>
-</body>
+  <router-outlet></router-outlet>
