@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace TaskTrackingSystem.Controllers
             _taskService = taskService;
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost("addtoproject/{name}")]
         public void AddTaskToProject(string name, [FromQuery] TaskView task)
         {
@@ -35,6 +37,7 @@ namespace TaskTrackingSystem.Controllers
             _taskService.AddToProject(name, newTask);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpPut("project/{projName}/edittask")]
         public void EditTaskOfProject(string projName, [FromQuery] TaskView task)
         {
@@ -49,6 +52,7 @@ namespace TaskTrackingSystem.Controllers
             _taskService.Change(changedTask);
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete("project/{projName}")]
         public void DeleteTaskInProject(string projName, [FromQuery] TaskView task)
         {

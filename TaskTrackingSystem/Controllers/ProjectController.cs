@@ -14,7 +14,6 @@ namespace TaskTrackingSystem.Controllers
 {
     [Produces("application/json")]
     [Route("[controller]")]
-    //[Authorize]
     [ApiController]
     public class ProjectController : Controller
     {
@@ -25,15 +24,15 @@ namespace TaskTrackingSystem.Controllers
             _projService = projService;
         }
 
-        //[AllowAnonymous]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
         public IEnumerable<ProjectDTO> Get()
         {
             var projects = _projService.GetAllProjects();
             return projects;
         }
-        [AllowAnonymous]
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
         public void AddProject([FromQuery] ProjectView proj)
         {
@@ -50,7 +49,8 @@ namespace TaskTrackingSystem.Controllers
 
             _projService.AddProject(newProj);
         }
-        [Authorize(Roles = "Admin, Manager")]
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         public void Delete([FromQuery] ProjectView proj)
         {
             var project = new ProjectDTO()
@@ -67,7 +67,7 @@ namespace TaskTrackingSystem.Controllers
             _projService.DeleteProject(project);
         }
         [HttpPut]
-        [Authorize(Roles = "Admin, Manager")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         public void EditProject([FromQuery] ProjectView proj)
         {
             var project = new ProjectDTO()

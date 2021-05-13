@@ -23,6 +23,7 @@ namespace TaskTrackingSystem.Controllers
         {
             _userService = userService;
         }
+
         [Route("/account/login")]
         [HttpPost]
         public async  Task<ActionResult<string>> Login([FromQuery] UserView user)
@@ -32,9 +33,6 @@ namespace TaskTrackingSystem.Controllers
                 Email = user.Email,
                 Name = user.Name,
             };
-
-            //var a = await _userService.UnifOwWork.UserManager.FindByIdAsync("");
-            //a.
 
             var res = await _userService.Authenticate(usr, user.Password);
             if (res == null)

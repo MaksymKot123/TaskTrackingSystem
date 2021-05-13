@@ -107,6 +107,7 @@ namespace TaskTrackingSystem
             {
                 opt.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser()
+                //.RequireRole("Admin", "Employee", "Manager")
                 .Build();
             });
 

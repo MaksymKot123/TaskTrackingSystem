@@ -39,15 +39,20 @@ namespace TaskTrackingSystem.BLL.Services
                 var res = await _unitOfWork.SignInManager
                     .CheckPasswordSignInAsync(usr, password, false);
 
+                
+                
                 if (res.Succeeded)
                 {
+                    var role = _unitOfWork.UserManager.GetRolesAsync(usr)
+                    .GetAwaiter().GetResult().FirstOrDefault();
+
                     return new UserDTO()
                     {
                         Email = usr.Email,
                         Id = usr.Id,
                         Name = usr.Name,
                         Projects = _mapper.Map<ICollection<ProjectDTO>>(usr.Projects),
-                        Token = _jwtGenerator.CreateToken(usr),
+                        Token = _jwtGenerator.CreateToken(usr, role),
                     };
                 }
                 else
@@ -65,7 +70,7 @@ namespace TaskTrackingSystem.BLL.Services
         {
             if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(newUser.Email)))
             {
-                throw new Exception();
+                return null;
             }
             else
             {
@@ -95,7 +100,7 @@ namespace TaskTrackingSystem.BLL.Services
                             .FindByNameAsync(roleName);
 
                         userFromDatabase.Role = role;
-                        
+
                         _unitOfWork.SaveChanges();
                         return new UserDTO()
                         {
@@ -105,15 +110,13 @@ namespace TaskTrackingSystem.BLL.Services
                             Projects = _mapper.Map<ICollection<ProjectDTO>>(
                                 userFromDatabase.Projects),
                             Role = role,
-                            Token = _jwtGenerator.CreateToken(usr),
                         };
                     }
-                    else throw new Exception();
-
+                    else return null;
                 }
                 else
                 {
-                    throw new Exception();
+                    return null;
                 }
             }
         }

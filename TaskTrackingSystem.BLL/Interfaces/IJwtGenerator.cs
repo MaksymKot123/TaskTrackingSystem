@@ -7,6 +7,6 @@ namespace TaskTrackingSystem.BLL.Interfaces
 {
     public interface IJwtGenerator
     {
-        string CreateToken(User user);
+        string CreateToken(User user, string role);
     }
 }

@@ -19,16 +19,17 @@ namespace TaskTrackingSystem.BLL.Security
 
         public JwtGenerator(IConfiguration config)
         {
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config.GetSection("AppSettings:Token").Value));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config
+                .GetSection("AppSettings:Token").Value));
         }
 
-        public string CreateToken(User user)
+        public string CreateToken(User user, string role)
         {
             var claims = new List<Claim> 
             { 
-                new Claim(JwtRegisteredClaimNames.Email, user.UserName),
-                new Claim("Role", "Admin"),
-                new Claim("Name", user.Name)
+                new Claim(ClaimTypes.Email, user.UserName),
+                new Claim(ClaimTypes.Role, role),
+                new Claim(ClaimTypes.Name, user.Name)
             };
 
             var credentials = new SigningCredentials(_key, 
@@ -37,7 +38,7 @@ namespace TaskTrackingSystem.BLL.Security
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddHours(2),
                 SigningCredentials = credentials,
             };
 
