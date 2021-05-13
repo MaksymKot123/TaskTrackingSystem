@@ -25,7 +25,7 @@ namespace TaskTrackingSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> Register([FromQuery] UserView user)
+        public async Task<ActionResult<UserDTO>> Register([FromBody] UserView user)
         {
             var usr = new UserDTO()
             {
@@ -33,7 +33,10 @@ namespace TaskTrackingSystem.Controllers
                 Name = user.Name,
             };
 
-            return await _userService.Register(usr, user.Password);
+            var responce = await _userService.Register(usr, user.Password);
+            if (responce == null)
+                return BadRequest();
+            else return responce;
         }
 
     }
