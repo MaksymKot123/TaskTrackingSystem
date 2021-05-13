@@ -42,6 +42,7 @@
     <None Remove="ClientApp\src\app\LoginComponent\login.component.ts" />
     <None Remove="ClientApp\src\app\register.component.ts" />
     <None Remove="ClientApp\src\app\Services\auth.service.ts" />
+    <None Remove="ClientApp\src\app\Services\registration.service.ts" />
     <None Remove="ClientApp\src\app\token-storage.service.ts" />
     <None Remove="ClientApp\src\app\user.service.ts" />
   </ItemGroup>
@@ -53,6 +54,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\auth.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\registration.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

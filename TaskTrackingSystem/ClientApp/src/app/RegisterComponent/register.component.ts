@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpParams } from "@angular/common/http";
+import { RegistrationService } from "../Services/registration.service";
+import { OnInit } from "@angular/core";
 
 const URL = "https://localhost:44351/register/";
 
@@ -12,13 +14,13 @@ const URL = "https://localhost:44351/register/";
     input.ng-touched.ng-valid {border:solid green 2px;}
   `],
 })
-export class RegisterComponent {
-  //email: String = "";
-  //password: String = "";
-  //name: String = "";
+export class RegisterComponent implements OnInit {
+
   myForm: FormGroup;
 
-  constructor(private http: HttpClient) {
+  constructor(private regServ: RegistrationService) { }
+
+  ngOnInit() {
     this.myForm = new FormGroup({
       "name": new FormControl("", Validators.required),
       "email": new FormControl("", [
@@ -30,16 +32,11 @@ export class RegisterComponent {
   }
 
   submit() {
-    //console.log(this.myForm);
-
-
     let name = this.myForm.controls["name"].value;
     let email = this.myForm.controls["email"].value;
     let password = this.myForm.controls["password"].value;
 
-    let body = { "Email": email, "Name": name, "Password": password };
-
-    let res = this.http.post(URL, body).toPromise();//.then(res => console.log(res)).catch(console.log);
+    let res = this.regServ.postData(email, password, name, URL).toPromise();
     console.log(res);
   }
 
