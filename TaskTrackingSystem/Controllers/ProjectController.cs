@@ -13,21 +13,22 @@ using TaskTrackingSystem.ViewModels;
 namespace TaskTrackingSystem.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    [Authorize]
+    [Route("[controller]")]
+    //[Authorize]
     [ApiController]
-    public class ProjectsController : Controller
+    public class ProjectController : Controller
     {
         private readonly IProjectService _projService;
 
-        public ProjectsController(IProjectService projService)
+        public ProjectController(IProjectService projService)
         {
             _projService = projService;
         }
 
         //[AllowAnonymous]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet]
-        public IEnumerable<ProjectDTO> GetProjects()
+        public IEnumerable<ProjectDTO> Get()
         {
             var projects = _projService.GetAllProjects();
             return projects;
@@ -49,8 +50,8 @@ namespace TaskTrackingSystem.Controllers
 
             _projService.AddProject(newProj);
         }
-        [HttpDelete]
-        public void DeleteProject([FromQuery] ProjectView proj)
+        [Authorize(Roles = "Admin, Manager")]
+        public void Delete([FromQuery] ProjectView proj)
         {
             var project = new ProjectDTO()
             {
@@ -66,6 +67,7 @@ namespace TaskTrackingSystem.Controllers
             _projService.DeleteProject(project);
         }
         [HttpPut]
+        [Authorize(Roles = "Admin, Manager")]
         public void EditProject([FromQuery] ProjectView proj)
         {
             var project = new ProjectDTO()

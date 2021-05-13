@@ -20,6 +20,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TaskTrackingSystem.BLL.Security;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TaskTrackingSystem
 {
@@ -39,6 +41,16 @@ namespace TaskTrackingSystem
 
             services.AddDbContext<DatabaseContext>(config =>
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(opt =>
+            {
+                opt.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
             // In production, the Angular files will be served from this directory
 
@@ -91,6 +103,13 @@ namespace TaskTrackingSystem
                 };
             });
 
+            services.AddAuthorization(opt =>
+            {
+                opt.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build();
+            });
+
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddAuthorization();
 
@@ -104,6 +123,11 @@ namespace TaskTrackingSystem
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             IdentityModelEventSource.ShowPII = false;
+
+            //var routeBuilder = new RouteBuilder(app);
+
+            //routeBuilder.MapRoute("default", "{controller}/{action}", 
+            //    new { controller="project", action="get" });
 
             if (env.IsDevelopment())
             {
@@ -124,6 +148,7 @@ namespace TaskTrackingSystem
             }
 
             app.UseRouting();
+            app.UseCors();
             
             app.UseAuthentication();
             app.UseAuthorization(); 

@@ -36,16 +36,23 @@
     <None Remove="ClientApp\src\app\board-admin.component.ts" />
     <None Remove="ClientApp\src\app\board-moderator.component.ts" />
     <None Remove="ClientApp\src\app\home.component.ts" />
-    <None Remove="ClientApp\src\app\home\board-user.component.ts" />
-    <None Remove="ClientApp\src\app\home\profile.ts" />
+    <None Remove="ClientApp\src\app\RegisterComponent\board-user.component.ts" />
+    <None Remove="ClientApp\src\app\RegisterComponent\profile.ts" />
     <None Remove="ClientApp\src\app\login.component.ts" />
+    <None Remove="ClientApp\src\app\LoginComponent\login.component.ts" />
     <None Remove="ClientApp\src\app\register.component.ts" />
+    <None Remove="ClientApp\src\app\Services\auth.service.ts" />
     <None Remove="ClientApp\src\app\token-storage.service.ts" />
     <None Remove="ClientApp\src\app\user.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TaskTrackingSystem.BLL\TaskTrackingSystem.BLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\auth.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

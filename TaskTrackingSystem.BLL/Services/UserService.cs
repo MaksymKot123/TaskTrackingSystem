@@ -52,12 +52,12 @@ namespace TaskTrackingSystem.BLL.Services
                 }
                 else
                 {
-                    throw new Exception();
+                    return null;
                 }
             }
             else
             {
-                throw new Exception();
+                return null;
             }
         }
 
@@ -83,17 +83,33 @@ namespace TaskTrackingSystem.BLL.Services
                     var userFromDatabase = await _unitOfWork.UserManager
                         .FindByEmailAsync(usr.Email);
 
-                    await _unitOfWork.UserManager.AddToRoleAsync(userFromDatabase, "Employee");
-                    _unitOfWork.SaveChanges();
-                    return new UserDTO()
+                    var identityResult = await _unitOfWork.UserManager.
+                        AddToRoleAsync(userFromDatabase, "Employee");
+                    if (identityResult.Succeeded)
                     {
-                        Email = userFromDatabase.Email,
-                        Id = userFromDatabase.Id,
-                        Name = userFromDatabase.Name,
-                        Projects = _mapper.Map<ICollection<ProjectDTO>>(
-                            userFromDatabase.Projects),
-                        //Token = _jwtGenerator.CreateToken(usr),
-                    };
+                        var roleName = _unitOfWork.UserManager
+                            .GetRolesAsync(userFromDatabase).Result
+                            .FirstOrDefault();
+
+                        var role = await _unitOfWork.RoleManager
+                            .FindByNameAsync(roleName);
+
+                        userFromDatabase.Role = role;
+                        
+                        _unitOfWork.SaveChanges();
+                        return new UserDTO()
+                        {
+                            Email = userFromDatabase.Email,
+                            Id = userFromDatabase.Id,
+                            Name = userFromDatabase.Name,
+                            Projects = _mapper.Map<ICollection<ProjectDTO>>(
+                                userFromDatabase.Projects),
+                            Role = role,
+                            Token = _jwtGenerator.CreateToken(usr),
+                        };
+                    }
+                    else throw new Exception();
+
                 }
                 else
                 {

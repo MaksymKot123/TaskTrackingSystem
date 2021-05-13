@@ -23,9 +23,9 @@ namespace TaskTrackingSystem.Controllers
         {
             _userService = userService;
         }
-
+        [Route("/account/login")]
         [HttpPost]
-        public async  Task<ActionResult<UserDTO>> Login([FromQuery] UserView user)
+        public async  Task<ActionResult<string>> Login([FromQuery] UserView user)
         {
             var usr = new UserDTO()
             {
@@ -36,7 +36,10 @@ namespace TaskTrackingSystem.Controllers
             //var a = await _userService.UnifOwWork.UserManager.FindByIdAsync("");
             //a.
 
-            return await _userService.Authenticate(usr, user.Password);
+            var res = await _userService.Authenticate(usr, user.Password);
+            if (res == null)
+                return Unauthorized(new { message = "Incorrect email or password" });
+            else return res.Token;
         }
     }
 }

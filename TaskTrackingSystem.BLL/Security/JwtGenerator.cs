@@ -26,7 +26,9 @@ namespace TaskTrackingSystem.BLL.Security
         {
             var claims = new List<Claim> 
             { 
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName) 
+                new Claim(JwtRegisteredClaimNames.Email, user.UserName),
+                new Claim("Role", "Admin"),
+                new Claim("Name", user.Name)
             };
 
             var credentials = new SigningCredentials(_key, 
