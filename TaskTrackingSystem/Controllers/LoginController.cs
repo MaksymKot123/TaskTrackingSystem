@@ -26,12 +26,11 @@ namespace TaskTrackingSystem.Controllers
 
         [Route("/account/login")]
         [HttpPost]
-        public async  Task<ActionResult<string>> Login([FromQuery] UserView user)
+        public async  Task<ActionResult<string>> Login([FromBody] LoginView user)
         {
             var usr = new UserDTO()
             {
                 Email = user.Email,
-                Name = user.Name,
             };
 
             var res = await _userService.Authenticate(usr, user.Password);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskTrackingSystem.ViewModels
 {
-    public class UserView
+    public class RegisterView
     {
         [Required]
         public string Email { get; set; }

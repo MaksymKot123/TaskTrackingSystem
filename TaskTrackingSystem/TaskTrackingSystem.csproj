@@ -41,7 +41,7 @@
     <None Remove="ClientApp\src\app\login.component.ts" />
     <None Remove="ClientApp\src\app\LoginComponent\login.component.ts" />
     <None Remove="ClientApp\src\app\register.component.ts" />
-    <None Remove="ClientApp\src\app\Services\auth.service.ts" />
+    <None Remove="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <None Remove="ClientApp\src\app\Services\registration.service.ts" />
     <None Remove="ClientApp\src\app\token-storage.service.ts" />
     <None Remove="ClientApp\src\app\user.service.ts" />
@@ -53,7 +53,7 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
-    <TypeScriptCompile Include="ClientApp\src\app\Services\auth.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\registration.service.ts" />
   </ItemGroup>
 

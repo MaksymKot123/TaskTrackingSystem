@@ -25,7 +25,7 @@ namespace TaskTrackingSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> Register([FromBody] UserView user)
+        public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterView user)
         {
             var usr = new UserDTO()
             {
