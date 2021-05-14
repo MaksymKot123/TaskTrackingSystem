@@ -36,7 +36,7 @@ namespace TaskTrackingSystem.Controllers
             var res = await _userService.Authenticate(usr, user.Password);
             if (res == null)
                 return Unauthorized(new { message = "Incorrect email or password" });
-            else return res.Token;
+            else return Ok(res.Token);
         }
     }
 }
