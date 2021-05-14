@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-
+import { IToken } from "../Interfaces/itoken";
 @Injectable({
   providedIn: "root"
 })
 export class JwtParseService {
-  parseJwt(token: string) : JSON {
+  parseJwt(token: string): IToken {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('/-/g', '+').replace('/_/g', '/');
     var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {

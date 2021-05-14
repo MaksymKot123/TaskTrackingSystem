@@ -37,6 +37,7 @@
     <None Remove="ClientApp\src\app\board-admin.component.ts" />
     <None Remove="ClientApp\src\app\board-moderator.component.ts" />
     <None Remove="ClientApp\src\app\home.component.ts" />
+    <None Remove="ClientApp\src\app\Interfaces\itoken.ts" />
     <None Remove="ClientApp\src\app\RegisterComponent\board-user.component.ts" />
     <None Remove="ClientApp\src\app\RegisterComponent\profile.ts" />
     <None Remove="ClientApp\src\app\login.component.ts" />
@@ -55,10 +56,15 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\AdminComponent\admin.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Interfaces\itoken.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtParse.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\registration.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

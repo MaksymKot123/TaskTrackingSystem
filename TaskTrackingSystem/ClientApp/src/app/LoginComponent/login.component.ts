@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { FormGroup, FormControl, Validator, Validators } from "@angular/forms";
-import { NgModule } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 import { OnInit } from "@angular/core";
 import { JwtAuthService } from "../Services/jwtAuth.service";
 import { JwtParseService } from "../Services/jwtParse.service";
@@ -17,8 +17,10 @@ export class LoginComponent implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private jwtService: JwtAuthService,
-    private jwtParser: JwtParseService) { }
+  constructor(private jwtService: JwtAuthService, private router: Router,
+    private jwtParser: JwtParseService) {
+    localStorage.clear();
+  }
 
   ngOnInit() {
     this.myForm = new FormGroup({
@@ -49,8 +51,9 @@ export class LoginComponent implements OnInit {
       name = jsonToken.unique_name;
       localStorage.setItem("name", name);
 
-
-
+      if (role === 'Admin') {
+        this.router.navigateByUrl("admin");
+      } 
     });
     
   }
