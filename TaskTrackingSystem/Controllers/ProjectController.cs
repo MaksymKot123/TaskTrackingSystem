@@ -32,6 +32,16 @@ namespace TaskTrackingSystem.Controllers
             return projects;
         }
 
+        [HttpGet]
+        public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
+        {
+
+            var projects = _projService.GetAllProjects().Where(x => x.Employees
+            .Any(x => x.Email.Equals(email)));//.Where(x => x.Employees.Contains())
+
+            return projects;
+        }
+
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
         public void AddProject([FromQuery] ProjectView proj)

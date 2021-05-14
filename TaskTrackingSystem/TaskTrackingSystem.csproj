@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\AdminComponent\admin.component.ts" />
     <None Remove="ClientApp\src\app\app-routing.module.ts" />
     <None Remove="ClientApp\src\app\auth.interceptor.ts" />
     <None Remove="ClientApp\src\app\auth.service.ts" />
@@ -53,6 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\AdminComponent\admin.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtParse.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtAuth.service.ts" />
