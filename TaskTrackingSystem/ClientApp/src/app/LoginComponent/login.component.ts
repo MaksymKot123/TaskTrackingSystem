@@ -53,9 +53,15 @@ export class LoginComponent implements OnInit {
 
       if (role === 'Admin') {
         this.router.navigateByUrl("admin");
-      } 
+      } else if (role === "Manager") {
+        this.router.navigateByUrl("manager");
+      } else if (role === "Employee") {
+        this.router.navigateByUrl("employee");
+      } else {
+        this.router.navigateByUrl("");
+      }
+
     });
-    
   }
 
 

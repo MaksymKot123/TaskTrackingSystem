@@ -13,6 +13,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
 import { AdminComponent } from './AdminComponent/admin.component';
 import { NotFoundComponent } from './NotFoundComponent/notFound.component';
+import { ManagerComponent } from './ManagerComponent/manager.component';
+import { EmployeeComponent } from './EmployeeComponent/employee.component';
 
 //const adminRoutes: Routes = [
 //  { path: '', component: ProjectsComponent },
@@ -23,10 +25,12 @@ import { NotFoundComponent } from './NotFoundComponent/notFound.component';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'reg', component: RegisterComponent },
+  { path: 'manager', component: ManagerComponent },
   { path: 'admin', component: AdminComponent/*, children: adminRoutes*/ },
+  { path: 'employee', component: EmployeeComponent },
   { path: "**", component: NotFoundComponent },
   //{ path: 'manager', component: ManagerComponent, children: managerRoutes },
-  //{ path: 'employee', component: EmployeeComponent, children: employeeRoutes },
+  //{ , children: employeeRoutes },
 ];
 
 
@@ -37,6 +41,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     AdminComponent,
     NotFoundComponent,
+    ManagerComponent,
+    EmployeeComponent,
   ],
   imports: [
     BrowserModule,
