@@ -1,6 +1,6 @@
 <form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
   <div class="form-group">
-    <label>Имя</label>
+    <label>Name</label>
     <input class="form-control" name="name" formControlName="name" />
 
     <div class="alert alert-danger"
@@ -26,8 +26,26 @@
     </div>
   </div>
   <div class="form-group">
-    <button class="btn-primary" [disabled]="myForm.invalid">
+    <label>Confirm password</label>
+    <input class="form-control" name="confirmPassword" formControlName="confirmPassword" />
+    <div class="alert alert-danger"
+         *ngIf="myForm.controls['confirmPassword'].invalid
+           && myForm.controls['confirmPassword'].touched
+           || (myForm.controls['confirmPassword'].value !=
+           myForm.controls['password'].value)">
+      Password's does not match
+    </div>
+  </div>
+  <div class="form-group">
+    <button class="btn-primary" [disabled]="myForm.controls['confirmPassword'].invalid ||
+            myForm.controls['password'].invalid || myForm.controls['name'].invalid
+            || myForm.controls['email'].invalid || myForm.controls['password'].value !==
+            myForm.controls['confirmPassword'].value">
       Register
     </button>
+  </div>
+  <div>
+    <h2>Do you have already an account?</h2>
+    <button class="btn-primary"><a style="color: white;" href="https://localhost:44351/">Login</a></button>
   </div>
 </form>

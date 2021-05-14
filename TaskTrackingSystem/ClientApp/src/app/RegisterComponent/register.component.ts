@@ -27,7 +27,8 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.email
       ]),
-      "password": new FormControl("", Validators.required)
+      "password": new FormControl("", Validators.required),
+      "confirmPassword": new FormControl("", Validators.required)
     });
   }
 
@@ -35,9 +36,11 @@ export class RegisterComponent implements OnInit {
     let name = this.myForm.controls["name"].value;
     let email = this.myForm.controls["email"].value;
     let password = this.myForm.controls["password"].value;
-
-    let res = this.regServ.postData(email, password, name, URL).toPromise();
-    console.log(res);
+    let confirmPassword = this.myForm.controls["confirmPassword"].value;
+    if (password === confirmPassword) {
+      let res = this.regServ.postData(email, password, name, URL).toPromise();
+      console.log(res);
+    }
   }
 
 }
