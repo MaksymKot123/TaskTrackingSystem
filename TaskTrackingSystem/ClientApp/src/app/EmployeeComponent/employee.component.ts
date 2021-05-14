@@ -11,6 +11,10 @@ export class EmployeeComponent {
     if (localStorage.getItem("role") !== "Employee") {
       this.router.navigateByUrl("");
     }
+  }
 
+  signOut() {
+    localStorage.clear();
+    this.router.navigateByUrl("");
   }
 }

@@ -11,4 +11,10 @@ export class AdminComponent {
       this.router.navigateByUrl("");
     }
   }
+
+  signOut() {
+    localStorage.clear();
+    this.router.navigateByUrl("");
+  }
 }
+

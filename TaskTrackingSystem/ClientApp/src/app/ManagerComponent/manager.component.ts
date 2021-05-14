@@ -12,5 +12,8 @@ export class ManagerComponent {
     }
   }
 
-
+  signOut() {
+    localStorage.clear();
+    this.router.navigateByUrl("");
+  }
 }
