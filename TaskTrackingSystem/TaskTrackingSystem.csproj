@@ -45,6 +45,7 @@
     <None Remove="ClientApp\src\app\login.component.ts" />
     <None Remove="ClientApp\src\app\LoginComponent\login.component.ts" />
     <None Remove="ClientApp\src\app\register.component.ts" />
+    <None Remove="ClientApp\src\app\Services\getAllProjects.service.ts" />
     <None Remove="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <None Remove="ClientApp\src\app\Services\jwtParse.service.ts" />
     <None Remove="ClientApp\src\app\Services\registration.service.ts" />
@@ -62,6 +63,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces\itoken.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ManagerComponent\manager.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\getAllProjects.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtParse.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\registration.service.ts" />

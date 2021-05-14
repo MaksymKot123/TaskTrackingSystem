@@ -15,11 +15,12 @@ import { AdminComponent } from './AdminComponent/admin.component';
 import { NotFoundComponent } from './NotFoundComponent/notFound.component';
 import { ManagerComponent } from './ManagerComponent/manager.component';
 import { EmployeeComponent } from './EmployeeComponent/employee.component';
+//import { ProjectComponent } from './ProjectComponent/project.component';
 
 //const adminRoutes: Routes = [
-//  { path: '', component: ProjectsComponent },
-//  { path: 'addproject', component: AddProjectComponent },
-//  { path: 'deleteproject', component: DeleteProjectComponent }
+  //{ path: '', component: ProjectComponent },
+  //{ path: 'addproject', component: AddProjectComponent },
+  //{ path: 'deleteproject', component: DeleteProjectComponent }
 //]
 
 const appRoutes: Routes = [
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     NotFoundComponent,
     ManagerComponent,
     EmployeeComponent,
+    //ProjectComponent,
   ],
   imports: [
     BrowserModule,
