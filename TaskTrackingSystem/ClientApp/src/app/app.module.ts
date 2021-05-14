@@ -10,6 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 
+import { Routes, RouterModule } from "@angular/router";
+
+const appRoutes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'reg', component: RegisterComponent },
+];
+
 
 @NgModule({
   declarations: [
@@ -21,9 +28,10 @@ import { NgModule } from '@angular/core';
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [],
-  bootstrap: [LoginComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
