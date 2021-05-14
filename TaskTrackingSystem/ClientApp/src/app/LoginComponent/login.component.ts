@@ -19,7 +19,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private jwtService: JwtAuthService, private router: Router,
     private jwtParser: JwtParseService) {
-    localStorage.clear();
+    if (localStorage.getItem("role") === 'Admin') {
+      this.router.navigateByUrl("admin");
+    } else if (localStorage.getItem("role") === "Manager") {
+      this.router.navigateByUrl("manager");
+    } else if (localStorage.getItem("role") === "Employee") {
+      this.router.navigateByUrl("employee");
+    }
   }
 
   ngOnInit() {
