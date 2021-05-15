@@ -38,6 +38,7 @@
     <None Remove="ClientApp\src\app\board-moderator.component.ts" />
     <None Remove="ClientApp\src\app\EmployeeComponent\employee.component.ts" />
     <None Remove="ClientApp\src\app\home.component.ts" />
+    <None Remove="ClientApp\src\app\Interfaces\iproject.ts" />
     <None Remove="ClientApp\src\app\Interfaces\itoken.ts" />
     <None Remove="ClientApp\src\app\ManagerComponent\manager.component.ts" />
     <None Remove="ClientApp\src\app\RegisterComponent\board-user.component.ts" />
@@ -60,6 +61,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\AdminComponent\admin.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\EmployeeComponent\employee.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Interfaces\iproject.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces\itoken.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ManagerComponent\manager.component.ts" />

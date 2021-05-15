@@ -15,19 +15,20 @@ import { AdminComponent } from './AdminComponent/admin.component';
 import { NotFoundComponent } from './NotFoundComponent/notFound.component';
 import { ManagerComponent } from './ManagerComponent/manager.component';
 import { EmployeeComponent } from './EmployeeComponent/employee.component';
+import { ProjectComponent } from './project/project.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
-//const adminRoutes: Routes = [
-  //{ path: '', component: ProjectComponent },
+const adminRoutes: Routes = [
+  { path: '', component: ProjectComponent },
   //{ path: 'addproject', component: AddProjectComponent },
   //{ path: 'deleteproject', component: DeleteProjectComponent }
-//]
+]
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'reg', component: RegisterComponent },
   { path: 'manager', component: ManagerComponent },
-  { path: 'admin', component: AdminComponent/*, children: adminRoutes*/ },
+  { path: 'admin', component: AdminComponent, children: adminRoutes },
   { path: 'employee', component: EmployeeComponent },
   { path: "**", component: NotFoundComponent },
   //{ path: 'manager', component: ManagerComponent, children: managerRoutes },
@@ -44,7 +45,7 @@ const appRoutes: Routes = [
     NotFoundComponent,
     ManagerComponent,
     EmployeeComponent,
-    //ProjectComponent,
+    ProjectComponent,
   ],
   imports: [
     BrowserModule,

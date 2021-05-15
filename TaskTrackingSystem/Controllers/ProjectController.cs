@@ -25,13 +25,13 @@ namespace TaskTrackingSystem.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
-        [HttpGet]
+        [HttpGet("all")]
         public IEnumerable<ProjectDTO> Get()
         {
             var projects = _projService.GetAllProjects();
             return projects;
         }
-
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
         public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
         {
