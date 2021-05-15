@@ -1,2 +1,22 @@
 <p>project</p>
 <button (click)="showProjects()">See projects</button>
+<table *ngIf="projectsReceived">
+  <tr>
+    <th>Project name</th>
+    <th>Project status</th>
+    <th>Start of the project</th>
+    <th>Deadline of the project</th>
+    <th>Description</th>
+    <th>Email of the client</th>
+    <th>Percent of completion</th>
+  </tr>
+  <tr *ngFor="let proj of projects">
+    <td>{{proj.name}}</td>
+    <td>{{proj.status}}</td>
+    <td>{{proj.startTime | date: "dd/MM/yyyy"}}</td>
+    <td>{{proj.endTime | date: "dd/MM/yyyy"}}</td>
+    <td>{{proj.description}}</td>
+    <td>{{proj.clientEmail}}</td>
+    <td>{{proj.percentCompletion}}</td>
+  </tr>
+</table>

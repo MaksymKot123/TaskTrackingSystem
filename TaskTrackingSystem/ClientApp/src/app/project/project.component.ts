@@ -15,18 +15,16 @@ export class ProjectComponent implements OnInit {
 
   projects: IProject[] = [];
 
+  projectsReceived = false;
   constructor(private projService: GetAllProjectsService) { }
 
   ngOnInit() {
+    this.getProjects();
+    this.projectsReceived = !this.projectsReceived;
   }
 
 
-  showProjects() {
-    //let responce: IProject[] = [];
+  getProjects() {
     this.projService.getAllProjects(URL).subscribe(x => this.projects = x);
-
-    for (let proj of this.projects) {
-      console.log(proj);
-    }
   }
 }
