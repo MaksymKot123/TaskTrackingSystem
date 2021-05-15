@@ -20,3 +20,5 @@
     <td>{{proj.percentCompletion}}</td>
   </tr>
 </table>
+<button *ngIf="addProject" (click)="addNewProject()">Add project</button>
+<add-project [(addProject)]="addProject" *ngIf="!addProject"></add-project>

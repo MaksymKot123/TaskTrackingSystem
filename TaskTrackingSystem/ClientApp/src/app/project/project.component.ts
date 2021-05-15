@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GetAllProjectsService } from "src/app/Services/getAllProjects.service";
 import { IProject } from '../Interfaces/iproject';
 
@@ -16,11 +16,20 @@ export class ProjectComponent implements OnInit {
   projects: IProject[] = [];
 
   projectsReceived = false;
+  addProject = true;
+
+  //@Input() isClosedForm = true;
+  //@Output() isClosedFormChange = new EventEmitter<boolean>();
+
   constructor(private projService: GetAllProjectsService) { }
 
   ngOnInit() {
     this.getProjects();
     this.projectsReceived = !this.projectsReceived;
+  }
+
+  addNewProject() {
+    this.addProject = !this.addProject;
   }
 
 

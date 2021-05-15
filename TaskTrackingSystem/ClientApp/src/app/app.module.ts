@@ -16,6 +16,7 @@ import { NotFoundComponent } from './NotFoundComponent/notFound.component';
 import { ManagerComponent } from './ManagerComponent/manager.component';
 import { EmployeeComponent } from './EmployeeComponent/employee.component';
 import { ProjectComponent } from './project/project.component';
+import { AddProjectComponent } from './add-project/add-project.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
     ManagerComponent,
     EmployeeComponent,
     ProjectComponent,
+    AddProjectComponent,
   ],
   imports: [
     BrowserModule,
