@@ -6,4 +6,6 @@ export interface IProject {
   description: string;
   clientEmail: string;
   percentCompletion: number;
+  editProject: { val: boolean };
+  viewTasks: { val: boolean };
 }

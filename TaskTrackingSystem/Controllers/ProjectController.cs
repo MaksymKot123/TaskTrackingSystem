@@ -61,7 +61,7 @@ namespace TaskTrackingSystem.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
-        public void Delete([FromQuery] ProjectView proj)
+        public void Delete([FromBody] ProjectView proj)
         {
             var project = new ProjectDTO()
             {
@@ -78,7 +78,7 @@ namespace TaskTrackingSystem.Controllers
         }
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
-        public void EditProject([FromQuery] ProjectView proj)
+        public void EditProject([FromBody] ProjectView proj)
         {
             var project = new ProjectDTO()
             {
@@ -86,8 +86,7 @@ namespace TaskTrackingSystem.Controllers
                 Description = proj.Description,
                 EndTime = proj.EndTime,
                 Name = proj.Name,
-                PercentCompletion = 0,
-                Status = proj.StartTime > DateTime.Now ? BLL.Enums.StatusDTO.Pending : BLL.Enums.StatusDTO.Started,
+                Status = BLL.Enums.StatusDTO.Started,
                 StartTime = proj.StartTime,
             };
 

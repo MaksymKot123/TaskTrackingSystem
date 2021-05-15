@@ -31,4 +31,10 @@ export class ProjectComponent implements OnInit {
   getProjects() {
     this.projService.getAllProjects(URL).subscribe(x => this.projects = x);
   }
+
+  toogle(model: { val: boolean }) {
+    console.log(model.val);
+    model.val = !model.val;
+    console.log(model.val);
+  }
 }

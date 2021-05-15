@@ -1,1 +1,36 @@
 <p>edit-project works!</p>
+
+<form [formGroup]="myForm" novalidate (ngSubmit)="edit()">
+  <div class="form-group">
+    <label>Client email</label>
+    <input class="form-control" type="email" name="clientEmail" formControlName="clientEmail" />
+    <div class="alert alert-danger"
+         *ngIf="myForm.controls['clientEmail'].invalid && myForm.controls['clientEmail'].touched">
+      Enter an email of the client
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Deadline</label>
+    <input class="form-control" type="date" name="endTime" formControlName="endTime" />
+    <div class="alert alert-danger"
+         *ngIf="myForm.controls['endTime'].invalid && myForm.controls['endTime'].touched">
+      Enter deadline of the project
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <input class="form-control" name="description" formControlName="description" />
+  </div>
+  <div class="alert alert-danger"
+       *ngIf="myForm.controls['description'].invalid && myForm.controls['description'].touched">
+    Enter the description
+  </div>
+
+  <div class="form-group">
+    <button class="btn-primary" [disabled]="myForm.invalid">
+      Edit
+    </button>
+  </div>
+
+</form>
