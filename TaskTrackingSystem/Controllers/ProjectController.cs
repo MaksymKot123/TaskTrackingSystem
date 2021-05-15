@@ -70,7 +70,7 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = proj.EndTime,
                 Name = proj.Name,
                 PercentCompletion = 0,
-                Status = proj.StartTime > DateTime.Now ? BLL.Enums.StatusDTO.Pending : BLL.Enums.StatusDTO.Started,
+                Status = BLL.Enums.StatusDTO.Started,
                 StartTime = proj.StartTime,
             };
 
