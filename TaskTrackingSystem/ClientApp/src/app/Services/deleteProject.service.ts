@@ -14,7 +14,11 @@ export class DeleteProjectService {
   constructor(private http: HttpClient) { }
 
   delete(url: string, name: string) {
-    const body = { "Name": name };
+    const body = {
+      "Name": name,
+      "ClientEmail": "email",
+      "EntTime": Date.now(),
+    };
     return this.http.request("delete", url, {
       body: body,
       headers: headers,

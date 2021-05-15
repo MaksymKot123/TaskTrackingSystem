@@ -65,13 +65,9 @@ namespace TaskTrackingSystem.Controllers
         {
             var project = new ProjectDTO()
             {
+                Name =proj.Name,
                 ClientEmail = proj.ClientEmail,
-                Description = proj.Description,
                 EndTime = proj.EndTime,
-                Name = proj.Name,
-                PercentCompletion = 0,
-                Status = BLL.Enums.StatusDTO.Started,
-                StartTime = proj.StartTime,
             };
 
             _projService.DeleteProject(project);

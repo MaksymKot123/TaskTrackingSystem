@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GetAllProjectsService } from "src/app/Services/getAllProjects.service";
 import { IProject } from '../Interfaces/iproject';
+import { DeleteProjectService } from "src/app/Services/deleteProject.service";
 
 
 const URL = "https://localhost:44351/project/all";
@@ -17,7 +18,8 @@ export class ProjectComponent implements OnInit {
 
   addProject = true;
 
-  constructor(private projService: GetAllProjectsService) { }
+  constructor(private getProjService: GetAllProjectsService,
+    private delProjService: DeleteProjectService) { }
 
   ngOnInit() {
     this.getProjects();
@@ -29,12 +31,15 @@ export class ProjectComponent implements OnInit {
 
 
   getProjects() {
-    this.projService.getAllProjects(URL).subscribe(x => this.projects = x);
+    this.getProjService.getAllProjects(URL).subscribe(x => this.projects = x);
   }
 
   toogle(model: { val: boolean }) {
-    console.log(model.val);
     model.val = !model.val;
-    console.log(model.val);
+  }
+
+  delete(name: string) {
+    let responce = this.delProjService.delete("project", name).subscribe();
+    console.log(responce);
   }
 }

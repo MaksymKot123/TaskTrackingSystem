@@ -19,10 +19,10 @@
     <td>{{proj.clientEmail}}</td>
     <td>{{proj.percentCompletion}}</td>
     <td><button (click)="toogle(proj.editProject)">Edit</button></td>
-    <td><button (click)="toogle(proj.deleteProject)">Delete</button></td>
+    <td><button (click)="delete(proj.name)">Delete</button></td>
     <edit-project *ngIf="proj.editProject.val" [name]="proj.name" [description]="proj.description"
       [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>
-    <delete-project *ngIf="proj.deleteProject.val"></delete-project>
+    <!--<delete-project *ngIf="proj.deleteProject.val"></delete-project>-->
   </tr>
 </table>
 <button *ngIf="addProject" (click)="addNewProject()">Add project</button>
