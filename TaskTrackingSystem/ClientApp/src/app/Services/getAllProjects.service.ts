@@ -28,6 +28,9 @@ export class GetAllProjectsService {
           endTime: proj.endTime,
           description: proj.description,
           percentCompletion: proj.percentCompletion,
+          editProject: { val: false },
+          viewTasks: { val: false },
+          deleteProject: { val: false }
         };
 
         return res;

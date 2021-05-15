@@ -3,7 +3,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { IProject } from "../Interfaces/iproject";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators"; 
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 const URL = "https:localhost:44351/project";
 
@@ -50,6 +50,7 @@ export class ProjectService implements OnInit {
           percentCompletion: proj.percentCompletion,
           editProject: { val: false },
           viewTasks: { val: false },
+          deleteProject: { val: false }
         };
 
         return res;

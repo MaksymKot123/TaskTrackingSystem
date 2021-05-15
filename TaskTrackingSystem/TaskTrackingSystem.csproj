@@ -47,6 +47,7 @@
     <None Remove="ClientApp\src\app\LoginComponent\login.component.ts" />
     <None Remove="ClientApp\src\app\register.component.ts" />
     <None Remove="ClientApp\src\app\Services\addNewProject.service.ts" />
+    <None Remove="ClientApp\src\app\Services\editProject.service.ts" />
     <None Remove="ClientApp\src\app\Services\getAllProjects.service.ts" />
     <None Remove="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <None Remove="ClientApp\src\app\Services\jwtParse.service.ts" />
@@ -69,6 +70,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ManagerComponent\manager.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\addNewProject.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\editProject.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\Project.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\getAllProjects.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtParse.service.ts" />

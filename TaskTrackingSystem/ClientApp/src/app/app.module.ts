@@ -18,6 +18,7 @@ import { EmployeeComponent } from './EmployeeComponent/employee.component';
 import { ProjectComponent } from './project/project.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
+import { DeleteProjectComponent } from './delete-project/delete-project.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     ProjectComponent,
     AddProjectComponent,
     EditProjectComponent,
+    DeleteProjectComponent,
   ],
   imports: [
     BrowserModule,

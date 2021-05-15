@@ -8,4 +8,5 @@ export interface IProject {
   percentCompletion: number;
   editProject: { val: boolean };
   viewTasks: { val: boolean };
+  deleteProject: { val: boolean };
 }

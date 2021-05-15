@@ -87,7 +87,7 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = proj.EndTime,
                 Name = proj.Name,
                 Status = BLL.Enums.StatusDTO.Started,
-                StartTime = proj.StartTime,
+                StartTime = DateTime.Now,
             };
 
             _projService.EditProject(project);
