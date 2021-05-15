@@ -44,7 +44,7 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
-        public void AddProject([FromQuery] ProjectView proj)
+        public void AddProject([FromBody] ProjectView proj)
         {
             var newProj = new ProjectDTO()
             {
@@ -53,8 +53,8 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = proj.EndTime,
                 Name = proj.Name,
                 PercentCompletion = 0,
-                Status = proj.StartTime > DateTime.Now ? BLL.Enums.StatusDTO.Pending : BLL.Enums.StatusDTO.Started,
-                StartTime = proj.StartTime,
+                Status = BLL.Enums.StatusDTO.Started,
+                StartTime = DateTime.Now,
             };
 
             _projService.AddProject(newProj);

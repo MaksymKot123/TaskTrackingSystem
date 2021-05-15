@@ -15,17 +15,12 @@ export class ProjectComponent implements OnInit {
 
   projects: IProject[] = [];
 
-  projectsReceived = false;
   addProject = true;
-
-  //@Input() isClosedForm = true;
-  //@Output() isClosedFormChange = new EventEmitter<boolean>();
 
   constructor(private projService: GetAllProjectsService) { }
 
   ngOnInit() {
     this.getProjects();
-    this.projectsReceived = !this.projectsReceived;
   }
 
   addNewProject() {

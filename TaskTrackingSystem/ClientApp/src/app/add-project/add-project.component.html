@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+<form [formGroup]="myForm" novalidate (ngSubmit)="addNewProject()">
   <div class="form-group">
     <label>Project name</label>
     <input class="form-control" name="projectName" formControlName="projectName" />
@@ -9,31 +9,42 @@
   </div>
   <div class="form-group">
     <label>Client email</label>
-    <input class="form-control" name="clientEmail" formControlName="clientEmail" />
+    <input class="form-control" type="email" name="clientEmail" formControlName="clientEmail" />
     <div class="alert alert-danger"
          *ngIf="myForm.controls['clientEmail'].invalid && myForm.controls['clientEmail'].touched">
       Enter an email of the client
     </div>
   </div>
   <div class="form-group">
-    <label>Start date</label>
-    <input class="form-control" name="startTime" formControlName="startTime" />
+    <!--<label>Start date</label>
+    <input class="form-control" type="date" name="startTime" formControlName="startTime" />
     <div class="alert alert-danger"
          *ngIf="myForm.controls['startTime'].invalid && myForm.controls['startTime'].touched">
       Enter start date of the project
     </div>
 
-    <label>Deeadline</label>
-    <input class="form-control" name="entTime" formControlName="entTime" />
     <div class="alert alert-danger"
-         *ngIf="myForm.controls['entTime'].invalid && myForm.controls['entTime'].touched">
+         *ngIf="myForm.controls['startTime'].value < Date.now()">
+      Enter correct start date of the project
+    </div>-->
+
+    <label>Deadline</label>
+    <input class="form-control" type="date" name="endTime" formControlName="endTime" />
+    <div class="alert alert-danger"
+         *ngIf="myForm.controls['endTime'].invalid && myForm.controls['endTime'].touched">
       Enter deadline of the project
     </div>
 
-    <div class="alert alert-danger"
-         *ngIf="myForm.controls['startTime'].invalid && myForm.controls['startTime'].touched">
+    <!--<div class="alert alert-danger"
+         *ngIf="myForm.controls['endTime'].value < Date.now()">
+      Enter correct deadline of the project
+    </div>-->
+
+
+    <!--<div class="alert alert-danger"
+         *ngIf="myForm.controls['startTime'].value > myForm.controls['endTime'].value">
       Enter correct start date and deadline
-    </div>
+    </div>-->
   </div>
 
   <div class="form-group">

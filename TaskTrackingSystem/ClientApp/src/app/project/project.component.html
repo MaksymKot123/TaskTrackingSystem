@@ -1,6 +1,6 @@
 <p>project</p>
 <button (click)="showProjects()">See projects</button>
-<table *ngIf="projectsReceived">
+<table>
   <tr>
     <th>Project name</th>
     <th>Project status</th>
@@ -13,8 +13,8 @@
   <tr *ngFor="let proj of projects">
     <td>{{proj.name}}</td>
     <td>{{proj.status}}</td>
-    <td>{{proj.startTime | date: "dd/MM/yyyy"}}</td>
-    <td>{{proj.endTime | date: "dd/MM/yyyy"}}</td>
+    <td>{{proj.startTime | date: "medium":"UTC" }}</td>
+    <td>{{proj.endTime | date: "medium":"UTC"}}</td>
     <td>{{proj.description}}</td>
     <td>{{proj.clientEmail}}</td>
     <td>{{proj.percentCompletion}}</td>
