@@ -1,9 +1,4 @@
-<p>edit-project works!</p>
-
 <form [formGroup]="myForm" novalidate (ngSubmit)="edit()">
-  <!--<div class="form-group">
-    <input class="form-control" type="hidden" name="name" formControlName="name" />
-  </div>-->
   <div class="form-group">
     <label>Client email</label>
     <input class="form-control" type="email" name="clientEmail" formControlName="clientEmail" />
@@ -34,6 +29,9 @@
     <button class="btn-primary" [disabled]="myForm.invalid">
       Edit
     </button>
+  </div>
+  <div>
+    <button class="btn-primary" (click)="closeForm({val: true})">Hide</button>
   </div>
 
 </form>

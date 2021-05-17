@@ -7,7 +7,7 @@ export interface IProject {
   clientEmail: string;
   percentCompletion: number;
   editProject: { val: boolean };
-  viewTasks: { val: boolean };
   deleteProject: { val: boolean };
   addTask: { val: boolean };
+  showTasks: { val: boolean };
 }

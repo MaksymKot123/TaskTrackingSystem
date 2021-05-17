@@ -13,8 +13,8 @@ export class AddTaskComponent implements OnInit {
 
   myForm: FormGroup;
   @Input() projName: string;
-  @Input() addTask: boolean;
-  @Output() addTaskChange = new EventEmitter<boolean>();
+  @Input() addTask: { val: boolean };
+  @Output() addTaskChange = new EventEmitter<{ val: boolean }>();
   isClosedForm = false;
 
   constructor(private taskServ: AddNewTaskService, private fb: FormBuilder) { }
@@ -33,9 +33,10 @@ export class AddTaskComponent implements OnInit {
     const deadline = this.myForm.controls["endTime"].value;
 
     this.taskServ.addNewTask(URL, this.projName, name, deadline, description).subscribe();
+    this.ngOnInit();
   }
 
-  closeForm(value: boolean) {
+  closeForm(value: { val: boolean }) {
     this.addTask = value;
     this.addTaskChange.emit(value);
     this.isClosedForm = !this.isClosedForm;

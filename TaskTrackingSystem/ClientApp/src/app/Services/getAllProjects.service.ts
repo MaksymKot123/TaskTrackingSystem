@@ -30,10 +30,10 @@ export class GetAllProjectsService {
           endTime: proj.endTime,
           description: proj.description,
           percentCompletion: proj.percentCompletion,
-          editProject: { val: false },
-          viewTasks: { val: false },
+          editProject: { val: true },
           deleteProject: { val: false },
-          addTask: { val: false },
+          addTask: { val: true },
+          showTasks: { val: true },
         };
 
         return res;

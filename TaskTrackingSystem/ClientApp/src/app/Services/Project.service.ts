@@ -48,10 +48,10 @@ export class ProjectService implements OnInit {
           endTime: proj.endTime,
           description: proj.description,
           percentCompletion: proj.percentCompletion,
-          editProject: { val: false },
-          viewTasks: { val: false },
-          deleteProject: { val: false },
-          addTask: { val: false },
+          editProject: { val: true },
+          deleteProject: { val: true },
+          addTask: { val: true },
+          showTasks: { val: true },
         };
 
         return res;

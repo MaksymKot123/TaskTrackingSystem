@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { ITask } from '../Interfaces/itask';
 import { GetTasksFromProjectService } from '../Services/getTasksOfProjectService';
 
@@ -13,17 +13,25 @@ export class ViewTasksComponent implements OnInit {
 
   constructor(private taskServ: GetTasksFromProjectService) { }
 
-  @Input() projectName: string;
-  tasks: ITask[];
-
-
   ngOnInit() {
     this.showTasks();
   }
 
+  @Input() projectName: string;
+  @Input() seeTasks: { val: boolean };
+  @Output() seeTasksChange = new EventEmitter<{ val: boolean }>();
+  isClosedForm = false;
+
+  tasks: ITask[];
+
   showTasks() {
-    let res = this.taskServ.getTasks(URL, this.projectName).subscribe(x => this.tasks = x);
-    console.log(res);
+    this.taskServ.getTasks(URL, this.projectName).subscribe(x => this.tasks = x);
+  }
+
+  closeForm(value: { val: boolean }) {
+    this.seeTasks = value;
+    this.seeTasksChange.emit(value);
+    this.isClosedForm = !this.isClosedForm;
   }
 
 }

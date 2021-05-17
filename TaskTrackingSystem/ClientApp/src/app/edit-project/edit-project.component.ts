@@ -13,8 +13,8 @@ const URL = "project";
 })
 export class EditProjectComponent implements OnInit {
 
-  @Input() editProject: boolean;
-  @Output() editProjectChange = new EventEmitter<boolean>();
+  @Input() editProject: { val: boolean };
+  @Output() editProjectChange = new EventEmitter<{ val: boolean }>();
   isClosedForm = false;
 
   @Input() description: string;
@@ -52,11 +52,10 @@ export class EditProjectComponent implements OnInit {
     const responce = this.projService.editProject(URL,
       this.name, description, clientEmail, endTime).subscribe();
 
-    console.log(responce);
-    this.isClosedForm = !this.isClosedForm;
+    this.ngOnInit();
   }
 
-  closeForm(value: boolean) {
+  closeForm(value: { val: boolean }) {
     this.editProject = value;
     this.editProjectChange.emit(value);
     this.isClosedForm = !this.isClosedForm;

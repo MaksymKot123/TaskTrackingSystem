@@ -24,12 +24,17 @@ export class ProjectComponent implements OnInit {
   projects: IProject[] = [];
 
   addProject = true;
+  showTasks = false;
 
   constructor(private getProjService: GetAllProjectsService,
     private delProjService: DeleteProjectService) { }
 
   ngOnInit() {
     this.getProjects();
+  }
+
+  viewTasks() {
+    this.showTasks = !this.showTasks;
   }
 
   addNewProject() {

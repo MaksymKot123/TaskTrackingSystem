@@ -1,1 +1,17 @@
-<p>view-tasks works!</p>
+<table>
+  <tr>
+    <th>Task's name</th>
+    <th>Status</th>
+    <th>Start time</th>
+    <th>Deadline</th>
+    <th>Description</th>
+  </tr>
+  <tr *ngFor="let task of tasks">
+    <td>{{task.taskName}}</td>
+    <td>{{task.status}}</td>
+    <td>{{task.startTime | date: "medium":"UTC" }}</td>
+    <td>{{task.endTime | date: "medium":"UTC" }}</td>
+    <td>{{task.description}}</td>
+  </tr>
+</table>
+<button (click)="closeForm({ val: true })">Hide</button>

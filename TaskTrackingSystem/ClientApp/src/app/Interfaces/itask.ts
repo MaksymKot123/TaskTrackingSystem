@@ -1,5 +1,5 @@
 export interface ITask {
-  name: string;
+  taskName: string;
   startTime: string;
   endTime: string;
   status: string;

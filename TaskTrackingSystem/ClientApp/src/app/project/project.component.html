@@ -18,15 +18,16 @@
     <td>{{proj.description}}</td>
     <td>{{proj.clientEmail}}</td>
     <td>{{proj.percentCompletion}}</td>
-    <td><button (click)="toogle(proj.editProject)">Edit</button></td>
+    <td><button (click)="toogle(proj.editProject)" *ngIf="proj.editProject.val">Edit</button></td>
     <td><button (click)="delete(proj.name)">Delete</button></td>
-    <td><button (click)="toogle(proj.addTask)">Add new task</button></td>
-    <edit-project *ngIf="proj.editProject.val" [name]="proj.name" [description]="proj.description"
+    <td><button (click)="toogle(proj.addTask)" *ngIf="proj.addTask.val">Add new task</button></td>
+    <td><button (click)="toogle(proj.showTasks)" *ngIf="proj.showTasks.val">Show tasks</button></td>
+    <edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
+      [name]="proj.name" [description]="proj.description"
       [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>
-    <add-task *ngIf="proj.addTask.val" [projName]="proj.name" ></add-task>
-    <h1>Tasks</h1>
-    <view-tasks [projectName]="proj.name"></view-tasks>
-    <!--<delete-project *ngIf="proj.deleteProject.val"></delete-project>-->
+    <add-task *ngIf="!proj.addTask.val" [projName]="proj.name" [(addTask)]="proj.addTask" ></add-task>
+    <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
+      *ngIf="!proj.showTasks.val" ></view-tasks>
   </tr>
 </table>
 <button *ngIf="addProject" (click)="addNewProject()">Add project</button>
