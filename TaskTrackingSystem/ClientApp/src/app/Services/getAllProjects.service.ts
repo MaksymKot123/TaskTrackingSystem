@@ -7,7 +7,7 @@ import { map } from "rxjs/operators";
 const token = localStorage.getItem("access_token");
 const headers = new HttpHeaders({
   'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
+  'Authorization': `Bearer ${token}`,
 });
 
 @Injectable({

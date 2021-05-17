@@ -16,5 +16,7 @@ namespace TaskTrackingSystem.ViewModels
         public string Description { get; set; }
         [Required]
         public string ClientEmail { get; set; }
+        public double PercentCompletion { get; internal set; }
+        public string Status { get; internal set; }
     }
 }

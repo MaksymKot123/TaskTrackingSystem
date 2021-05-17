@@ -25,10 +25,13 @@ namespace TaskTrackingSystem.BLL.Services
 
         public IEnumerable<TaskDTO> GetTasksOfProject(string projectName)
         {
-            var tasks = _unitOfWork.TaskRepo.GetAll()
-                .Where(x => x.Project.Name.Equals(projectName));
+            var tasks = _unitOfWork.ProjectRepo.GetAll()
+                .FirstOrDefault(x => x.Name.Equals(projectName))
+                .Tasks.AsEnumerable();
 
-            return _mapper.Map<IEnumerable<TaskDTO>>(tasks);
+            var res = _mapper.Map<IEnumerable<TaskDTO>>(tasks);
+
+            return res;
         }
 
         public void AddToProject(string projectName, TaskDTO task)

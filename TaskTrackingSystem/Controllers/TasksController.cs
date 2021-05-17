@@ -12,6 +12,7 @@ using TaskTrackingSystem.ViewModels;
 namespace TaskTrackingSystem.Controllers
 {
     [Route("[controller]")]
+    [Produces("application/json")]
     [ApiController]
     public class TasksController : ControllerBase
     {
@@ -39,9 +40,18 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpGet]
-        public IEnumerable<TaskDTO> GetTasksOfProject([FromBody] ProjectView project)
+        public IEnumerable<TaskView> GetTasksOfProject([FromHeader] ProjectView project)
         {
-            return _taskService.GetTasksOfProject(project.Name);
+            var result = _taskService.GetTasksOfProject(project.Name);
+            return result.Select(x => new TaskView()
+            {
+                Description = x.Description,
+                EndTime = x.EndTime,
+                ProjName = x.Project.Name,
+                StartTime = x.StartTime,
+                Status = x.Status,
+                TaskName = x.TaskName
+            });
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]

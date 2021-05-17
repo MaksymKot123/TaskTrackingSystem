@@ -26,28 +26,39 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet("all")]
-        public IEnumerable<ProjectDTO> Get()
+        public IEnumerable<ProjectView> Get()
         {
             var projects = _projService.GetAllProjects();
-            return projects.Select(x => new ProjectDTO()
+            return projects.Select(x => new ProjectView()
             {
+                
                 ClientEmail = x.ClientEmail,
                 Description = x.Description,
                 EndTime = x.EndTime,
-                Id = x.Id,
                 Name = x.Name,
                 StartTime = x.StartTime,
                 PercentCompletion = x.PercentCompletion,
-                Status = x.Status
+                Status = x.Status.ToString()
             });
         }
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
-        public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
+        public IEnumerable<ProjectView> GetEmployeesProjects(string email)
         {
 
-            var projects = _projService.GetAllProjects().Where(x => x.Employees
-            .Any(x => x.Email.Equals(email)));//.Where(x => x.Employees.Contains())
+            var projects = _projService.GetAllProjects()
+                .Where(x => x.Employees
+                .Any(x => x.Email.Equals(email)))
+                .Select(x => new ProjectView() 
+                {
+                    Status = x.Status.ToString(),
+                    StartTime = x.StartTime,
+                    Name = x.Name,
+                    ClientEmail = x.ClientEmail,
+                    Description = x.Description,
+                    EndTime = x.EndTime,
+                    PercentCompletion = x.PercentCompletion
+                });
 
             return projects;
         }

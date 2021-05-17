@@ -24,6 +24,8 @@
     <edit-project *ngIf="proj.editProject.val" [name]="proj.name" [description]="proj.description"
       [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>
     <add-task *ngIf="proj.addTask.val" [projName]="proj.name" ></add-task>
+    <h1>Tasks</h1>
+    <view-tasks [projectName]="proj.name"></view-tasks>
     <!--<delete-project *ngIf="proj.deleteProject.val"></delete-project>-->
   </tr>
 </table>
