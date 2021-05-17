@@ -11,7 +11,7 @@ using TaskTrackingSystem.ViewModels;
 
 namespace TaskTrackingSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TasksController : ControllerBase
     {
@@ -23,44 +23,52 @@ namespace TaskTrackingSystem.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
-        [HttpPost("addtoproject/{name}")]
-        public void AddTaskToProject(string name, [FromQuery] TaskView task)
+        [HttpPost]
+        public void AddTaskToProject([FromBody] TaskView task)
         {
             var newTask = new TaskDTO()
             {
                 Description = task.Description,
                 Status = task.Status,
-                StartTime = task.StartTime,
+                StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
             };
-            _taskService.AddToProject(name, newTask);
+            _taskService.AddToProject(task.ProjName, newTask);
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
-        [HttpPut("project/{projName}/edittask")]
-        public void EditTaskOfProject(string projName, [FromQuery] TaskView task)
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
+        [HttpGet]
+        public IEnumerable<TaskDTO> GetTasksOfProject([FromBody] ProjectView project)
+        {
+            return _taskService.GetTasksOfProject(project.Name);
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
+        [HttpPut]
+        public void EditTaskOfProject([FromBody] TaskView task)
         {
             var changedTask = new TaskDTO()
             {
                 Description = task.Description,
                 Status = task.Status,
-                StartTime = task.StartTime,
+                StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
+                
             };
             _taskService.Change(changedTask);
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
-        [HttpDelete("project/{projName}")]
-        public void DeleteTaskInProject(string projName, [FromQuery] TaskView task)
+        [HttpDelete("project")]
+        public void DeleteTaskInProject([FromBody] TaskView task)
         {
             var taskDTO = new TaskDTO()
             {
                 Description = task.Description,
                 Status = task.Status,
-                StartTime = task.StartTime,
+                StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
             };

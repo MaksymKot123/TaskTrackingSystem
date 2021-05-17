@@ -9,4 +9,5 @@ export interface IProject {
   editProject: { val: boolean };
   viewTasks: { val: boolean };
   deleteProject: { val: boolean };
+  addTask: { val: boolean };
 }

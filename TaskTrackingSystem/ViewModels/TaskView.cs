@@ -11,6 +11,7 @@ namespace TaskTrackingSystem.ViewModels
         [Required]
         public string TaskName { get; set; }
         [Required]
+        public string ProjName { get; set; }
         public DateTime StartTime { get; set; }
         [Required]
         public DateTime EndTime { get; set; }

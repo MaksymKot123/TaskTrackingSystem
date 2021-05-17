@@ -10,5 +10,6 @@ namespace TaskTrackingSystem.BLL.Interfaces
         void AddToProject(string projectName, TaskDTO task);
         void Change(TaskDTO task);
         void Delete(TaskDTO task);
+        IEnumerable<TaskDTO> GetTasksOfProject(string projectName);
     }
 }

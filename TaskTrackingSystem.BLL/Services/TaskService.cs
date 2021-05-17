@@ -23,27 +23,39 @@ namespace TaskTrackingSystem.BLL.Services
             _mapper = mapper;
         }
 
+        public IEnumerable<TaskDTO> GetTasksOfProject(string projectName)
+        {
+            var tasks = _unitOfWork.TaskRepo.GetAll()
+                .Where(x => x.Project.Name.Equals(projectName));
+
+            return _mapper.Map<IEnumerable<TaskDTO>>(tasks);
+        }
+
         public void AddToProject(string projectName, TaskDTO task)
         {
             var proj = _unitOfWork.ProjectRepo.Get(projectName);
             if (proj != null)
             {
-                var newTask = _mapper.Map<TaskProject>(task);
-                if (proj.Tasks == null)
-                {
+                var taskFromProj = proj.Tasks
+                    .FirstOrDefault(x => x.TaskName.Equals(task.TaskName));
 
-                    proj.Tasks = new List<TaskProject>() { newTask };
-                    _unitOfWork.SaveChanges();
-                }
-                else
+                if (taskFromProj == null)
                 {
+                    var newTask = _mapper.Map<TaskProject>(task);
+                    if (proj.Tasks == null)
+                    {
 
-                    proj.Tasks.Add(newTask);
-                    _unitOfWork.SaveChanges();
+                        proj.Tasks = new List<TaskProject>() { newTask };
+                        _unitOfWork.SaveChanges();
+                    }
+                    else
+                    {
+
+                        proj.Tasks.Add(newTask);
+                        _unitOfWork.SaveChanges();
+                    }
                 }
-                //_unitOfWork.TaskRepo.
-            }
-                
+            }    
         }
 
         public void Change(TaskDTO task)

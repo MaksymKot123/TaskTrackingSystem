@@ -17,6 +17,8 @@ export class GetAllProjectsService {
   constructor(private http: HttpClient) { }
 
   getAllProjects(url: string): Observable<IProject[]> {
+    console.log("TOKEN!!");
+    console.log(token);
     return this.http.get<IProject[]>(url, { headers: headers }).pipe(map(data => {
       let arr = data;
       return arr.map(function (proj: IProject) {
@@ -30,7 +32,8 @@ export class GetAllProjectsService {
           percentCompletion: proj.percentCompletion,
           editProject: { val: false },
           viewTasks: { val: false },
-          deleteProject: { val: false }
+          deleteProject: { val: false },
+          addTask: { val: false },
         };
 
         return res;

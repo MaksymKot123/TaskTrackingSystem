@@ -19,6 +19,7 @@ import { ProjectComponent } from './project/project.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { DeleteProjectComponent } from './delete-project/delete-project.component';
+import { AddTaskComponent } from './add-task/add-task.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     AddProjectComponent,
     EditProjectComponent,
     DeleteProjectComponent,
+    AddTaskComponent,
   ],
   imports: [
     BrowserModule,

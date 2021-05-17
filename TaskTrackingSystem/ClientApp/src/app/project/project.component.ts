@@ -2,9 +2,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GetAllProjectsService } from "src/app/Services/getAllProjects.service";
 import { IProject } from '../Interfaces/iproject';
 import { DeleteProjectService } from "src/app/Services/deleteProject.service";
+import { HttpHeaders } from '@angular/common/http';
 
 
 const URL = "https://localhost:44351/project/all";
+const token = localStorage.getItem("access_token");
+const headers = new HttpHeaders({
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${token}`
+});
+
 
 @Component({
   selector: 'project',

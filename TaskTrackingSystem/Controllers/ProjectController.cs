@@ -29,7 +29,17 @@ namespace TaskTrackingSystem.Controllers
         public IEnumerable<ProjectDTO> Get()
         {
             var projects = _projService.GetAllProjects();
-            return projects;
+            return projects.Select(x => new ProjectDTO()
+            {
+                ClientEmail = x.ClientEmail,
+                Description = x.Description,
+                EndTime = x.EndTime,
+                Id = x.Id,
+                Name = x.Name,
+                StartTime = x.StartTime,
+                PercentCompletion = x.PercentCompletion,
+                Status = x.Status
+            });
         }
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
