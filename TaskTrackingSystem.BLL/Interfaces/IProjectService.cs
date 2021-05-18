@@ -12,5 +12,6 @@ namespace TaskTrackingSystem.BLL.Interfaces
         void EditProject(ProjectDTO project);
         void AddProject(ProjectDTO project);
         void DeleteProject(ProjectDTO project);
+        IEnumerable<ProjectDTO> GetEmployeesProjects(string email);
     }
 }

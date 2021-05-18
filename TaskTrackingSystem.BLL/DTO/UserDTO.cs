@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace TaskTrackingSystem.BLL.DTO
@@ -9,6 +10,7 @@ namespace TaskTrackingSystem.BLL.DTO
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        [Required]
         public string Email { get; set; }
         public IdentityRole Role { get; set; }
         public ICollection<ProjectDTO> Projects { get; set; }

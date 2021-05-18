@@ -45,21 +45,27 @@ namespace TaskTrackingSystem.Controllers
         [HttpGet]
         public IEnumerable<ProjectView> GetEmployeesProjects(string email)
         {
-            var projects = _projService.GetAllProjects()
-                .Where(x => x.Employees
-                .Any(x => x.Email.Equals(email)))
-                .Select(x => new ProjectView() 
+            return _projService.GetEmployeesProjects(email)
+                .Select(x => new ProjectView()
                 {
-                    Status = x.Status.ToString(),
-                    StartTime = x.StartTime,
-                    Name = x.Name,
-                    ClientEmail = x.ClientEmail,
-                    Description = x.Description,
-                    EndTime = x.EndTime,
-                    PercentCompletion = x.PercentCompletion
+                    Name = x.Name
                 });
+            //var projects = _projService.GetAllProjects();
+            //    //.Where(x => x.Employees.);
+            //    //.Where(x => x.Employees
+            //    //.Any(x => x.Email.Equals(email)))
+            //    //.Select(x => new ProjectView() 
+            //    //{
+            //    //    Status = x.Status.ToString(),
+            //    //    StartTime = x.StartTime,
+            //    //    Name = x.Name,
+            //    //    ClientEmail = x.ClientEmail,
+            //    //    Description = x.Description,
+            //    //    EndTime = x.EndTime,
+            //    //    PercentCompletion = x.PercentCompletion
+            //    //});
 
-            return projects;
+            //return projects;
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]

@@ -28,6 +28,8 @@ export class GetUsersByRoleService {
           name: user.name,
           email: user.email,
           role: roleName,
+          addToProject: { val: true },
+          viewProjects: { val: true },
         };
 
         return res;

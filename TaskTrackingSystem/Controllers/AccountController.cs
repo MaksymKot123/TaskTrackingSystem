@@ -26,7 +26,7 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
-        public IEnumerable<UserDTO> /*async Task<IEnumerable<UserDTO>>*/ GetUsersByRole([FromQuery]string roleName)
+        public IEnumerable<UserDTO> GetUsersByRole([FromQuery]string roleName)
         {
             return _userService.GetUsersByRole(roleName).GetAwaiter().GetResult();
         }
@@ -65,6 +65,13 @@ namespace TaskTrackingSystem.Controllers
             if (responce == null)
                 return BadRequest();
             else return responce;
+        }
+
+        [HttpPost("addtoproject")]
+        public IActionResult AddToProject(string projName, [FromBody] UserDTO user)
+        {
+            _userService.AddToProject(projName, user);
+            return Ok();
         }
     }
 }

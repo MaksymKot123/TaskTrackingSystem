@@ -10,6 +10,14 @@
 <h1>Employees</h1>
 <div *ngFor="let employee of employees">
   <p>{{employee.email}} | {{employee.name}}</p>
-  <button>See projects</button>
-  <button>Add to project</button>
+  <button *ngIf="employee.viewProjects.val" (click)="toogle(employee.viewProjects)">
+    See projects</button>
+  <button *ngIf="employee.addToProject.val" (click)="toogle(employee.addToProject)">
+    Add to project
+  </button>
+  <add-user-to-project [(addToProject)]="employee.addToProject"
+    *ngIf="!employee.addToProject.val"></add-user-to-project>
+  <view-projects-of-user *ngIf="!employee.viewProjects.val"
+    [(viewProjects)]="employee.viewProjects"> 
+  </view-projects-of-user>
 </div>

@@ -23,6 +23,17 @@ namespace TaskTrackingSystem.BLL.Services
             _mapper = mapper;
         }
 
+        public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
+        {
+            var user = _unifOfWork.UserManager.FindByEmailAsync(email)
+                .GetAwaiter().GetResult();
+            var projects = _mapper.Map<IEnumerable<ProjectDTO>>(
+                user.Projects.AsEnumerable());
+
+            return projects;
+
+        }
+
         public void DeleteProject(ProjectDTO project)
         {
             var proj = _unifOfWork.ProjectRepo.Get(project.Name);

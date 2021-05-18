@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GetUsersByRoleService } from "src/app/Services/getUsersByRoleService";
+import { IProject } from '../Interfaces/iproject';
 import { IUser } from '../Interfaces/iuser';
+import { GetProjectsOfUserService } from '../Services/getProjectsOfUser';
+
 
 const URL = "https://localhost:44351/account";
+
 
 const ADMIN = "Admin";
 const MANAGER = "Manager";
@@ -15,11 +19,15 @@ const EMPLOYEE = "Employee";
 })
 export class AllUsersComponent implements OnInit {
 
-  constructor(private usrService: GetUsersByRoleService) { }
+  constructor(private usrService: GetUsersByRoleService,
+    private projService: GetProjectsOfUserService) { }
 
   admins: IUser[] = [];
   employees: IUser[] = [];
   managers: IUser[] = [];
+
+  projects: IProject[] = [];
+
 
 
   ngOnInit() {
@@ -40,14 +48,7 @@ export class AllUsersComponent implements OnInit {
     this.usrService.getUsers(URL, EMPLOYEE).subscribe(x => this.employees = x);
   }
 
-
-
-  a() {
-    
-    console.log(this.admins);
-    console.log(this.employees);
-    console.log(this.managers);
+  toogle(model: { val: boolean }) {
+    model.val = !model.val;
   }
-
-
 }
