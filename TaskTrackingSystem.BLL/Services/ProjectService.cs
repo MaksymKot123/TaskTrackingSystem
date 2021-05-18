@@ -25,8 +25,7 @@ namespace TaskTrackingSystem.BLL.Services
 
         public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
         {
-            var user = _unifOfWork.UserManager.FindByEmailAsync(email)
-                .GetAwaiter().GetResult();
+            var user = _unifOfWork.GetUserWithDetails(email);
             var projects = _mapper.Map<IEnumerable<ProjectDTO>>(
                 user.Projects.AsEnumerable());
 

@@ -1,2 +1,5 @@
-<p>add-usersto-project works!</p>
+<select [(ngModel)]="selectedProject">
+  <option *ngFor="let proj of projects" [value]="proj.name" >{{proj.name}}</option>
+</select>
+<button (click)="addUserToProject()">Add to project</button>
 <button (click)="closeForm({val: true})">Hide</button>

@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { AddNewProjectService } from "src/app/Services/addNewProject.service";
 
-const URL = "https:localhost:44351/project";
+
 
 @Component({
   selector: 'add-project',
@@ -17,8 +17,11 @@ export class AddProjectComponent implements OnInit {
   isClosedForm = false;
 
   myForm: FormGroup;
+  readonly URL: string;
 
-  constructor(private fb: FormBuilder, private projServ: AddNewProjectService) { }
+  constructor(private fb: FormBuilder, private projServ: AddNewProjectService) {
+    this.URL = "https:localhost:44351/project";
+  }
 
   ngOnInit() {
 

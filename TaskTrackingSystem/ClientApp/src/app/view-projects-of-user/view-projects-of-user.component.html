@@ -1,2 +1,5 @@
-<p>view-projects-of-user works!</p>
+<h3>Project name: </h3>
+<div *ngFor="let proj of projects">
+  <p>{{proj.name}}</p>
+</div>
 <button (click)="closeForm({val:true})">Hide</button>

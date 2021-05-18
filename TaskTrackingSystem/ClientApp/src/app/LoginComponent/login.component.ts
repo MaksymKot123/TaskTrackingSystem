@@ -56,6 +56,8 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("role", role);
       name = jsonToken.unique_name;
       localStorage.setItem("name", name);
+      email = jsonToken.email;
+      localStorage.setItem("email", email);
 
       if (role === 'Admin') {
         this.router.navigateByUrl("admin");

@@ -82,5 +82,12 @@ namespace TaskTrackingSystem.DAL.Repositories
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        public User GetUserWithDetails(string email)
+        {
+            return db.Users
+                .Include(x => x.Projects)
+                .FirstOrDefault(x => x.Email.Equals(email));
+        }
     }
 }

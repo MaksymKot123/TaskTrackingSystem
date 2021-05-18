@@ -70,8 +70,15 @@ namespace TaskTrackingSystem.Controllers
         [HttpPost("addtoproject")]
         public IActionResult AddToProject(string projName, [FromBody] UserDTO user)
         {
-            _userService.AddToProject(projName, user);
-            return Ok();
+            try
+            {
+                _userService.AddToProject(projName, user);
+                return Ok();
+            }
+            catch(Exception e) 
+            { 
+                return BadRequest(); 
+            }
         }
     }
 }

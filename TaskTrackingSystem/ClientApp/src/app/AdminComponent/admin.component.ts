@@ -16,4 +16,8 @@ export class AdminComponent {
     localStorage.clear();
     this.router.navigateByUrl("");
   }
+
+  showUsersList() {
+    this.router.navigateByUrl("admin/users");
+  }
 }

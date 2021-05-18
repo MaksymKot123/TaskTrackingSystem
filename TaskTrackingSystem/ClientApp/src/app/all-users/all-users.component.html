@@ -15,9 +15,9 @@
   <button *ngIf="employee.addToProject.val" (click)="toogle(employee.addToProject)">
     Add to project
   </button>
-  <add-user-to-project [(addToProject)]="employee.addToProject"
+  <add-user-to-project [userEmail]="employee.email" [(addToProject)]="employee.addToProject"
     *ngIf="!employee.addToProject.val"></add-user-to-project>
-  <view-projects-of-user *ngIf="!employee.viewProjects.val"
+  <view-projects-of-user [userEmail]="employee.email" *ngIf="!employee.viewProjects.val"
     [(viewProjects)]="employee.viewProjects"> 
   </view-projects-of-user>
 </div>

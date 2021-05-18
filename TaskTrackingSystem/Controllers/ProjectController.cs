@@ -31,7 +31,6 @@ namespace TaskTrackingSystem.Controllers
             var projects = _projService.GetAllProjects();
             return projects.Select(x => new ProjectView()
             {
-                
                 ClientEmail = x.ClientEmail,
                 Description = x.Description,
                 EndTime = x.EndTime,
@@ -48,24 +47,14 @@ namespace TaskTrackingSystem.Controllers
             return _projService.GetEmployeesProjects(email)
                 .Select(x => new ProjectView()
                 {
+                    ClientEmail = x.ClientEmail,
+                    Description = x.Description,
+                    EndTime = x.EndTime,
+                    PercentCompletion = x.PercentCompletion,
+                    StartTime = x.StartTime,
+                    Status = x.Status.ToString(),
                     Name = x.Name
                 });
-            //var projects = _projService.GetAllProjects();
-            //    //.Where(x => x.Employees.);
-            //    //.Where(x => x.Employees
-            //    //.Any(x => x.Email.Equals(email)))
-            //    //.Select(x => new ProjectView() 
-            //    //{
-            //    //    Status = x.Status.ToString(),
-            //    //    StartTime = x.StartTime,
-            //    //    Name = x.Name,
-            //    //    ClientEmail = x.ClientEmail,
-            //    //    Description = x.Description,
-            //    //    EndTime = x.EndTime,
-            //    //    PercentCompletion = x.PercentCompletion
-            //    //});
-
-            //return projects;
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
