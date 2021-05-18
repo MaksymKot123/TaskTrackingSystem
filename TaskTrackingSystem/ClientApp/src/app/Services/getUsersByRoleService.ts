@@ -15,8 +15,6 @@ const headers = new HttpHeaders({
 export class GetUsersByRoleService {
   constructor(private http: HttpClient) { }
 
-  users: IUser[];
-
   getUsers(url: string, roleName: string) {
     const params = new HttpParams().set("roleName", roleName);
 
@@ -29,7 +27,7 @@ export class GetUsersByRoleService {
         let res: IUser = {
           name: user.name,
           email: user.email,
-          role: user.role,
+          role: roleName,
         };
 
         return res;

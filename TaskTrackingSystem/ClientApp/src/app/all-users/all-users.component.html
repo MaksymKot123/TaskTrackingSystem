@@ -1,5 +1,15 @@
 <p>all-users works!</p>
-
-<div *ngFor="user of users">
-  <p>{{user.email}}</p>
+<h1>Admins</h1>
+<div *ngFor="let admin of admins">
+  <p>{{admin.email}} | {{admin.name}}</p>
+</div>
+<h1>Managers</h1>
+<div *ngFor="let manager of managers">
+  <p>{{manager.email}} | {{manager.name}}</p>
+</div>
+<h1>Employees</h1>
+<div *ngFor="let employee of employees">
+  <p>{{employee.email}} | {{employee.name}}</p>
+  <button>See projects</button>
+  <button>Add to project</button>
 </div>

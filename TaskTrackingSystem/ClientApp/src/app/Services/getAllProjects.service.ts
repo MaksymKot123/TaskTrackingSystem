@@ -17,8 +17,6 @@ export class GetAllProjectsService {
   constructor(private http: HttpClient) { }
 
   getAllProjects(url: string): Observable<IProject[]> {
-    console.log("TOKEN!!");
-    console.log(token);
     return this.http.get<IProject[]>(url, { headers: headers }).pipe(map(data => {
       let arr = data;
       return arr.map(function (proj: IProject) {

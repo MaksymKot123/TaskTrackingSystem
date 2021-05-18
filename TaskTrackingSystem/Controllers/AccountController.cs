@@ -26,9 +26,9 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
-        public async Task<IEnumerable<UserDTO>> GetUsersByRole([FromQuery]string roleName)
+        public IEnumerable<UserDTO> /*async Task<IEnumerable<UserDTO>>*/ GetUsersByRole([FromQuery]string roleName)
         {
-            return await _userService.GetUsersByRole(roleName);
+            return _userService.GetUsersByRole(roleName).GetAwaiter().GetResult();
         }
 
         [Route("login")]

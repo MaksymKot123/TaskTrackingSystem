@@ -18,7 +18,6 @@ import { EmployeeComponent } from './EmployeeComponent/employee.component';
 import { ProjectComponent } from './project/project.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
-import { DeleteProjectComponent } from './delete-project/delete-project.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTasksComponent } from './view-tasks/view-tasks.component';
 import { AllUsersComponent } from './all-users/all-users.component';
@@ -54,7 +53,6 @@ const appRoutes: Routes = [
     ProjectComponent,
     AddProjectComponent,
     EditProjectComponent,
-    DeleteProjectComponent,
     AddTaskComponent,
     ViewTasksComponent,
     AllUsersComponent,

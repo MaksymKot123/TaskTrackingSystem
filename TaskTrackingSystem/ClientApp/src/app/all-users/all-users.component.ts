@@ -3,7 +3,10 @@ import { GetUsersByRoleService } from "src/app/Services/getUsersByRoleService";
 import { IUser } from '../Interfaces/iuser';
 
 const URL = "https://localhost:44351/account";
-const roles = ["Admin", "Manager", "Employee"];
+
+const ADMIN = "Admin";
+const MANAGER = "Manager";
+const EMPLOYEE = "Employee";
 
 @Component({
   selector: 'app-all-users',
@@ -14,19 +17,37 @@ export class AllUsersComponent implements OnInit {
 
   constructor(private usrService: GetUsersByRoleService) { }
 
-  users: IUser[] = [];
-  tempUsers: IUser[] = [];
+  admins: IUser[] = [];
+  employees: IUser[] = [];
+  managers: IUser[] = [];
 
 
   ngOnInit() {
-    for (let role of roles) {
-      this.showUsers(role);
-    }
+    this.getAdmins();
+    this.getManagers();
+    this.getEmployees();
   }
 
-  showUsers(roleName: string) {
-    let res = this.usrService.getUsers(URL, roleName).subscribe(x => this.tempUsers = x);
-    this.users.concat(this.tempUsers);
+  getAdmins() {
+    this.usrService.getUsers(URL, ADMIN).subscribe(x => this.admins = x);
   }
+
+  getManagers() {
+    this.usrService.getUsers(URL, MANAGER).subscribe(x => this.managers = x);
+  }
+
+  getEmployees() {
+    this.usrService.getUsers(URL, EMPLOYEE).subscribe(x => this.employees = x);
+  }
+
+
+
+  a() {
+    
+    console.log(this.admins);
+    console.log(this.employees);
+    console.log(this.managers);
+  }
+
 
 }
