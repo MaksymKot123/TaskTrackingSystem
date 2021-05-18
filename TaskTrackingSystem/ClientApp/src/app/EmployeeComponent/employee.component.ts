@@ -40,4 +40,8 @@ export class EmployeeComponent implements OnInit {
     localStorage.clear();
     this.router.navigateByUrl("");
   }
+
+  toogle(model: { val: boolean }) {
+    model.val = !model.val;
+  }
 }

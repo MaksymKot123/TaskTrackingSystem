@@ -23,23 +23,27 @@ import { ViewTasksComponent } from './view-tasks/view-tasks.component';
 import { AllUsersComponent } from './all-users/all-users.component';
 import { AddUsersToProjectComponent } from './add-users-to-project/add-users-to-project.component';
 import { ViewProjectsOfUserComponent } from './view-projects-of-user/view-projects-of-user.component';
+import { AllEmployeesComponent } from './all-employees/all-employees.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
   { path: '', component: ProjectComponent },
   { path: 'users', component: AllUsersComponent },
   //{ path: 'deleteproject', component: DeleteProjectComponent }
-]
+];
+
+const managerRoutes: Routes = [
+  { path: "", component: ProjectComponent },
+  { path: "users", component: AllEmployeesComponent }
+];
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'reg', component: RegisterComponent },
-  { path: 'manager', component: ManagerComponent },
+  { path: 'manager', component: ManagerComponent, children: managerRoutes },
   { path: 'admin', component: AdminComponent, children: adminRoutes },
-  { path: 'employee', component: EmployeeComponent },
+  { path: 'employee', component: EmployeeComponent  },
   { path: "**", component: NotFoundComponent },
-  //{ path: 'manager', component: ManagerComponent, children: managerRoutes },
-  //{ , children: employeeRoutes },
 ];
 
 
@@ -60,6 +64,7 @@ const appRoutes: Routes = [
     AllUsersComponent,
     AddUsersToProjectComponent,
     ViewProjectsOfUserComponent,
+    AllEmployeesComponent,
   ],
   imports: [
     BrowserModule,

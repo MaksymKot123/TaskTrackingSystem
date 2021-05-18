@@ -16,4 +16,12 @@ export class ManagerComponent {
     localStorage.clear();
     this.router.navigateByUrl("");
   }
+
+  showEmployees() {
+    this.router.navigateByUrl("manager/users");
+  }
+
+  showProject() {
+    this.router.navigateByUrl("manager");
+  }
 }

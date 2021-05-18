@@ -6,42 +6,26 @@ import { GetProjectsOfUserService } from '../Services/getProjectsOfUser';
 
 
 const URL = "https://localhost:44351/account";
-
-
-const ADMIN = "Admin";
-const MANAGER = "Manager";
 const EMPLOYEE = "Employee";
 
 @Component({
-  selector: 'app-all-users',
-  templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.css']
+  selector: 'all-employees',
+  templateUrl: './all-employees.component.html',
+  styleUrls: ['./all-employees.component.css']
 })
-export class AllUsersComponent implements OnInit {
+export class AllEmployeesComponent implements OnInit {
 
   constructor(private usrService: GetUsersByRoleService,
     private projService: GetProjectsOfUserService) { }
 
-  admins: IUser[] = [];
   employees: IUser[] = [];
-  managers: IUser[] = [];
 
   //projects: IProject[] = [];
 
 
 
   ngOnInit() {
-    this.getAdmins();
-    this.getManagers();
     this.getEmployees();
-  }
-
-  getAdmins() {
-    this.usrService.getUsers(URL, ADMIN).subscribe(x => this.admins = x);
-  }
-
-  getManagers() {
-    this.usrService.getUsers(URL, MANAGER).subscribe(x => this.managers = x);
   }
 
   getEmployees() {
@@ -51,4 +35,5 @@ export class AllUsersComponent implements OnInit {
   toogle(model: { val: boolean }) {
     model.val = !model.val;
   }
+
 }

@@ -20,4 +20,8 @@ export class AdminComponent {
   showUsersList() {
     this.router.navigateByUrl("admin/users");
   }
+
+  showProjectsList() {
+    this.router.navigateByUrl("admin");
+  }
 }
