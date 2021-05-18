@@ -21,7 +21,7 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTasksComponent } from './view-tasks/view-tasks.component';
 import { AllUsersComponent } from './all-users/all-users.component';
-import { AddUserstoProjectComponent } from './add-usersto-project/add-usersto-project.component';
+import { AddUsersToProjectComponent } from './add-users-to-project/add-users-to-project.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
@@ -57,7 +57,7 @@ const appRoutes: Routes = [
     AddTaskComponent,
     ViewTasksComponent,
     AllUsersComponent,
-    AddUserstoProjectComponent,
+    AddUsersToProjectComponent,
   ],
   imports: [
     BrowserModule,
