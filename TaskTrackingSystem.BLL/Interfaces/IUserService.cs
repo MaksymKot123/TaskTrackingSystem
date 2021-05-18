@@ -18,5 +18,6 @@ namespace TaskTrackingSystem.BLL
         void AddToProject(string projectName, UserDTO user);
         Task<UserDTO> Register(UserDTO user, string password);
         Task<UserDTO> Authenticate(UserDTO user, string password);
+        Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName);
     }
 }

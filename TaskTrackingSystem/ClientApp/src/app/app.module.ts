@@ -21,11 +21,12 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import { DeleteProjectComponent } from './delete-project/delete-project.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ViewTasksComponent } from './view-tasks/view-tasks.component';
+import { AllUsersComponent } from './all-users/all-users.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
   { path: '', component: ProjectComponent },
-  //{ path: 'addproject', component: AddProjectComponent },
+  { path: 'users', component: AllUsersComponent },
   //{ path: 'deleteproject', component: DeleteProjectComponent }
 ]
 
@@ -56,6 +57,7 @@ const appRoutes: Routes = [
     DeleteProjectComponent,
     AddTaskComponent,
     ViewTasksComponent,
+    AllUsersComponent,
   ],
   imports: [
     BrowserModule,

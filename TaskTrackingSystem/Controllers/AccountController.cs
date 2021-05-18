@@ -24,6 +24,13 @@ namespace TaskTrackingSystem.Controllers
             _userService = userService;
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
+        [HttpGet]
+        public async Task<IEnumerable<UserDTO>> GetUsersByRole([FromQuery]string roleName)
+        {
+            return await _userService.GetUsersByRole(roleName);
+        }
+
         [Route("login")]
         [HttpPost]
         public async  Task<ActionResult<string>> Login([FromBody] LoginView user)

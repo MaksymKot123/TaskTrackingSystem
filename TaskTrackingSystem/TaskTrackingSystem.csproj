@@ -41,6 +41,7 @@
     <None Remove="ClientApp\src\app\Interfaces\iproject.ts" />
     <None Remove="ClientApp\src\app\Interfaces\itask.ts" />
     <None Remove="ClientApp\src\app\Interfaces\itoken.ts" />
+    <None Remove="ClientApp\src\app\Interfaces\iuser.ts" />
     <None Remove="ClientApp\src\app\ManagerComponent\manager.component.ts" />
     <None Remove="ClientApp\src\app\RegisterComponent\board-user.component.ts" />
     <None Remove="ClientApp\src\app\RegisterComponent\profile.ts" />
@@ -54,6 +55,7 @@
     <None Remove="ClientApp\src\app\Services\getAllProjects.service.ts" />
     <None Remove="ClientApp\src\app\Services\getEmployeesProject.ts" />
     <None Remove="ClientApp\src\app\Services\getTasksOfProjectService.ts" />
+    <None Remove="ClientApp\src\app\Services\getUsersByRoleService.ts" />
     <None Remove="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <None Remove="ClientApp\src\app\Services\jwtParse.service.ts" />
     <None Remove="ClientApp\src\app\Services\Project.service.ts" />
@@ -73,6 +75,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces\iproject.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces\itask.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces\itoken.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Interfaces\iuser.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\LoginComponent\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\ManagerComponent\manager.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\addNewProject.service.ts" />
@@ -81,6 +84,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\Services\editProject.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\getEmployeesProject.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\getTasksOfProjectService.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\getUsersByRoleService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\Project.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\getAllProjects.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\jwtParse.service.ts" />

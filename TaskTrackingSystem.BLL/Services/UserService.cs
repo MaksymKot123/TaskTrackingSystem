@@ -30,6 +30,12 @@ namespace TaskTrackingSystem.BLL.Services
             _jwtGenerator = jwt;
         }
 
+        public async Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName)
+        {
+            var users = await _unitOfWork.UserManager.GetUsersInRoleAsync(roleName);
+            return _mapper.Map<IEnumerable<UserDTO>>(users);
+        }
+
         public async Task<UserDTO> Authenticate(UserDTO user, string password)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
