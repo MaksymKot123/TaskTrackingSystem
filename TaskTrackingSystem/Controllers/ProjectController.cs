@@ -41,11 +41,10 @@ namespace TaskTrackingSystem.Controllers
                 Status = x.Status.ToString()
             });
         }
-        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpGet]
         public IEnumerable<ProjectView> GetEmployeesProjects(string email)
         {
-
             var projects = _projService.GetAllProjects()
                 .Where(x => x.Employees
                 .Any(x => x.Email.Equals(email)))

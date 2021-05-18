@@ -4,7 +4,7 @@ import { HttpClient, HttpClientModule, HttpParams } from "@angular/common/http";
 import { RegistrationService } from "../Services/registration.service";
 import { OnInit } from "@angular/core";
 
-const URL = "https://localhost:44351/register/";
+const URL = "https://localhost:44351/account";
 
 @Component({
   selector: 'register',

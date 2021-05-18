@@ -15,16 +15,16 @@ namespace TaskTrackingSystem.Controllers
     [Route("[controller]")]
     [AllowAnonymous]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
 
-        public LoginController(IUserService userService)
+        public AccountController(IUserService userService)
         {
             _userService = userService;
         }
 
-        [Route("/account/login")]
+        [Route("login")]
         [HttpPost]
         public async  Task<ActionResult<string>> Login([FromBody] LoginView user)
         {
@@ -37,6 +37,27 @@ namespace TaskTrackingSystem.Controllers
             if (res == null)
                 return Unauthorized(new { message = "Incorrect email or password" });
             else return Ok(res.Token);
+        }
+
+        //[HttpGet]
+        //public IEnumerable<ProjectView> GetEmployeesProjects(string employeeEmail)
+        //{
+            
+        //}
+
+        [HttpPost]
+        public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterView user)
+        {
+            var usr = new UserDTO()
+            {
+                Email = user.Email,
+                Name = user.Name,
+            };
+
+            var responce = await _userService.Register(usr, user.Password);
+            if (responce == null)
+                return BadRequest();
+            else return responce;
         }
     }
 }

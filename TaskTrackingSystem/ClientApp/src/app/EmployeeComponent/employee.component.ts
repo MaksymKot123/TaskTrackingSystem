@@ -13,6 +13,10 @@ export class EmployeeComponent {
     }
   }
 
+  showProject() {
+
+  }
+
   signOut() {
     localStorage.clear();
     this.router.navigateByUrl("");
