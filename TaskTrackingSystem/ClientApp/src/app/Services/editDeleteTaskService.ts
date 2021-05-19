@@ -30,17 +30,31 @@ export class EditDeleteTaskService {
 
   deleteTask(url: string, projName: string, taskName: string, description: string,
     status: string, startTime: string, endTime: string) {
-    const params = new HttpParams()
-      .set("TaskName", taskName)
-      .set("ProjName", projName)
-      .set("StartTime", startTime)
-      .set("EndTime", endTime)
-      .set("Status", status)
-      .set("Description", description);
+    //const params = new HttpParams()
+    //  .set("TaskName", taskName)
+    //  .set("ProjName", projName)
+    //  .set("StartTime", startTime)
+    //  .set("EndTime", endTime)
+    //  .set("Status", status)
+    //  .set("Description", description);
 
-    return this.http.delete(url, {
-      headers: headers,
-      params: params
+    const body = {
+      "TaskName": taskName,
+      "ProjName": projName,
+      "StartTime": startTime,
+      "EndTime": endTime,
+      "Status": status,
+      "Description": description
+    };
+
+    return this.http.request("delete", url, {
+      body: body,
+      headers: headers
     });
+
+    //return this.http.delete(url, {
+    //  headers: headers,
+    //  params: params
+    //});
   }
 }

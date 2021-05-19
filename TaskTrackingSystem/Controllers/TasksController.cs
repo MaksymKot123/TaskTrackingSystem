@@ -30,7 +30,7 @@ namespace TaskTrackingSystem.Controllers
             var newTask = new TaskDTO()
             {
                 Description = task.Description,
-                Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),
+                Status = BLL.Enums.StatusDTO.Started,
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
@@ -73,7 +73,7 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete("project")]
-        public void DeleteTaskInProject([FromHeader] TaskView task)
+        public void DeleteTaskInProject([FromBody] TaskView task)
         {
             var taskDTO = new TaskDTO()
             {
