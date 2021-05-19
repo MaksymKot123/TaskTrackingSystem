@@ -5,6 +5,7 @@ using System.Linq;
 using TaskTrackingSystem.DAL.Models;
 using TaskTrackingSystem.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using TaskTrackingSystem.DAL.UpdatePercentOfCompletionAndStatus;
 
 namespace TaskTrackingSystem.DAL.Repositories
 {
@@ -83,7 +84,9 @@ namespace TaskTrackingSystem.DAL.Repositories
                 return null;
             else
             {
-                return db.Tasks.Include(x => x.Project)
+                return db.Tasks
+                    .Include(x => x.Project)
+                    .ThenInclude(x => x.Tasks)
                     .FirstOrDefault(x => x.TaskName.Equals(taskName) &&
                     x.Project.Name.Equals(projName));
             }

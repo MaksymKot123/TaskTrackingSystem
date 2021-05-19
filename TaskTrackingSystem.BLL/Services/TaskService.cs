@@ -8,6 +8,7 @@ using TaskTrackingSystem.BLL;
 using TaskTrackingSystem.BLL.Interfaces;
 using AutoMapper;
 using System.Linq;
+using TaskTrackingSystem.DAL.UpdatePercentOfCompletionAndStatus;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -63,7 +64,8 @@ namespace TaskTrackingSystem.BLL.Services
 
         public void Change(TaskDTO task)
         {
-            var tsk = _mapper.Map<TaskProject>(task);
+            var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);
+            tsk.Status = _mapper.Map<DAL.Enums.Status>(task.Status);
             _unitOfWork.TaskRepo.Edit(tsk);
             _unitOfWork.SaveChanges();
         }
