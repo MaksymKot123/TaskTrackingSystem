@@ -13,6 +13,8 @@ export class ViewTasksComponent implements OnInit {
 
   constructor(private taskServ: GetTasksFromProjectService) { }
 
+  readonly Role = localStorage.getItem("role");
+
   ngOnInit() {
     this.showTasks();
   }

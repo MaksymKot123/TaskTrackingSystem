@@ -12,6 +12,13 @@
     <td>{{task.startTime | date: "medium":"UTC" }}</td>
     <td>{{task.endTime | date: "medium":"UTC" }}</td>
     <td>{{task.description}}</td>
+    <td *ngIf="this.Role !== 'Employee'"><button>Edit</button></td>
+    <td *ngIf="this.Role === 'Employee' && task.status !== 'Completed'">
+      <button>Change status to "Completed"</button>
+    </td>
+    <td *ngIf="this.Role !== 'Employee'">
+      <button>Delete</button>
+    </td>
   </tr>
 </table>
 <button (click)="closeForm({ val: true })">Hide</button>

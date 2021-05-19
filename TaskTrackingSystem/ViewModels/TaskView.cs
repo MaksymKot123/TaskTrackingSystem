@@ -15,7 +15,7 @@ namespace TaskTrackingSystem.ViewModels
         public DateTime StartTime { get; set; }
         [Required]
         public DateTime EndTime { get; set; }
-        public BLL.Enums.StatusDTO Status { get; set; }
+        public string Status { get; set; }
         public string Description { get; set; }
     }
 }

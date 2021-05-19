@@ -30,10 +30,11 @@ namespace TaskTrackingSystem.Controllers
             var newTask = new TaskDTO()
             {
                 Description = task.Description,
-                Status = task.Status,
+                Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
+                Project = new ProjectDTO() { Name = task.ProjName }
             };
             _taskService.AddToProject(task.ProjName, newTask);
         }
@@ -49,7 +50,7 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = x.EndTime,
                 ProjName = x.Project.Name,
                 StartTime = x.StartTime,
-                Status = x.Status,
+                Status = x.Status.ToString(),
                 TaskName = x.TaskName
             });
         }
@@ -61,26 +62,27 @@ namespace TaskTrackingSystem.Controllers
             var changedTask = new TaskDTO()
             {
                 Description = task.Description,
-                Status = task.Status,
+                Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),//BLL.Enums.StatusDTO(task.Status),
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
-                
+                Project = new ProjectDTO() { Name = task.ProjName }
             };
             _taskService.Change(changedTask);
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete("project")]
-        public void DeleteTaskInProject([FromBody] TaskView task)
+        public void DeleteTaskInProject([FromHeader] TaskView task)
         {
             var taskDTO = new TaskDTO()
             {
                 Description = task.Description,
-                Status = task.Status,
+                Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
+                Project = new ProjectDTO() { Name = task.ProjName }
             };
             _taskService.Delete(taskDTO);
         }

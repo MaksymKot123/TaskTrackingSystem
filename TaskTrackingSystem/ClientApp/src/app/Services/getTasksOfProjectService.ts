@@ -31,6 +31,7 @@ export class GetTasksFromProjectService {
       return arr.map(function (task: ITask) {
         let res: ITask = {
           taskName: task.taskName,
+          projName: task.projName,
           description: task.description,
           endTime: task.endTime,
           startTime: task.startTime,

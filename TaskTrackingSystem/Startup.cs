@@ -107,7 +107,6 @@ namespace TaskTrackingSystem
             {
                 opt.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser()
-                //.RequireRole("Admin", "Employee", "Manager")
                 .Build();
             });
 
@@ -124,11 +123,6 @@ namespace TaskTrackingSystem
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             IdentityModelEventSource.ShowPII = false;
-
-            //var routeBuilder = new RouteBuilder(app);
-
-            //routeBuilder.MapRoute("default", "{controller}/{action}", 
-            //    new { controller="project", action="get" });
 
             if (env.IsDevelopment())
             {

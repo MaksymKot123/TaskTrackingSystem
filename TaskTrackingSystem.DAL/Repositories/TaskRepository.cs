@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TaskTrackingSystem.DAL.Repositories
 {
-    public class TaskRepository : IRepository<TaskProject>
+    public class TaskRepository : ITaskRepository
     {
         public DatabaseContext db { get; set; }
 
@@ -20,7 +20,9 @@ namespace TaskTrackingSystem.DAL.Repositories
         public void Create(TaskProject item)
         {
             var entity = db.Tasks
-                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName));
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) && 
+                x.Project.Name.Equals(item.Project.Name));
+
             if (entity == null)
             {
                 db.Tasks.Add(item);
@@ -32,7 +34,9 @@ namespace TaskTrackingSystem.DAL.Repositories
         public void Delete(TaskProject item)
         {
             var entity = db.Tasks
-                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName));
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) && 
+                x.Project.Name.Equals(item.Project.Name));
+
             if (entity != null)
             {
                 db.Tasks.Remove(entity);
@@ -44,7 +48,8 @@ namespace TaskTrackingSystem.DAL.Repositories
         public void Edit(TaskProject item)
         {
             var entity = db.Tasks
-                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName));
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) &&
+                x.Project.Name.Equals(item.Project.Name));
 
             if (entity != null)
             {
@@ -70,6 +75,18 @@ namespace TaskTrackingSystem.DAL.Repositories
             else
                 return db.Tasks.Include(x => x.Project)
                     .FirstOrDefault(x => x.TaskName.Equals(name));
+        }
+
+        public TaskProject GetWithDetails(string taskName, string projName)
+        {
+            if (taskName == null || projName == null)
+                return null;
+            else
+            {
+                return db.Tasks.Include(x => x.Project)
+                    .FirstOrDefault(x => x.TaskName.Equals(taskName) &&
+                    x.Project.Name.Equals(projName));
+            }
         }
 
         public IEnumerable<TaskProject> GetAll() 

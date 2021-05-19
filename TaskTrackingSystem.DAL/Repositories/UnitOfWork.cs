@@ -16,7 +16,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         private UserManager<User> userManager;
         private RoleManager<IdentityRole> roleManager;
         private SignInManager<User> signInManager;
-        private IRepository<TaskProject> taskRepo;
+        private ITaskRepository taskRepo;
         private IRepository<Project> projectRepo;
 
         private bool disposedValue;
@@ -47,7 +47,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             get => signInManager;
         }
 
-        public IRepository<TaskProject> TaskRepo
+        public ITaskRepository TaskRepo
         {
             get => taskRepo ??= new TaskRepository(db);
         }

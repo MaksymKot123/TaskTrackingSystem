@@ -63,13 +63,14 @@ namespace TaskTrackingSystem.BLL.Services
 
         public void Change(TaskDTO task)
         {
-            _unitOfWork.TaskRepo.Edit(_mapper.Map<TaskProject>(task));
+            var tsk = _mapper.Map<TaskProject>(task);
+            _unitOfWork.TaskRepo.Edit(tsk);
             _unitOfWork.SaveChanges();
         }
 
         public void Delete(TaskDTO task)
         {
-            var tsk = _unitOfWork.TaskRepo.Get(task.TaskName);
+            var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);
             if (tsk != null)
             {
                 _unitOfWork.TaskRepo.Delete(tsk);
