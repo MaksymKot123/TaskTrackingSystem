@@ -24,7 +24,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (project == null)
             {
                 db.Projects.Add(item);
-                db.SaveChanges();
             }
             
         }
@@ -37,7 +36,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             {
 
                 db.Projects.Remove(project);
-                db.SaveChanges();
             }
         }
 
@@ -48,7 +46,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (project != null)
             {
                 db.Entry(project).State = EntityState.Modified;
-                db.SaveChanges();
             }
             
         }

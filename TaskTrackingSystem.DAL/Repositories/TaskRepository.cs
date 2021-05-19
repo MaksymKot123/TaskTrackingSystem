@@ -27,7 +27,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (entity == null)
             {
                 db.Tasks.Add(item);
-                db.SaveChanges();
             }
             
         }
@@ -41,7 +40,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (entity != null)
             {
                 db.Tasks.Remove(entity);
-                db.SaveChanges();
             }
             
         }
@@ -60,7 +58,6 @@ namespace TaskTrackingSystem.DAL.Repositories
                 entity.Description = item.Description;
                 
                 db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
             } 
         }
 
@@ -93,6 +90,6 @@ namespace TaskTrackingSystem.DAL.Repositories
         }
 
         public IEnumerable<TaskProject> GetAll() 
-            => db.Tasks.Include(x => x.Project);
+            => db.Tasks.Include(x => x.Project).ThenInclude(x => x.Tasks);
     }
 }

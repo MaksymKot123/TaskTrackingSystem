@@ -60,9 +60,9 @@ namespace TaskTrackingSystem.DAL.Repositories
         public void SaveChanges()
         {
             db.SaveChanges();
-            UpdatePercentOfCompletionAndStatus
-                    .UpdatePercentOfCompletionAndStatus
-                    .UpdateInfo(db);
+            //UpdatePercentOfCompletionAndStatus
+            //        .UpdatePercentOfCompletionAndStatus
+            //        .UpdateInfo(db);
         }
 
         protected virtual void Dispose(bool disposing)

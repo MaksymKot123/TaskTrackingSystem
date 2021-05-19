@@ -22,7 +22,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (entity != null)
             {
                 db.Users.Add(item);
-                db.SaveChanges();
             }
         }
 
@@ -32,7 +31,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (entity != null)
             {
                 db.Users.Remove(entity);
-                db.SaveChanges();
             }
                 
         }
@@ -44,7 +42,6 @@ namespace TaskTrackingSystem.DAL.Repositories
             {
                 entity.Name = item.Name;
                 db.Entry(entity).State = EntityState.Modified;
-                db.SaveChanges();
             }
             
         }
