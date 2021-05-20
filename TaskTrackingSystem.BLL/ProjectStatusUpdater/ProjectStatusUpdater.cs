@@ -5,8 +5,9 @@ using System.Text;
 using TaskTrackingSystem.DAL.Interfaces;
 using TaskTrackingSystem.DAL.Enums;
 using Microsoft.EntityFrameworkCore;
+using TaskTrackingSystem.BLL.EmailSender;
 
-namespace TaskTrackingSystem.BLL
+namespace TaskTrackingSystem.BLL.ProjectStatusUpdater
 {
     public static class ProjectStatusUpdater
     {
@@ -17,24 +18,12 @@ namespace TaskTrackingSystem.BLL
                 if (proj.Tasks == null)
                     continue;
 
-                if (proj.Tasks.Count > 0)
+                if (proj.Tasks.Count > 0 && !proj.Status.Equals(Status.Completed))
                 {
                     var oldStatus = proj.Status;
                     var completedTasksCount = proj.Tasks
                         .Count(x => x.Status.Equals(Status.Completed));
                     var tasksCount = proj.Tasks.Count;
-                    if (proj.Status.Equals(Status.Completed))
-                    {
-                        var uncompletedTasksCount = tasksCount - completedTasksCount;
-                        if (uncompletedTasksCount > 0)
-                        {
-                            proj.PercentCompletion = 100.0 * completedTasksCount / tasksCount;
-                            proj.Status = Status.OnProgress;
-                            uow.ProjectRepo.Edit(proj);//Entry(proj).State = EntityState.Modified;
-                            uow.SaveChanges();
-                            return;
-                        }
-                    }
 
                     var oldPercent = proj.PercentCompletion;
 
@@ -45,14 +34,15 @@ namespace TaskTrackingSystem.BLL
 
                         proj.Status = Status.Completed;
                         uow.ProjectRepo.Edit(proj);
+                        EmailSender.EmailSender.SendEmail(proj.ClientEmail, proj.Status);
                     }
                     else if (oldPercent < proj.PercentCompletion &&
                         proj.Status.Equals(Status.Started))
                     {
                         proj.Status = Status.OnProgress;
                         uow.ProjectRepo.Edit(proj);
+                        EmailSender.EmailSender.SendEmail(proj.ClientEmail, proj.Status);
                     }
-                    //context.Entry(proj).State = EntityState.Modified;
                     uow.SaveChanges();
                 }
             }

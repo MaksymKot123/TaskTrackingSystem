@@ -8,6 +8,7 @@ using TaskTrackingSystem.BLL;
 using TaskTrackingSystem.BLL.Interfaces;
 using AutoMapper;
 using System.Linq;
+using TaskTrackingSystem.BLL.EmailSender;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -76,6 +77,8 @@ namespace TaskTrackingSystem.BLL.Services
         {
             _unifOfWork.ProjectRepo.Create(_mapper.Map<Project>(project));
             _unifOfWork.SaveChanges();
+            var newProj = _unifOfWork.ProjectRepo.Get(project.Name);
+            EmailSender.EmailSender.SendEmail(newProj.ClientEmail, newProj.Status);
         }
 
         public ProjectDTO GetProject(string name)

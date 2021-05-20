@@ -8,8 +8,7 @@ using TaskTrackingSystem.BLL;
 using TaskTrackingSystem.BLL.Interfaces;
 using AutoMapper;
 using System.Linq;
-using TaskTrackingSystem.BLL;
-using TaskTrackingSystem.DAL.UpdatePercentOfCompletionAndStatus;
+using TaskTrackingSystem.BLL.ProjectStatusUpdater;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -48,8 +47,7 @@ namespace TaskTrackingSystem.BLL.Services
                 {
                     var newTask = _mapper.Map<TaskProject>(task);
                     proj.Tasks.Add(newTask);
-                    ProjectStatusUpdater.UpdateInfo(_unitOfWork);
-                    //_unitOfWork.SaveChanges();
+                    ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
                 }
             }    
         }
@@ -59,8 +57,7 @@ namespace TaskTrackingSystem.BLL.Services
             var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);
             tsk.Status = _mapper.Map<DAL.Enums.Status>(task.Status);
             _unitOfWork.TaskRepo.Edit(tsk);
-            ProjectStatusUpdater.UpdateInfo(_unitOfWork);
-            //_unitOfWork.SaveChanges();
+            ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
         }
 
         public void Delete(TaskDTO task)
@@ -69,8 +66,7 @@ namespace TaskTrackingSystem.BLL.Services
             if (tsk != null)
             {
                 _unitOfWork.TaskRepo.Delete(tsk);
-                ProjectStatusUpdater.UpdateInfo(_unitOfWork);
-                //_unitOfWork.SaveChanges();
+                ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
             }
             
         }
