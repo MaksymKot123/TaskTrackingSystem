@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TaskTrackingSystem.BLL;
 using TaskTrackingSystem.BLL.DTO;
+using TaskTrackingSystem.BLL.Exceptions;
 using TaskTrackingSystem.ViewModels;
 
 namespace TaskTrackingSystem.Controllers
@@ -33,21 +34,27 @@ namespace TaskTrackingSystem.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<ActionResult<string>> Login([FromBody] LoginView user)
+        public async Task<IActionResult> Login([FromBody] LoginView user)
         {
             var usr = new UserDTO()
             {
                 Email = user.Email,
             };
 
-            var res = await _userService.Authenticate(usr, user.Password);
-            if (res == null)
-                return Unauthorized("Incorrect email or password");
-            else return Ok(res.Token);
+            try
+            {
+                var res = await _userService.Authenticate(usr, user.Password);
+                return Ok(res.Token);
+            }
+            catch(UserException e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterView user)
+        public async Task<IActionResult> Register([FromBody] RegisterView user)
         {
             var usr = new UserDTO()
             {
@@ -55,10 +62,15 @@ namespace TaskTrackingSystem.Controllers
                 Name = user.Name,
             };
 
-            var responce = await _userService.Register(usr, user.Password);
-            if (responce == null)
-                return StatusCode(409, "This email is already taken");//BadRequest("This email is already taken");
-            else return responce;
+            try
+            {
+                var responce = await _userService.Register(usr, user.Password);
+                return Ok();
+            }
+            catch(UserException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost("addtoproject")]
@@ -69,9 +81,13 @@ namespace TaskTrackingSystem.Controllers
                 _userService.AddToProject(projName, user);
                 return Ok();
             }
-            catch(Exception e) 
+            catch(UserException e) 
             { 
-                return BadRequest(); 
+                return BadRequest(e.Message); 
+            }
+            catch (ProjectException e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }

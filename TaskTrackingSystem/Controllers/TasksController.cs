@@ -42,7 +42,11 @@ namespace TaskTrackingSystem.Controllers
                 _taskService.AddToProject(task.ProjName, newTask);
                 return Ok();
             }
-            catch(ProjectException e)
+            catch (ProjectException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (TaskException e)
             {
                 return BadRequest(e.Message);
             }
@@ -106,7 +110,7 @@ namespace TaskTrackingSystem.Controllers
                 _taskService.Delete(taskDTO);
                 return Ok();
             }
-            catch(ProjectException e)
+            catch(TaskException e)
             {
                 return BadRequest(e.Message);
             } 

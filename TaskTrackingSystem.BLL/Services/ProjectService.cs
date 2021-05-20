@@ -84,10 +84,18 @@ namespace TaskTrackingSystem.BLL.Services
 
         public void AddProject(ProjectDTO project)
         {
-            _unifOfWork.ProjectRepo.Create(_mapper.Map<Project>(project));
-            _unifOfWork.SaveChanges();
-            var newProj = _unifOfWork.ProjectRepo.Get(project.Name);
-            EmailSender.EmailSender.SendEmail(newProj.ClientEmail, newProj.Status);
+            var proj = _unifOfWork.ProjectRepo.Get(project.Name);
+            if (proj == null)
+            {
+                _unifOfWork.ProjectRepo.Create(_mapper.Map<Project>(project));
+                _unifOfWork.SaveChanges();
+                var newProj = _unifOfWork.ProjectRepo.Get(project.Name);
+                EmailSender.EmailSender.SendEmail(newProj.ClientEmail, newProj.Status);
+            }
+            else
+            {
+                throw new ProjectException("Please use other name for project");
+            }
         }
 
         public ProjectDTO GetProject(string name)

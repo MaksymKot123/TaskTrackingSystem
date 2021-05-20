@@ -75,7 +75,7 @@ namespace TaskTrackingSystem.BLL.Services
         {
             if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(newUser.Email)))
             {
-                return null;
+                throw new UserException("This email is already taken");
             }
             else
             {
@@ -117,11 +117,11 @@ namespace TaskTrackingSystem.BLL.Services
                             Role = role,
                         };
                     }
-                    else return null;
+                    else throw new UserException("Error");
                 }
                 else
                 {
-                    return null;
+                    throw new UserException("Incorrect format of password");
                 }
             }
         }
