@@ -128,30 +128,20 @@ namespace TaskTrackingSystem.BLL.Services
 
         public async void AddToProject(string projectName, UserDTO user)
         {
+            var proj = _unitOfWork.ProjectRepo.Get(projectName);
             var userFromDatabase = _unitOfWork.GetUserWithDetails(user.Email);
 
-            if (userFromDatabase != null)
-            {
-                var proj = _unitOfWork.ProjectRepo.Get(projectName);
-                if (proj != null)
-                {
-                    if (proj.Employees.Contains(userFromDatabase))
-                        throw new ProjectException("User has already this project");
-
-                    proj.Employees.Add(userFromDatabase);
-                    userFromDatabase.Projects.Add(proj);
-                    _unitOfWork.SaveChanges();
-                }
-                else
-                {
-                    throw new ProjectException("Project not found");
-                }
-                    
-            }
-            else
-            {
+            if (proj == null)
+                throw new ProjectException("Project not found");
+            if (userFromDatabase == null)
                 throw new UserException("User not found");
-            }
+
+            if (proj.Employees.Contains(userFromDatabase))
+                throw new ProjectException("User has already this project");
+          
+            proj.Employees.Add(userFromDatabase);
+            userFromDatabase.Projects.Add(proj);
+            _unitOfWork.SaveChanges();
         }
 
         public async void DeleteUser(UserDTO user)

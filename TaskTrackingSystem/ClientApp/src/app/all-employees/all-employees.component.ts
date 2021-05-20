@@ -19,9 +19,7 @@ export class AllEmployeesComponent implements OnInit {
     private projService: GetProjectsOfUserService) { }
 
   employees: IUser[] = [];
-
-  //projects: IProject[] = [];
-
+  error: any;
 
 
   ngOnInit() {
@@ -29,11 +27,11 @@ export class AllEmployeesComponent implements OnInit {
   }
 
   getEmployees() {
-    this.usrService.getUsers(URL, EMPLOYEE).subscribe(x => this.employees = x);
+    this.usrService.getUsers(URL, EMPLOYEE).subscribe(x => this.employees = x,
+      error => { this.error = error });
   }
 
   toogle(model: { val: boolean }) {
     model.val = !model.val;
   }
-
 }

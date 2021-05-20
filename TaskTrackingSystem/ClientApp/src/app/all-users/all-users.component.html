@@ -10,13 +10,18 @@
 <div *ngFor="let employee of employees">
   <p>{{employee.email}} | {{employee.name}}</p>
   <button *ngIf="employee.viewProjects.val" (click)="toogle(employee.viewProjects)">
-    See projects</button>
+    See projects
+  </button>
   <button *ngIf="employee.addToProject.val" (click)="toogle(employee.addToProject)">
     Add to project
   </button>
+  <div *ngIf="error != undefined" class="alert alert-danger">
+    {{error.error}}
+  </div>
   <add-user-to-project [userEmail]="employee.email" [(addToProject)]="employee.addToProject"
-    *ngIf="!employee.addToProject.val"></add-user-to-project>
+                       *ngIf="!employee.addToProject.val"></add-user-to-project>
   <view-projects-of-user [userEmail]="employee.email" *ngIf="!employee.viewProjects.val"
-    [(viewProjects)]="employee.viewProjects"> 
+                         [(viewProjects)]="employee.viewProjects">
   </view-projects-of-user>
 </div>
+

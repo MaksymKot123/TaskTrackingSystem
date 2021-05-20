@@ -17,6 +17,8 @@ export class AddTaskComponent implements OnInit {
   @Output() addTaskChange = new EventEmitter<{ val: boolean }>();
   isClosedForm = false;
 
+  error: any;
+
   constructor(private taskServ: AddNewTaskService, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -32,7 +34,9 @@ export class AddTaskComponent implements OnInit {
     const description = this.myForm.controls["description"].value;
     const deadline = this.myForm.controls["endTime"].value;
 
-    this.taskServ.addNewTask(URL, this.projName, name, deadline, description).subscribe();
+    this.taskServ.addNewTask(URL, this.projName, name, deadline, description).subscribe(null,
+      error => { this.error = error });
+
     this.ngOnInit();
   }
 

@@ -25,6 +25,7 @@ export class AllUsersComponent implements OnInit {
   admins: IUser[] = [];
   employees: IUser[] = [];
   managers: IUser[] = [];
+  error: any;
 
   //projects: IProject[] = [];
 
@@ -37,15 +38,18 @@ export class AllUsersComponent implements OnInit {
   }
 
   getAdmins() {
-    this.usrService.getUsers(URL, ADMIN).subscribe(x => this.admins = x);
+    this.usrService.getUsers(URL, ADMIN).subscribe(x => this.admins = x,
+      error => { this.error = error });
   }
 
   getManagers() {
-    this.usrService.getUsers(URL, MANAGER).subscribe(x => this.managers = x);
+    this.usrService.getUsers(URL, MANAGER).subscribe(x => this.managers = x,
+      error => { this.error = error });
   }
 
   getEmployees() {
-    this.usrService.getUsers(URL, EMPLOYEE).subscribe(x => this.employees = x);
+    this.usrService.getUsers(URL, EMPLOYEE).subscribe(x => this.employees = x,
+      error => { this.error = error });
   }
 
   toogle(model: { val: boolean }) {

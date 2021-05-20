@@ -17,6 +17,7 @@ export class AddProjectComponent implements OnInit {
   isClosedForm = false;
 
   myForm: FormGroup;
+  error: any;
   readonly URL: string;
 
   constructor(private fb: FormBuilder, private projServ: AddNewProjectService) {
@@ -41,7 +42,7 @@ export class AddProjectComponent implements OnInit {
     const description = this.myForm.controls["description"].value;
 
     let responce = this.projServ.addNewProject("project/", projectName, deadLine,
-      clientEmail, description).subscribe();
+      clientEmail, description).subscribe(null, error => { this.error = error });
     console.log(responce);
   }
 

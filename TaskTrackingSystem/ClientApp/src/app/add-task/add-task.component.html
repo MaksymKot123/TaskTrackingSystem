@@ -27,5 +27,7 @@
     </button>
   </div>
 </form>
-
+<div *ngIf="error != undefined" class="alert alert-danger">
+  {{error.error}}
+</div>
 <button (click)="closeForm({val: true})">Close</button>

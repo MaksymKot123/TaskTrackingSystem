@@ -30,8 +30,10 @@
       Edit
     </button>
   </div>
+  <div *ngIf="error != undefined" class="alert alert-danger">
+    {{error.error}}
+  </div>
   <div>
     <button class="btn-primary" (click)="closeForm({val: true})">Hide</button>
   </div>
-
 </form>

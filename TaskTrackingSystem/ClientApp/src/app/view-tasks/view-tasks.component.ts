@@ -27,9 +27,11 @@ export class ViewTasksComponent implements OnInit {
   isClosedForm = false;
 
   tasks: ITask[];
+  error: any;
 
   showTasks() {
-    this.taskServ.getTasks(URL, this.projectName).subscribe(x => this.tasks = x);
+    this.taskServ.getTasks(URL, this.projectName).subscribe(x => this.tasks = x,
+      error => { this.error = error });
   }
 
   closeForm(value: { val: boolean }) {
@@ -41,13 +43,13 @@ export class ViewTasksComponent implements OnInit {
   delete(taskName: string, projName: string, description: string, status: string,
     startTime: string, endTime: string  ) {
     this.editDeleteTasKServ.deleteTask(URL + "/project/", projName, taskName, description,
-      status, startTime, endTime).subscribe();
+      status, startTime, endTime).subscribe(null, error => { this.error = error });
   }
 
   edit(taskName: string, projName: string, description: string, status: string,
     startTime: string, endTime: string) {
     this.editDeleteTasKServ.editTask(URL, projName, taskName, description,
-      status, startTime, endTime).subscribe();
+      status, startTime, endTime).subscribe(null, error => { this.error = error });
   }
 
 }

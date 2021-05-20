@@ -1,27 +1,42 @@
-<table>
-  <tr>
-    <th>Task's name</th>
-    <th>Status</th>
-    <th>Start time</th>
-    <th>Deadline</th>
-    <th>Description</th>
-  </tr>
-  <tr *ngFor="let task of tasks">
-    <td>{{task.taskName}}</td>
-    <td>{{task.status}}</td>
-    <td>{{task.startTime | date: "medium":"UTC" }}</td>
-    <td>{{task.endTime | date: "medium":"UTC" }}</td>
-    <td>{{task.description}}</td>
-    <td *ngIf="this.Role === 'Employee' && task.status !== 'Completed'">
-      <button (click)="edit(task.taskName, task.projName, task.description,
-        'Completed', task.startTime, task.endTime)">
-        Change status to "Completed"
-      </button>
-    </td>
-    <td *ngIf="this.Role !== 'Employee'">
-      <button (click)="delete(task.taskName, task.projName, task.description,
-        task.status, task.startTime, task.endTime)" *ngIf="task.status !== 'Completed'">Delete</button>
-    </td>
-  </tr>
-</table>
-<button (click)="closeForm({ val: true })">Hide</button>
+<div *ngFor="let task of tasks" class="card">
+  <div class="card-body">
+    <h4 class="card-title">Task's name: {{task.taskName}}</h4>
+    <h5 class="card-title">Status: {{task.status}}</h5>
+    <h5 class="card-title">Start time: {{task.startTime | date: "medium":"UTC" }}</h5>
+    <h5 class="card-title">Deadline: {{task.endTime | date: "medium":"UTC" }}</h5>
+    <h5 class="card-title">Description: {{task.description}}</h5>
+
+    <button *ngIf="this.Role === 'Employee' && task.status !== 'Completed'"
+            (click)="edit(task.taskName, task.projName, task.description,
+        'Completed', task.startTime, task.endTime)" class="btn btn-success">
+      Change status to "Completed"
+    </button>
+
+    <button *ngIf="this.Role !== 'Employee' && task.status !== 'Completed'"
+      (click)="delete(task.taskName, task.projName, task.description,
+      task.status, task.startTime, task.endTime)" class="btn btn-danger">
+      Delete
+    </button>
+    <!--<button class="btn-primary btn" type="button" (click)="toogle(proj.editProject)"
+          *ngIf="proj.editProject.val && proj.status !== 'Completed'">
+    Edit
+  </button>
+
+  <button type="button" class="btn btn-danger" (click)="delete(proj.name)"
+          *ngIf="proj.status !== 'Completed'">
+    Delete
+  </button>
+  <button class="btn btn-primary" type="button" (click)="toogle(proj.addTask)"
+          *ngIf="proj.addTask.val && proj.status !== 'Completed'">
+    Add new task
+  </button>
+  <button class="btn btn-primary" type="button" (click)="toogle(proj.showTasks)"
+          *ngIf="proj.showTasks.val">
+    Show tasks
+  </button>-->
+    <div *ngIf="error != undefined" class="alert alert-danger">
+      {{error.error}}
+    </div>
+  </div>
+</div>
+<button (click)="closeForm({ val: true })" class="btn btn-primary">Hide</button>

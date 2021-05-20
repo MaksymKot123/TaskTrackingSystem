@@ -25,6 +25,7 @@ export class ProjectComponent implements OnInit {
 
   addProject = true;
   showTasks = false;
+  error: any;
 
   constructor(private getProjService: GetAllProjectsService,
     private delProjService: DeleteProjectService) { }
@@ -43,7 +44,8 @@ export class ProjectComponent implements OnInit {
 
 
   getProjects() {
-    this.getProjService.getAllProjects(URL).subscribe(x => this.projects = x);
+    this.getProjService.getAllProjects(URL).subscribe(x => this.projects = x,
+      error => { this.error = error });
   }
 
   toogle(model: { val: boolean }) {
@@ -51,7 +53,8 @@ export class ProjectComponent implements OnInit {
   }
 
   delete(name: string) {
-    let responce = this.delProjService.delete("project", name).subscribe();
+    let responce = this.delProjService.delete("project", name).subscribe(null,
+      error => { this.error = error });
     console.log(responce);
   }
 }

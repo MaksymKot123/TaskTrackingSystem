@@ -23,6 +23,7 @@ export class EditProjectComponent implements OnInit {
 
   @Input() readonly name: string;
   myForm: FormGroup;
+  error: any;
 
   constructor(private http: HttpClient, private projService: EditProjectService) { }
 
@@ -50,7 +51,8 @@ export class EditProjectComponent implements OnInit {
     };
 
     const responce = this.projService.editProject(URL,
-      this.name, description, clientEmail, endTime).subscribe();
+      this.name, description, clientEmail, endTime).subscribe(null,
+        error => { this.error = error });
 
     this.ngOnInit();
   }

@@ -13,3 +13,6 @@
     [(viewProjects)]="employee.viewProjects">
   </view-projects-of-user>
 </div>
+<div *ngIf="error != undefined" class="alert alert-danger">
+  {{error.error}}
+</div>

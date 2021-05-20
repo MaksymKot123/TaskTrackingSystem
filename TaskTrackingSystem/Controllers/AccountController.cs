@@ -81,14 +81,20 @@ namespace TaskTrackingSystem.Controllers
                 _userService.AddToProject(projName, user);
                 return Ok();
             }
-            catch(UserException e) 
-            { 
-                return BadRequest(e.Message); 
-            }
-            catch (ProjectException e)
+            catch (ProjectException e1)
             {
-                return BadRequest(e.Message);
+                return BadRequest(e1.Message);
             }
+            catch (UserException e2) 
+            { 
+                return BadRequest(e2.Message); 
+            }
+            catch(Exception e3)
+            {
+                return BadRequest(e3.Message);
+            }
+            
+            
         }
     }
 }

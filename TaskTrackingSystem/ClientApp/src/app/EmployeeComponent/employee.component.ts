@@ -24,6 +24,7 @@ export class EmployeeComponent implements OnInit {
       this.router.navigateByUrl("");
     }
   }
+  error: any;
 
   ngOnInit() {
     this.showProject();
@@ -33,7 +34,8 @@ export class EmployeeComponent implements OnInit {
   projects: IProject[] = [];
 
   showProject() {
-    this.serv.getProjects(URL, EMAIL).subscribe(x => this.projects = x);
+    this.serv.getProjects(URL, EMAIL).subscribe(x => this.projects = x,
+      error => { this.error = error });
   }
 
   signOut() {

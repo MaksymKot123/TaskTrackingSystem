@@ -1,7 +1,28 @@
 <h1>employee</h1>
 <button (click)="signOut()">Sign out</button>
 <h1>A list of your current projects</h1>
-<table>
+<div *ngFor="let proj of projects" class="card">
+  <div class="card-body">
+    <h4 class="card-title">Name: {{proj.name}}</h4>
+    <h5 class="card-title">Status: {{proj.status}}</h5>
+    <h5 class="card-title">Completed at {{proj.percentCompletion | number: "1.0-0"}}%</h5>
+    <h5 class="card-title">Client email: {{proj.clientEmail}}</h5>
+    <h5 class="card-title">Start time: {{proj.startTime | date: "medium":"UTC" }}</h5>
+    <h5 class="card-title">Deadline: {{proj.endTime | date: "medium":"UTC" }}</h5>
+    <button class="btn btn-primary" type="button" (click)="toogle(proj.showTasks)"
+            *ngIf="proj.showTasks.val">
+      Show tasks
+    </button>
+    <div *ngIf="error != undefined" class="alert alert-danger">
+      {{error.error}}
+    </div>
+    <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
+                *ngIf="!proj.showTasks.val"></view-tasks>
+
+
+  </div>
+</div>
+<!--<table>
   <tr>
     <th>Project name</th>
     <th>Project status</th>
@@ -18,17 +39,12 @@
       <td>{{proj.endTime | date: "medium":"UTC"}}</td>
       <td>{{proj.description}}</td>
       <td>{{proj.clientEmail}}</td>
-      <td>{{proj.percentCompletion}}</td>
-      <!--<td><button (click)="toogle(proj.editProject)" *ngIf="proj.editProject.val">Edit</button></td>
-      <td><button (click)="delete(proj.name)">Delete</button></td>
-      <td><button (click)="toogle(proj.addTask)" *ngIf="proj.addTask.val">Add new task</button></td>-->
+      <td>{{proj.percentCompletion | number: '1.0-0'}}</td>
       <td><button (click)="toogle(proj.showTasks)" *ngIf="proj.showTasks.val">Show tasks</button></td>
-      <!--<edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
-                    [name]="proj.name" [description]="proj.description"
-                    [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>-->
-      <!--<add-task *ngIf="!proj.addTask.val" [projName]="proj.name" [(addTask)]="proj.addTask"></add-task>-->
       <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
                   *ngIf="!proj.showTasks.val"></view-tasks>
     </tr>
 </table>
-
+<div *ngIf="error != undefined" class="alert alert-danger">
+  {{error.error}}
+</div>-->
