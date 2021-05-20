@@ -16,9 +16,19 @@
     <td>{{proj.description}}</td>
     <td>{{proj.clientEmail}}</td>
     <td>{{proj.percentCompletion}}</td>
-    <td><button (click)="toogle(proj.editProject)" *ngIf="proj.editProject.val">Edit</button></td>
-    <td><button (click)="delete(proj.name)">Delete</button></td>
-    <td><button (click)="toogle(proj.addTask)" *ngIf="proj.addTask.val">Add new task</button></td>
+    <td><button (click)="toogle(proj.editProject)" *ngIf="proj.editProject.val
+      && proj.status !== 'Completed'">Edit</button></td>
+    <td>
+      <button (click)="delete(proj.name)" *ngIf="proj.status !== 'Completed'">
+        Delete
+      </button>
+    </td>
+    <td>
+      <button (click)="toogle(proj.addTask)" *ngIf="proj.addTask.val &&
+      proj.status !== 'Completed'">
+        Add new task
+      </button>
+    </td>
     <td><button (click)="toogle(proj.showTasks)" *ngIf="proj.showTasks.val">Show tasks</button></td>
     <edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
       [name]="proj.name" [description]="proj.description"

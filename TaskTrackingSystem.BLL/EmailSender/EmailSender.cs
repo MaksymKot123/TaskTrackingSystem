@@ -11,7 +11,7 @@ namespace TaskTrackingSystem.BLL.EmailSender
         const string MailPassword = "qwe123Aa";
         const string SmtpAddress = "smtp.gmail.com";
         const int SmtpPort = 587;
-        const string EmailSenderName = "Task system email sender";
+        const string EmailSenderName = "John Doe";
 
         public static void SendEmail(string clientEmail)
         {

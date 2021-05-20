@@ -12,11 +12,6 @@
     <td>{{task.startTime | date: "medium":"UTC" }}</td>
     <td>{{task.endTime | date: "medium":"UTC" }}</td>
     <td>{{task.description}}</td>
-    <!--<td *ngIf="this.Role !== 'Employee'">
-    <button (click)="edit(task.taskName, task.projName, task.description,
-        task.status, task.startTime, task.endTime)">Edit
-    </button>
-    </td>-->
     <td *ngIf="this.Role === 'Employee' && task.status !== 'Completed'">
       <button (click)="edit(task.taskName, task.projName, task.description,
         'Completed', task.startTime, task.endTime)">
@@ -25,7 +20,7 @@
     </td>
     <td *ngIf="this.Role !== 'Employee'">
       <button (click)="delete(task.taskName, task.projName, task.description,
-        task.status, task.startTime, task.endTime)">Delete</button>
+        task.status, task.startTime, task.endTime)" *ngIf="task.status !== 'Completed'">Delete</button>
     </td>
   </tr>
 </table>
