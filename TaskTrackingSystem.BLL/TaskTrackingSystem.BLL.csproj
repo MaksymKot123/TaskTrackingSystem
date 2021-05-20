@@ -16,8 +16,4 @@
     <ProjectReference Include="..\TaskTrackingSystem.DAL\TaskTrackingSystem.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
 </Project>

@@ -9,6 +9,7 @@ using TaskTrackingSystem.BLL.Interfaces;
 using AutoMapper;
 using System.Linq;
 using TaskTrackingSystem.BLL.EmailSender;
+using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -44,6 +45,10 @@ namespace TaskTrackingSystem.BLL.Services
                 _unifOfWork.ProjectRepo.Delete(projct);
                 _unifOfWork.SaveChanges();
             }
+            else
+            {
+                throw new ProjectException("Project not found");
+            }
         }
 
         public void EditProject(ProjectDTO project)
@@ -64,6 +69,10 @@ namespace TaskTrackingSystem.BLL.Services
 
                 _unifOfWork.ProjectRepo.Edit(proj);
                 _unifOfWork.SaveChanges();
+            }
+            else
+            {
+                throw new ProjectException("Project not found");
             }
         }
 
@@ -102,7 +111,10 @@ namespace TaskTrackingSystem.BLL.Services
                     Tasks = _mapper.Map<ICollection<TaskDTO>>(proj.Tasks)
                 };
             }
-            else return null;
+            else
+            {
+                throw new ProjectException("Project not found");
+            }
         }
 
         protected virtual void Dispose(bool disposing)

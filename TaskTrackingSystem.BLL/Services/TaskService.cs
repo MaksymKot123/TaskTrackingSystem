@@ -9,6 +9,7 @@ using TaskTrackingSystem.BLL.Interfaces;
 using AutoMapper;
 using System.Linq;
 using TaskTrackingSystem.BLL.ProjectStatusUpdater;
+using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -49,16 +50,31 @@ namespace TaskTrackingSystem.BLL.Services
                     proj.Tasks.Add(newTask);
                     ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
                 }
-                
-            }    
+                else
+                {
+                    throw new TaskException(@"Project has a task with this name.
+                        Please use other name.");
+                }
+            }
+            else
+            {
+                throw new ProjectException("Project not found");
+            }
         }
 
         public void Change(TaskDTO task)
         {
             var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);
-            tsk.Status = _mapper.Map<DAL.Enums.Status>(task.Status);
-            _unitOfWork.TaskRepo.Edit(tsk);
-            ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
+            if (tsk != null)
+            {
+                tsk.Status = _mapper.Map<DAL.Enums.Status>(task.Status);
+                _unitOfWork.TaskRepo.Edit(tsk);
+                ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
+            }
+            else
+            {
+                throw new TaskException("Task not found");
+            }
         }
 
         public void Delete(TaskDTO task)
@@ -69,7 +85,10 @@ namespace TaskTrackingSystem.BLL.Services
                 _unitOfWork.TaskRepo.Delete(tsk);
                 ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
             }
-            
+            else
+            {
+                throw new TaskException("Task not found");
+            }
         }
 
         protected virtual void Dispose(bool disposing)

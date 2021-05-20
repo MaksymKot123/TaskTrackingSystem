@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using TaskTrackingSystem.DAL.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -45,8 +46,6 @@ namespace TaskTrackingSystem.BLL.Services
                 var res = await _unitOfWork.SignInManager
                     .CheckPasswordSignInAsync(usr, password, false);
 
-                
-                
                 if (res.Succeeded)
                 {
                     var role = _unitOfWork.UserManager.GetRolesAsync(usr)
@@ -63,12 +62,12 @@ namespace TaskTrackingSystem.BLL.Services
                 }
                 else
                 {
-                    return null;
+                    throw new UserException("Incorrect password");
                 }
             }
             else
             {
-                return null;
+                throw new UserException("Account with this email does not exists");
             }
         }
 
@@ -136,11 +135,22 @@ namespace TaskTrackingSystem.BLL.Services
                 var proj = _unitOfWork.ProjectRepo.Get(projectName);
                 if (proj != null)
                 {
+                    if (proj.Employees.Contains(userFromDatabase))
+                        throw new ProjectException("User has already this project");
+
                     proj.Employees.Add(userFromDatabase);
                     userFromDatabase.Projects.Add(proj);
                     _unitOfWork.SaveChanges();
                 }
+                else
+                {
+                    throw new ProjectException("Project not found");
+                }
                     
+            }
+            else
+            {
+                throw new UserException("User not found");
             }
         }
 
@@ -152,6 +162,10 @@ namespace TaskTrackingSystem.BLL.Services
             {
                 await _unitOfWork.UserManager.DeleteAsync(usr);
                 _unitOfWork.SaveChanges();
+            }
+            else
+            {
+                throw new UserException("User not found");
             }
         }
 
@@ -165,6 +179,10 @@ namespace TaskTrackingSystem.BLL.Services
                 usr.Name = user.Name;
                 usr.UserName = usr.Email;
                 await _unitOfWork.UserManager.UpdateAsync(usr);
+            }
+            else
+            {
+                throw new UserException("User not found");
             }
         }
 
@@ -182,7 +200,9 @@ namespace TaskTrackingSystem.BLL.Services
             {
                 var user = await _unitOfWork.UserManager.FindByEmailAsync(email);
                 if (user == null)
-                    return null;
+                {
+                    throw new UserException("User not found");
+                }
                 else
                 {
                     return _mapper.Map<UserDTO>(user);
