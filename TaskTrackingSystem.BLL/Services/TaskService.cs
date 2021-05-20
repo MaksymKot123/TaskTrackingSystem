@@ -49,6 +49,7 @@ namespace TaskTrackingSystem.BLL.Services
                     proj.Tasks.Add(newTask);
                     ProjectStatusUpdater.ProjectStatusUpdater.UpdateInfo(_unitOfWork);
                 }
+                
             }    
         }
 

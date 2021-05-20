@@ -28,6 +28,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  error: any;
+
   ngOnInit() {
     this.myForm = new FormGroup({
       "email": new FormControl("", [
@@ -69,6 +71,9 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl("");
       }
 
+    }, error => {
+        this.error = error;
+        console.log(error);
     });
   }
 

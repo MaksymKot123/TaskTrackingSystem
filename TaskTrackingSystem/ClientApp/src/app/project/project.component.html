@@ -1,4 +1,41 @@
-<table>
+<div *ngFor="let proj of projects" class="card">
+  <div class="card-body">
+    <h4 class="card-title">Name: {{proj.name}}</h4>
+    <h5 class="card-title">Status: {{proj.status}}</h5>
+    <h5 class="card-title">Completed at {{proj.percentCompletion}}%</h5>
+    <h5 class="card-title">Client email: {{proj.clientEmail}}</h5>
+    <h5 class="card-title">Start time: {{proj.startTime | date: "medium":"UTC" }}</h5>
+    <h5 class="card-title">Deadline: {{proj.endTime | date: "medium":"UTC" }}</h5>
+    <button class="btn-primary btn" type="button" (click)="toogle(proj.editProject)"
+            *ngIf="proj.editProject.val && proj.status !== 'Completed'">
+      Edit
+    </button>
+
+    <button type="button" class="btn btn-danger" (click)="delete(proj.name)"
+            *ngIf="proj.status !== 'Completed'">
+      Delete
+    </button>
+    <button class="btn btn-primary" type="button" (click)="toogle(proj.addTask)"
+            *ngIf="proj.addTask.val && proj.status !== 'Completed'">
+      Add new task
+    </button>
+    <button class="btn btn-primary" type="button" (click)="toogle(proj.showTasks)"
+            *ngIf="proj.showTasks.val">
+      Show tasks
+    </button>
+    <add-task *ngIf="!proj.addTask.val" [projName]="proj.name" [(addTask)]="proj.addTask"></add-task>
+    <edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
+                  [name]="proj.name" [description]="proj.description"
+                  [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>
+    <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
+                *ngIf="!proj.showTasks.val"></view-tasks>
+
+
+  </div>
+</div>
+<button type="button" class="btn btn-primary" *ngIf="addProject" (click)="addNewProject()">Add project</button>
+<add-project [(addProject)]="addProject" *ngIf="!addProject"></add-project>
+<!--<table>
   <tr>
     <th>Project name</th>
     <th>Project status</th>
@@ -39,4 +76,4 @@
   </tr>
 </table>
 <button *ngIf="addProject" (click)="addNewProject()">Add project</button>
-<add-project [(addProject)]="addProject" *ngIf="!addProject"></add-project>
+<add-project [(addProject)]="addProject" *ngIf="!addProject"></add-project>-->

@@ -33,7 +33,7 @@ namespace TaskTrackingSystem.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async  Task<ActionResult<string>> Login([FromBody] LoginView user)
+        public async Task<ActionResult<string>> Login([FromBody] LoginView user)
         {
             var usr = new UserDTO()
             {
@@ -42,15 +42,9 @@ namespace TaskTrackingSystem.Controllers
 
             var res = await _userService.Authenticate(usr, user.Password);
             if (res == null)
-                return Unauthorized(new { message = "Incorrect email or password" });
+                return Unauthorized("Incorrect email or password");
             else return Ok(res.Token);
         }
-
-        //[HttpGet]
-        //public IEnumerable<ProjectView> GetEmployeesProjects(string employeeEmail)
-        //{
-            
-        //}
 
         [HttpPost]
         public async Task<ActionResult<UserDTO>> Register([FromBody] RegisterView user)
@@ -63,7 +57,7 @@ namespace TaskTrackingSystem.Controllers
 
             var responce = await _userService.Register(usr, user.Password);
             if (responce == null)
-                return BadRequest();
+                return StatusCode(409, "This email is already taken");//BadRequest("This email is already taken");
             else return responce;
         }
 

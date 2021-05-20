@@ -17,6 +17,7 @@ const URL = "https://localhost:44351/account";
 export class RegisterComponent implements OnInit {
 
   myForm: FormGroup;
+  error: any;
 
   constructor(private regServ: RegistrationService) { }
 
@@ -38,9 +39,11 @@ export class RegisterComponent implements OnInit {
     let password = this.myForm.controls["password"].value;
     let confirmPassword = this.myForm.controls["confirmPassword"].value;
     if (password === confirmPassword) {
-      let res = this.regServ.postData(email, password, name, URL).toPromise();
-      console.log(res);
+      let res = this.regServ.postData(email, password, name, URL)
+        .subscribe(null, error => {
+          console.log(error);
+          this.error = error;
+        });
     }
   }
-
 }
