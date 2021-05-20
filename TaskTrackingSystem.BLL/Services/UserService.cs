@@ -136,46 +136,11 @@ namespace TaskTrackingSystem.BLL.Services
                 var proj = _unitOfWork.ProjectRepo.Get(projectName);
                 if (proj != null)
                 {
-                    
-                    //if (userFromDatabase.Projects == null)
-                    //{
-                    //userFromDatabase.Projects = new List<Project>();
                     proj.Employees.Add(userFromDatabase);
                     userFromDatabase.Projects.Add(proj);
-                        //userFromDatabase.Projects.Add(proj);
-                    //}
-                    //else
-                       // userFromDatabase.Projects.Add(proj);
                     _unitOfWork.SaveChanges();
                 }
                     
-            }
-        }
-
-        public async void AddUser(UserDTO user, string password)
-        {
-            var email = user.Email;
-            var name = user.Name;
-
-            var usr = await _unitOfWork.UserManager.FindByEmailAsync(email);
-
-            if (usr == null)
-            {
-                usr = new User()
-                {
-                    Email = email,
-                    Name = name,
-                    UserName = email,
-                };
-
-                var res = await _unitOfWork.UserManager.CreateAsync(usr, password);
-
-                if (res.Succeeded)
-                {
-                    var createdUser = await _unitOfWork.UserManager.FindByNameAsync(email);
-                    await _unitOfWork.UserManager.AddToRoleAsync(createdUser, "Employee");
-                    _unitOfWork.SaveChanges();
-                }
             }
         }
 

@@ -12,7 +12,6 @@ namespace TaskTrackingSystem.BLL
         public IUnitOfWork UnitOfWork { get; }
         IEnumerable<UserDTO> GetAllUsers();
         Task<UserDTO> GetUser(string id);
-        void AddUser(UserDTO user, string password);
         void EditUser(UserDTO userE);
         void DeleteUser(UserDTO user);
         void AddToProject(string projectName, UserDTO user);
