@@ -8,7 +8,7 @@ using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.BLL.DTO;
 using Microsoft.AspNetCore.Authorization;
 using TaskTrackingSystem.ViewModels;
-
+using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.Controllers
 {
@@ -59,7 +59,7 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
-        public void AddProject([FromBody] ProjectView proj)
+        public IActionResult AddProject([FromBody] ProjectView proj)
         {
             var newProj = new ProjectDTO()
             {
@@ -71,12 +71,19 @@ namespace TaskTrackingSystem.Controllers
                 Status = BLL.Enums.StatusDTO.Started,
                 StartTime = DateTime.Now,
             };
-
-            _projService.AddProject(newProj);
+            try
+            {
+                _projService.AddProject(newProj);
+                return Ok();
+            }
+            catch(ProjectException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
-        public void Delete([FromBody] ProjectView proj)
+        public IActionResult Delete([FromBody] ProjectView proj)
         {
             var project = new ProjectDTO()
             {
@@ -85,11 +92,19 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = proj.EndTime,
             };
 
-            _projService.DeleteProject(project);
+            try
+            {
+                _projService.DeleteProject(project);
+                return Ok();
+            }
+            catch (ProjectException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
-        public void EditProject([FromBody] ProjectView proj)
+        public IActionResult EditProject([FromBody] ProjectView proj)
         {
             var project = new ProjectDTO()
             {
@@ -100,8 +115,16 @@ namespace TaskTrackingSystem.Controllers
                 Status = BLL.Enums.StatusDTO.Started,
                 StartTime = DateTime.Now,
             };
-
-            _projService.EditProject(project);
+            try
+            {
+                _projService.EditProject(project);
+                return Ok();
+            }
+            catch(ProjectException e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
     }
 }

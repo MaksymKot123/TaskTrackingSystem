@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using TaskTrackingSystem.BLL.Exceptions;
 using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.ViewModels;
@@ -25,7 +25,7 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
-        public void AddTaskToProject([FromBody] TaskView task)
+        public IActionResult AddTaskToProject([FromBody] TaskView task)
         {
             var newTask = new TaskDTO()
             {
@@ -36,7 +36,16 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = task.EndTime,
                 Project = new ProjectDTO() { Name = task.ProjName }
             };
-            _taskService.AddToProject(task.ProjName, newTask);
+
+            try
+            {
+                _taskService.AddToProject(task.ProjName, newTask);
+                return Ok();
+            }
+            catch(ProjectException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
@@ -57,7 +66,7 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpPut]
-        public void EditTaskOfProject([FromBody] TaskView task)
+        public IActionResult EditTaskOfProject([FromBody] TaskView task)
         {
             var changedTask = new TaskDTO()
             {
@@ -68,12 +77,20 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = task.EndTime,
                 Project = new ProjectDTO() { Name = task.ProjName }
             };
-            _taskService.Change(changedTask);
+            try
+            {
+                _taskService.Change(changedTask);
+                return Ok();
+            }
+            catch(TaskException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete("project")]
-        public void DeleteTaskInProject([FromBody] TaskView task)
+        public IActionResult DeleteTaskInProject([FromBody] TaskView task)
         {
             var taskDTO = new TaskDTO()
             {
@@ -84,9 +101,15 @@ namespace TaskTrackingSystem.Controllers
                 EndTime = task.EndTime,
                 Project = new ProjectDTO() { Name = task.ProjName }
             };
-            _taskService.Delete(taskDTO);
+            try
+            {
+                _taskService.Delete(taskDTO);
+                return Ok();
+            }
+            catch(ProjectException e)
+            {
+                return BadRequest(e.Message);
+            } 
         }
-
-
     }
 }
