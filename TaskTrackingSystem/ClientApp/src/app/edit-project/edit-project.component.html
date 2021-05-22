@@ -9,7 +9,8 @@
   </div>
   <div class="form-group">
     <label>Deadline</label>
-    <input class="form-control" type="date" name="endTime" formControlName="endTime" />
+    <input class="form-control" pattern="^([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4})$"
+      name="endTime" formControlName="endTime" placeholder="dd/mm/YYYY" />
     <div class="alert alert-danger"
          *ngIf="myForm.controls['endTime'].invalid && myForm.controls['endTime'].touched">
       Enter deadline of the project

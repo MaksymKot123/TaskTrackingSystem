@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AddNewTaskService } from "src/app/Services/addTaskService";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { TaskDateValidator } from "src/app/DateValidator/taskdatevalidator";
 
 const URL = "https://localhost:44351/tasks/";
 
@@ -12,6 +13,7 @@ const URL = "https://localhost:44351/tasks/";
 export class AddTaskComponent implements OnInit {
 
   myForm: FormGroup;
+  @Input() projEndTime: string;
   @Input() projName: string;
   @Input() addTask: { val: boolean };
   @Output() addTaskChange = new EventEmitter<{ val: boolean }>();
@@ -25,20 +27,24 @@ export class AddTaskComponent implements OnInit {
     this.myForm = this.fb.group({
       "name": ["", Validators.required],
       "endTime": ["", Validators.required],
+      "projEndTime": [this.projEndTime, Validators.required],
       "description": [""]
-    });
+    }, { validators: TaskDateValidator })
   }
 
   addNewTask() {
     const name = this.myForm.controls["name"].value;
     const description = this.myForm.controls["description"].value;
     const deadline = this.myForm.controls["endTime"].value;
+    let deadlineDate = new Date(deadline);
 
-    this.taskServ.addNewTask(URL, this.projName, name, deadline, description).subscribe(null,
+    this.taskServ.addNewTask(URL, this.projName, name, deadlineDate.toISOString(), description).subscribe(null,
       error => { this.error = error });
-
-    this.ngOnInit();
   }
+
+  get MyForm() { return this.myForm.controls; }
+
+  get EndTime() { return this.myForm.get("endTime"); }
 
   closeForm(value: { val: boolean }) {
     this.addTask = value;

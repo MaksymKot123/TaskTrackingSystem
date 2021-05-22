@@ -5,7 +5,6 @@ using System.Linq;
 using TaskTrackingSystem.DAL.Models;
 using TaskTrackingSystem.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using TaskTrackingSystem.DAL.UpdatePercentOfCompletionAndStatus;
 
 namespace TaskTrackingSystem.DAL.Repositories
 {

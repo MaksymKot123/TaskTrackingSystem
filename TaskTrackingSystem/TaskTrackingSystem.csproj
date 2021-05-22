@@ -36,6 +36,8 @@
     <None Remove="ClientApp\src\app\auth.service.ts" />
     <None Remove="ClientApp\src\app\board-admin.component.ts" />
     <None Remove="ClientApp\src\app\board-moderator.component.ts" />
+    <None Remove="ClientApp\src\app\DateValidator\projectdatevalidator.ts" />
+    <None Remove="ClientApp\src\app\DateValidator\taskdatevalidator.ts" />
     <None Remove="ClientApp\src\app\EmployeeComponent\employee.component.ts" />
     <None Remove="ClientApp\src\app\home.component.ts" />
     <None Remove="ClientApp\src\app\Interfaces\iproject.ts" />
@@ -74,6 +76,8 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\AdminComponent\admin.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\DateValidator\projectdatevalidator.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\DateValidator\taskdatevalidator.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\EmployeeComponent\employee.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces\iproject.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Interfaces\itask.ts" />

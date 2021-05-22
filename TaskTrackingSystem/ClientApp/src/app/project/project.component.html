@@ -26,7 +26,7 @@
     <div *ngIf="error != undefined" class="alert alert-danger">
       {{error.error}}
     </div>
-    <add-task *ngIf="!proj.addTask.val" [projName]="proj.name" [(addTask)]="proj.addTask"></add-task>
+    <add-task *ngIf="!proj.addTask.val" [projEndTime]="proj.endTime" [projName]="proj.name" [(addTask)]="proj.addTask"></add-task>
     <edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
                   [name]="proj.name" [description]="proj.description"
                   [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>

@@ -29,10 +29,12 @@
     </div>-->
 
     <label>Deadline</label>
-    <input class="form-control" type="date" name="endTime" formControlName="endTime" />
+    <input class="form-control" pattern="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$"
+      name="endTime" formControlName="endTime" placeholder="MM/DD/YYYY" />
+
     <div class="alert alert-danger"
          *ngIf="myForm.controls['endTime'].invalid && myForm.controls['endTime'].touched">
-      Enter deadline of the project
+      Enter correct deadline
     </div>
 
     <!--<div class="alert alert-danger"
@@ -53,7 +55,7 @@
   </div>
 
   <div class="form-group">
-    <button class="btn-primary" [disabled]="myForm.invalid">
+    <button class="btn-primary" [disabled]="myForm.invalid || MyForm.endTime.errors">
       Submit
     </button>
   </div>

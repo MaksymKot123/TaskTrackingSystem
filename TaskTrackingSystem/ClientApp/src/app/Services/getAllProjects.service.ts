@@ -27,7 +27,7 @@ export class GetAllProjectsService {
           startTime: proj.startTime,
           endTime: proj.endTime,
           description: proj.description,
-          percentCompletion: proj.percentCompletion,
+          percentCompletion: Math.round(proj.percentCompletion,),
           editProject: { val: true },
           deleteProject: { val: false },
           addTask: { val: true },

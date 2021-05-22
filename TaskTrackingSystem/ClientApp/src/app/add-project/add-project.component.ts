@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { AddNewProjectService } from "src/app/Services/addNewProject.service";
-
+import { ProjectDateValidator } from "src/app/DateValidator/projectdatevalidator";
 
 
 @Component({
@@ -32,7 +32,7 @@ export class AddProjectComponent implements OnInit {
       "projectName": ["", Validators.required],
       "clientEmail": ["", [Validators.required, Validators.email]],
       "description": [""]
-    });
+    }, { validators: ProjectDateValidator });
   }
 
   addNewProject() {
@@ -46,31 +46,11 @@ export class AddProjectComponent implements OnInit {
     console.log(responce);
   }
 
+  get MyForm() { return this.myForm.controls; }
+
   closeForm(value: boolean) {
     this.addProject = value;
     this.addProjectChange.emit(value);
     this.isClosedForm = !this.isClosedForm;
   }
-
-  validateDate(group: FormGroup) {
-    const deadline: string = group.get("entTime").value;
-    const deadlineDate = new Date(deadline).getTime();
-    const invalid = deadlineDate > Date.now();
-
-    return invalid ? { "invalidDate": true } : null;
-  }
-
-  //dateLessThan(from: string, to: string) {
-  //  return (group: FormGroup): { [key: string]: any } => {
-  //    const f = group.controls[from];
-  //    const t = group.controls[to];
-
-  //    if (new Date(f.value) {
-  //      return {
-  //        dates: "Deadline should be more then current time"
-  //      };
-  //    }
-  //    return {};
-  //  }
-  //}
 }
