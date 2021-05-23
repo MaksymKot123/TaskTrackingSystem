@@ -19,6 +19,9 @@ namespace TaskTrackingSystem.BLL.Services
     public class ProjectService : IProjectService
     {
         private bool disposedValue;
+        /// <summary>
+        /// <see cref="DAL.Interfaces.IUnitOfWork"/>
+        /// </summary>
         private readonly IUnitOfWork _unifOfWork;
         private readonly IMapper _mapper;
 

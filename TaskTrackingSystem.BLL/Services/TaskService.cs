@@ -18,6 +18,9 @@ namespace TaskTrackingSystem.BLL.Services
     /// </summary>
     public class TaskService : ITaskService
     {
+        /// <summary>
+        /// <see cref="DAL.Interfaces.IUnitOfWork"/>
+        /// </summary>
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private bool disposedValue;

@@ -18,10 +18,19 @@ namespace TaskTrackingSystem.BLL.Services
     public class UserService : IUserService
     {
         private bool disposedValue;
+        /// <summary>
+        /// <see cref="DAL.Interfaces.IUnitOfWork"/>
+        /// </summary>
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        /// <summary>
+        /// <see cref="BLL.Interfaces.IJwtGenerator"/>
+        /// </summary>
         private readonly IJwtGenerator _jwtGenerator;
 
+        /// <summary>
+        /// <see cref="DAL.Interfaces.IUnitOfWork"/>
+        /// </summary>
         public IUnitOfWork UnitOfWork { get => _unitOfWork; }
 
         public UserService(IUnitOfWork unifOfWork, IMapper mapper, IJwtGenerator jwt)
