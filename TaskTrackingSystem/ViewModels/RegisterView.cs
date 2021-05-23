@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TaskTrackingSystem.ViewModels
 {
+    /// <summary>
+    /// A model, which is used during registration
+    /// </summary>
     public class RegisterView
     {
         [Required]

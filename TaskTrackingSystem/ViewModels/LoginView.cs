@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TaskTrackingSystem.ViewModels
 {
+    /// <summary>
+    /// A model, which are used during log in
+    /// </summary>
     public class LoginView
     {
         [Required]

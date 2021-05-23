@@ -42,7 +42,7 @@ namespace TaskTrackingSystem.Controllers
         }
 
         /// <summary>
-        /// This method uses user service for logging in user's account
+        /// This method uses user service for log in user's account
         /// </summary>
         /// <param name="user"></param>
         /// <returns>If email and password are correct, this method returns

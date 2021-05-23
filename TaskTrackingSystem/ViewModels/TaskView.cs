@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TaskTrackingSystem.ViewModels
 {
+    /// <summary>
+    /// A model of task, which controllers return in json 
+    /// </summary>
     public class TaskView
     {
         [Required]
