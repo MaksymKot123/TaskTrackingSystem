@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskTrackingSystem.BLL;
+using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.BLL.Exceptions;
 using TaskTrackingSystem.ViewModels;
@@ -18,6 +19,9 @@ namespace TaskTrackingSystem.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
+        /// <summary>
+        /// <see cref="BLL.Interfaces.IUserService"/>
+        /// </summary>
         private readonly IUserService _userService;
         /// <summary>
         /// Constructor for account controller. Via dependency injection 
@@ -33,7 +37,7 @@ namespace TaskTrackingSystem.Controllers
         /// This method returns a list of users with a specific role
         /// </summary>
         /// <param name="roleName"></param>
-        /// <returns>A list of users with a specific role</returns>
+        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/> with a specific role</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
         public IEnumerable<UserDTO> GetUsersByRole([FromQuery]string roleName)
@@ -42,7 +46,7 @@ namespace TaskTrackingSystem.Controllers
         }
 
         /// <summary>
-        /// This method uses user service for log in user's account
+        /// This method uses <see cref="BLL.Services.UserService"/> for log in user's account
         /// </summary>
         /// <param name="user"></param>
         /// <returns>If email and password are correct, this method returns

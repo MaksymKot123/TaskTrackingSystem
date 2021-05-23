@@ -16,6 +16,9 @@ namespace TaskTrackingSystem.Controllers
     [ApiController]
     public class TasksController : ControllerBase
     {
+        /// <summary>
+        /// <see cref="BLL.Interfaces.ITaskService"/>
+        /// </summary>
         private readonly ITaskService _taskService;
 
         /// <summary>
@@ -67,7 +70,7 @@ namespace TaskTrackingSystem.Controllers
         /// This methods returns a list of project's tasks
         /// </summary>
         /// <param name="project"></param>
-        /// <returns>A list of tasks</returns>
+        /// <returns>A list of <see cref="ViewModels.TaskView"/></returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpGet]
         public IEnumerable<TaskView> GetTasksOfProject([FromHeader] ProjectView project)

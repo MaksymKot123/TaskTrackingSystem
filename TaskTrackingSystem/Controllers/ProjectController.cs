@@ -55,7 +55,7 @@ namespace TaskTrackingSystem.Controllers
         /// The employee can be got by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns>A list of projects</returns>
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpGet]
         public IEnumerable<ProjectView> GetEmployeesProjects(string email)

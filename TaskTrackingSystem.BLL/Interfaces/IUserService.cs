@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.DAL.Interfaces;
 
-namespace TaskTrackingSystem.BLL
+namespace TaskTrackingSystem.BLL.Interfaces
 {
     /// <summary>
     /// Interface of user service
