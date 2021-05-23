@@ -23,6 +23,12 @@ namespace TaskTrackingSystem.BLL.Security
                 .GetSection("AppSettings:Token").Value));
         }
 
+        /// <summary>
+        /// This method generates JWT token for a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="role"></param>
+        /// <returns>JWT token</returns>
         public string CreateToken(User user, string role)
         {
             var claims = new List<Claim> 

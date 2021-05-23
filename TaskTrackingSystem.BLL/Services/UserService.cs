@@ -31,12 +31,26 @@ namespace TaskTrackingSystem.BLL.Services
             _jwtGenerator = jwt;
         }
 
+        /// <summary>
+        /// Get users with specified role
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns>A list of DTO user models</returns>
         public async Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName)
         {
             var users = await _unitOfWork.UserManager.GetUsersInRoleAsync(roleName);
             return _mapper.Map<IEnumerable<UserDTO>>(users);
         }
 
+        /// <summary>
+        /// This method authenticates user. If email and password are correct,
+        /// DTO user model will be return with JWT token. Otherwise,
+        /// if password is incorrect or there is not any account with email,
+        /// a user exception will be thrown
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns>A DTO user model</returns>
         public async Task<UserDTO> Authenticate(UserDTO user, string password)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
@@ -71,6 +85,14 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// Add new user to database. If email from parameter is already taken
+        /// by other user, or password pattern is invalid
+        /// a user exception will be throwns
+        /// </summary>
+        /// <param name="newUser"></param>
+        /// <param name="password"></param>
+        /// <returns>DTO user model</returns>
         public async Task<UserDTO> Register(UserDTO newUser, string password)
         {
             if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(newUser.Email)))
@@ -126,7 +148,15 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
-        public async void AddToProject(string projectName, UserDTO user)
+        /// <summary>
+        /// This method adds user to project. If project is not found, a project
+        /// exception will be thrown. If user if not found, a user exception
+        /// will be thrown. If project already has this user, a project exception
+        /// will be thrown
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="user"></param>
+        public void AddToProject(string projectName, UserDTO user)
         {
             var proj = _unitOfWork.ProjectRepo.Get(projectName);
             var userFromDatabase = _unitOfWork.GetUserWithDetails(user.Email);
@@ -144,6 +174,11 @@ namespace TaskTrackingSystem.BLL.Services
             _unitOfWork.SaveChanges();
         }
 
+        /// <summary>
+        /// This method deletes user from database. If user is not found, a user
+        /// exception will be thrown
+        /// </summary>
+        /// <param name="user"></param>
         public async void DeleteUser(UserDTO user)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
@@ -159,6 +194,12 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// This method edits user's info. User can be got by email.
+        /// If there is not any user with this email, a user exception will
+        /// be thrown
+        /// </summary>
+        /// <param name="user"></param>
         public async void EditUser(UserDTO user)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
@@ -176,12 +217,21 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// This method return all DTO user models
+        /// </summary>
+        /// <returns>A list of DTO user models</returns>
         public IEnumerable<UserDTO> GetAllUsers()
         {
             var users = _unitOfWork.UserManager.Users.AsEnumerable();
             return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
         }
 
+        /// <summary>
+        /// This method returns a DTO model of user. User can be got by email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>A DTO model of user</returns>
         public async Task<UserDTO> GetUser(string email)
         {
             if (email == null)

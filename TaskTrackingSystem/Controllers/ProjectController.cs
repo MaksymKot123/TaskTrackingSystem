@@ -51,7 +51,8 @@ namespace TaskTrackingSystem.Controllers
         }
 
         /// <summary>
-        /// This method returns a list of projects, which has some employee
+        /// This method returns a employee's list of project.
+        /// The employee can be got by email
         /// </summary>
         /// <param name="email"></param>
         /// <returns>A list of projects</returns>

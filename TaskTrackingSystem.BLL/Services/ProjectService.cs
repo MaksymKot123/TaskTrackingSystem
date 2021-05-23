@@ -13,6 +13,9 @@ using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.BLL.Services
 {
+    /// <summary>
+    /// A project service
+    /// </summary>
     public class ProjectService : IProjectService
     {
         private bool disposedValue;
@@ -25,6 +28,11 @@ namespace TaskTrackingSystem.BLL.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// This method returns all projects of employee, which you can get by email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>A list of DTO projects</returns>
         public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
         {
             var user = _unifOfWork.GetUserWithDetails(email);
@@ -35,6 +43,11 @@ namespace TaskTrackingSystem.BLL.Services
 
         }
 
+        /// <summary>
+        /// This method deletes a project from database by name. If there is
+        /// not any project with this name, a project exception will be thrown
+        /// </summary>
+        /// <param name="project"></param>
         public void DeleteProject(ProjectDTO project)
         {
             var proj = _unifOfWork.ProjectRepo.Get(project.Name);
@@ -51,6 +64,10 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// This method edits project's info
+        /// </summary>
+        /// <param name="project"></param>
         public void EditProject(ProjectDTO project)
         {
             var name = project.Name;
@@ -76,12 +93,21 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// This method returns all projects from database
+        /// </summary>
+        /// <returns>A list of DTO projects</returns>
         public IEnumerable<ProjectDTO> GetAllProjects()
         {
             return _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectDTO>>(
                 _unifOfWork.ProjectRepo.GetAll());
         }
 
+        /// <summary>
+        /// This method add new project. If database has a project, which has
+        /// a same name with a new project, a project exception will be thrown
+        /// </summary>
+        /// <param name="project"></param>
         public void AddProject(ProjectDTO project)
         {
             var proj = _unifOfWork.ProjectRepo.Get(project.Name);
@@ -98,6 +124,11 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// This method return DTO model of project by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>DTO model of project</returns>
         public ProjectDTO GetProject(string name)
         {
             var proj = _unifOfWork.ProjectRepo.GetAll()

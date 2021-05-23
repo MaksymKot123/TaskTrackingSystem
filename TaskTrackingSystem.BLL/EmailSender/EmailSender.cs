@@ -5,6 +5,10 @@ using TaskTrackingSystem.DAL.Enums;
 
 namespace TaskTrackingSystem.BLL.EmailSender
 {
+    /// <summary>
+    /// Static class, which sends email to client when project's status 
+    /// were updated 
+    /// </summary>
     public static class EmailSender
     {
         const string MailAddress = "tasktrackingsystememailsender@gmail.com";

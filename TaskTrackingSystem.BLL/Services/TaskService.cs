@@ -13,6 +13,9 @@ using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.BLL.Services
 {
+    /// <summary>
+    /// A task service
+    /// </summary>
     public class TaskService : ITaskService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -24,7 +27,12 @@ namespace TaskTrackingSystem.BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// This method return a list of DTO tasks of project.
+        /// Project can be got by name
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <returns></returns>
         public IEnumerable<TaskDTO> GetTasksOfProject(string projectName)
         {
             var tasks = _unitOfWork.ProjectRepo.GetAll()
@@ -36,6 +44,15 @@ namespace TaskTrackingSystem.BLL.Services
             return res;
         }
 
+        /// <summary>
+        /// This method adds a new task to project. Project can be 
+        /// got by name. If there is not any project with this name,
+        /// a project exception will be thrown. If project already has
+        /// a task, which name is same as new task's name, a task exception
+        /// will be thrown
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="task"></param>
         public void AddToProject(string projectName, TaskDTO task)
         {
             var proj = _unitOfWork.ProjectRepo.Get(projectName);
@@ -62,6 +79,11 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// This method changes task's info. If there is not any task, which name
+        /// is same as name of DTO task from parameter, a task exception will be thrown
+        /// </summary>
+        /// <param name="task"></param>
         public void Change(TaskDTO task)
         {
             var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);
@@ -77,6 +99,11 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
+        /// <summary>
+        /// This method deletes task from project. If there is not any task, which name
+        /// is same as name of DTO task from parameter, a task exception will be thrown
+        /// </summary>
+        /// <param name="task"></param>
         public void Delete(TaskDTO task)
         {
             var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);

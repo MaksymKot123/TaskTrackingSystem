@@ -9,8 +9,18 @@ using TaskTrackingSystem.BLL.EmailSender;
 
 namespace TaskTrackingSystem.BLL.ProjectStatusUpdater
 {
+    /// <summary>
+    /// A static class, which has one static methos, that updates project's
+    /// status and project's percent of completion
+    /// </summary>
     public static class ProjectStatusUpdater
     {
+        /// <summary>
+        /// This method updates project's status and project's percernt of
+        /// completion. Via dependency injection the method gets instance, which
+        /// implements IUnitOfWork interfaces
+        /// </summary>
+        /// <param name="uow"></param>
         public static void UpdateInfo(IUnitOfWork uow)
         {
             foreach (var proj in uow.ProjectRepo.GetAll().ToList())
