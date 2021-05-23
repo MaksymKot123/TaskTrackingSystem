@@ -38,13 +38,18 @@ namespace TaskTrackingSystem.Controllers
         /// This method returns a list of users with a specific role
         /// </summary>
         /// <param name="roleName"></param>
-        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/> with a specific role</returns>
+        /// <returns>A list of <see cref="ViewModels.UserView"/> with a specific role</returns>
         
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
-        public IEnumerable<UserDTO> GetUsersByRole([FromQuery]string roleName)
+        public IEnumerable<UserView> GetUsersByRole([FromQuery]string roleName)
         {
-            return _userService.GetUsersByRole(roleName).GetAwaiter().GetResult();
+            return _userService.GetUsersByRole(roleName).GetAwaiter().GetResult()
+                .Select(x => new UserView()
+                {
+                    Email = x.Email,
+                    Name = x.Name
+                });
         }
 
         /// <summary>
@@ -109,11 +114,12 @@ namespace TaskTrackingSystem.Controllers
         /// <returns></returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost("addtoproject")]
-        public IActionResult AddToProject(string projName, [FromBody] UserDTO user)
+        public IActionResult AddToProject(string projName, [FromBody] UserView user)
         {
             try
             {
-                _userService.AddToProject(projName, user);
+                var usr = new UserDTO() { Email = user.Email, Name = user.Name };
+                _userService.AddToProject(projName, usr);
                 return Ok();
             }
             catch (ProjectException e1)
