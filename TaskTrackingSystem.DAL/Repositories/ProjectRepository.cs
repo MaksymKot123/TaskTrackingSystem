@@ -10,6 +10,9 @@ namespace TaskTrackingSystem.DAL.Repositories
 {
     public class ProjectRepository : IRepository<Project>
     {
+        /// <summary>
+        /// <see cref="DAL.Models.DatabaseContext"/>
+        /// </summary>
         public DatabaseContext db { get; set; }
 
         public ProjectRepository(DatabaseContext context)
@@ -17,6 +20,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             db = context;
         }
 
+        /// <summary>
+        /// Add new project to database
+        /// </summary>
+        /// <param name="item"></param>
         public void Create(Project item)
         {
             var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
@@ -28,6 +35,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             
         }
 
+        /// <summary>
+        /// delete project from database
+        /// </summary>
+        /// <param name="item"></param>
         public void Delete(Project item)
         {
             var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
@@ -39,6 +50,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             }
         }
 
+        /// <summary>
+        /// Edit project from database
+        /// </summary>
+        /// <param name="item"></param>
         public void Edit(Project item)
         {
             var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
@@ -55,6 +70,11 @@ namespace TaskTrackingSystem.DAL.Repositories
             db.Dispose();
         }
 
+        /// <summary>
+        /// Get project by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns><see cref="DAL.Models.Project"/></returns>
         public Project Get(string name)
         {
             var proj = db.Projects
@@ -65,6 +85,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             return proj;
         }
 
+        /// <summary>
+        /// Get all project from database
+        /// </summary>
+        /// <returns>A list <see cref="DAL.Models.Project"/></returns>
         public IEnumerable<Project> GetAll() 
             => db.Projects
             .Include(x => x.Tasks)

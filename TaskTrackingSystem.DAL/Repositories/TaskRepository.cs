@@ -10,6 +10,9 @@ namespace TaskTrackingSystem.DAL.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
+        /// <summary>
+        /// <see cref="DAL.Models.DatabaseContext"/>
+        /// </summary>
         public DatabaseContext db { get; set; }
 
         public TaskRepository(DatabaseContext context)
@@ -17,6 +20,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             db = context;
         }
 
+        /// <summary>
+        /// Add new task to database
+        /// </summary>
+        /// <param name="item"></param>
         public void Create(TaskProject item)
         {
             var entity = db.Tasks
@@ -30,6 +37,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             
         }
 
+        /// <summary>
+        /// Delete task from database
+        /// </summary>
+        /// <param name="item"></param>
         public void Delete(TaskProject item)
         {
             var entity = db.Tasks
@@ -43,6 +54,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             
         }
 
+        /// <summary>
+        /// Edit task from database
+        /// </summary>
+        /// <param name="item"></param>
         public void Edit(TaskProject item)
         {
             var entity = db.Tasks
@@ -65,6 +80,11 @@ namespace TaskTrackingSystem.DAL.Repositories
             db.Dispose();
         }
 
+        /// <summary>
+        /// Get task from database by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns><see cref="DAL.Models.TaskProject"/></returns>
         public TaskProject Get(string name)
         {
             if (name == null)
@@ -74,6 +94,12 @@ namespace TaskTrackingSystem.DAL.Repositories
                     .FirstOrDefault(x => x.TaskName.Equals(name));
         }
 
+        /// <summary>
+        /// Get task from database by name with details
+        /// </summary>
+        /// <param name="taskName"></param>
+        /// <param name="projName"></param>
+        /// <returns><see cref="DAL.Models.TaskProject"/></returns>
         public TaskProject GetWithDetails(string taskName, string projName)
         {
             if (taskName == null || projName == null)
@@ -88,6 +114,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             }
         }
 
+        /// <summary>
+        /// Get all tasks with details from database
+        /// </summary>
+        /// <returns>A list of <see cref="DAL.Models.TaskProject"/></returns>
         public IEnumerable<TaskProject> GetAll() 
             => db.Tasks.Include(x => x.Project).ThenInclude(x => x.Tasks);
     }

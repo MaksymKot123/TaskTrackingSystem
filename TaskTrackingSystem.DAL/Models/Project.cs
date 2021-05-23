@@ -5,6 +5,9 @@ using TaskTrackingSystem.DAL.Enums;
 
 namespace TaskTrackingSystem.DAL.Models
 {
+    /// <summary>
+    /// Entity of project
+    /// </summary>
     public class Project
     {
         public int Id { get; set; }

@@ -14,7 +14,13 @@ namespace TaskTrackingSystem.DAL.Interfaces
         UserManager<User> UserManager { get; }
         RoleManager<IdentityRole> RoleManager { get; }
         SignInManager<User> SignInManager { get; }
+        /// <summary>
+        /// <see cref="DAL.Interfaces.ITaskRepository"/>
+        /// </summary>
         ITaskRepository TaskRepo { get; }
+        /// <summary>
+        /// <see cref="DAL.Interfaces.IRepository{T}"/>
+        /// </summary>
         IRepository<Project> ProjectRepo { get; }
         void SaveChanges();
     }
