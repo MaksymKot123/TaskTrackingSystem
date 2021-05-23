@@ -19,12 +19,21 @@ namespace TaskTrackingSystem.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IUserService _userService;
-
+        /// <summary>
+        /// Constructor for account controller. Via dependency injection 
+        /// it will get a user service
+        /// </summary>
+        /// <param name="userService"></param>
         public AccountController(IUserService userService)
         {
             _userService = userService;
         }
 
+        /// <summary>
+        /// This method returns a list of users with a specific role
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <returns>A list of users with a specific role</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
         public IEnumerable<UserDTO> GetUsersByRole([FromQuery]string roleName)
@@ -32,6 +41,13 @@ namespace TaskTrackingSystem.Controllers
             return _userService.GetUsersByRole(roleName).GetAwaiter().GetResult();
         }
 
+        /// <summary>
+        /// This method uses user service for logging in user's account
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>If email and password are correct, this method returns
+        /// status code 200 and JWT token. Otherwise, you will error message
+        /// on login page</returns>
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginView user)
@@ -52,7 +68,13 @@ namespace TaskTrackingSystem.Controllers
             }
             
         }
-
+        /// <summary>
+        /// This method uses user service for registering new users
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>Status code 200 if registration was succesful.
+        /// Otherwise you will get status code ??? and will see error message 
+        /// on registration page</returns>
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterView user)
         {
@@ -73,6 +95,12 @@ namespace TaskTrackingSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// This method adds some user to project with unique name
+        /// </summary>
+        /// <param name="projName"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [HttpPost("addtoproject")]
         public IActionResult AddToProject(string projName, [FromBody] UserDTO user)
         {
