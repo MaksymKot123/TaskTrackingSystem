@@ -18,11 +18,22 @@ namespace TaskTrackingSystem.Controllers
     {
         private readonly ITaskService _taskService;
 
+        /// <summary>
+        /// Constructor for task controller. Via dependency injection 
+        /// it will get a task service
+        /// </summary>
+        /// <param name="taskService"></param>
         public TasksController(ITaskService taskService)
         {
             _taskService = taskService;
         }
 
+        /// <summary>
+        /// This method adds a new task to existing project
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns>If there are not any errors you will get status code 200. 
+        /// Otherwise, you will get status code 400</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
         public IActionResult AddTaskToProject([FromBody] TaskView task)
@@ -52,6 +63,11 @@ namespace TaskTrackingSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// This methods returns a list of project's tasks
+        /// </summary>
+        /// <param name="project"></param>
+        /// <returns>A list of tasks</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpGet]
         public IEnumerable<TaskView> GetTasksOfProject([FromHeader] ProjectView project)
@@ -68,6 +84,12 @@ namespace TaskTrackingSystem.Controllers
             });
         }
 
+        /// <summary>
+        /// This method edits a task's info in projects
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns>If there are not any errors you will get status code 200. 
+        /// Otherwise, you will get status code 400</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpPut]
         public IActionResult EditTaskOfProject([FromBody] TaskView task)
@@ -92,6 +114,12 @@ namespace TaskTrackingSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// This method deletes a task of project
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns>If there are not any errors you will get status code 200. 
+        /// Otherwise, you will get status code 400</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete("project")]
         public IActionResult DeleteTaskInProject([FromBody] TaskView task)
