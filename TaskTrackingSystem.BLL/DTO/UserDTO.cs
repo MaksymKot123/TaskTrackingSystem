@@ -6,6 +6,9 @@ using System.Text;
 
 namespace TaskTrackingSystem.BLL.DTO
 {
+    /// <summary>
+    /// DTO model of user
+    /// </summary>
     public class UserDTO
     {
         public string Id { get; set; }

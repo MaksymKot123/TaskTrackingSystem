@@ -13,21 +13,21 @@ namespace TaskTrackingSystem.BLL
     public interface IUserService : IDisposable
     {
         /// <summary>
-        /// property of instance, which implements interface IUnitOfWork
+        /// <see cref="DAL.Interfaces.IUnitOfWork"/>
         /// </summary>
         public IUnitOfWork UnitOfWork { get; }
 
         /// <summary>
         /// Get all DTO user models
         /// </summary>
-        /// <returns>A list of DTO user models</returns>
+        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
         IEnumerable<UserDTO> GetAllUsers();
 
         /// <summary>
         /// Get user by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns></returns>
+        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
         Task<UserDTO> GetUser(string email);
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace TaskTrackingSystem.BLL
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        /// <returns>DTO model of new user</returns>
+        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
         Task<UserDTO> Register(UserDTO user, string password);
 
         /// <summary>
@@ -62,14 +62,14 @@ namespace TaskTrackingSystem.BLL
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        /// <returns>DTO model of user with JWT token</returns>
+        /// <returns><see cref="BLL.DTO.UserDTO"/> with JWT token</returns>
         Task<UserDTO> Authenticate(UserDTO user, string password);
 
         /// <summary>
         /// Get users with specific role
         /// </summary>
         /// <param name="roleName"></param>
-        /// <returns>A list of DTO user models</returns>
+        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
         Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName);
     }
 }

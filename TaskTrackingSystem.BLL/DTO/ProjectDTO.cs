@@ -5,6 +5,9 @@ using TaskTrackingSystem;
 
 namespace TaskTrackingSystem.BLL.DTO
 {
+    /// <summary>
+    /// DTO model of project
+    /// </summary>
     public class ProjectDTO
     {
         public int Id { get; set; }

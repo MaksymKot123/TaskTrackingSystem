@@ -4,6 +4,9 @@ using TaskTrackingSystem.BLL;
 
 namespace TaskTrackingSystem.BLL.DTO
 {
+    /// <summary>
+    /// DTO model of project's task
+    /// </summary>
     public class TaskDTO
     {
         public int Id { get; set; }

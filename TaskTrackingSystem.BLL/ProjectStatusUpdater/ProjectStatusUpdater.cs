@@ -18,7 +18,7 @@ namespace TaskTrackingSystem.BLL.ProjectStatusUpdater
         /// <summary>
         /// This method updates project's status and project's percernt of
         /// completion. Via dependency injection the method gets instance, which
-        /// implements IUnitOfWork interfaces
+        /// implements <see cref="DAL.Interfaces.IUnitOfWork"/>
         /// </summary>
         /// <param name="uow"></param>
         public static void UpdateInfo(IUnitOfWork uow)

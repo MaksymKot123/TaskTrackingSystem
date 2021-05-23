@@ -33,7 +33,7 @@ namespace TaskTrackingSystem.BLL.Interfaces
         /// Get project's all DTO task models
         /// </summary>
         /// <param name="projectName"></param>
-        /// <returns></returns>
+        /// <returns>A list of <see cref="BLL.DTO.TaskDTO"/></returns>
         IEnumerable<TaskDTO> GetTasksOfProject(string projectName);
     }
 }

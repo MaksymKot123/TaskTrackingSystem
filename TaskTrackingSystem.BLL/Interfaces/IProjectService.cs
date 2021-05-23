@@ -13,14 +13,14 @@ namespace TaskTrackingSystem.BLL.Interfaces
         /// <summary>
         /// Get all projects
         /// </summary>
-        /// <returns>A list of DTO project models</returns>
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
         IEnumerable<ProjectDTO> GetAllProjects();
 
         /// <summary>
         /// Get project by name
         /// </summary>
         /// <param name="name"></param>
-        /// <returns>Project DTO model</returns>
+        /// <returns><see cref="BLL.DTO.ProjectDTO"/></returns>
         ProjectDTO GetProject(string name);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace TaskTrackingSystem.BLL.Interfaces
         /// Get employee's all DTO project models
         /// </summary>
         /// <param name="email"></param>
-        /// <returns></returns>
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
         IEnumerable<ProjectDTO> GetEmployeesProjects(string email);
     }
 }
