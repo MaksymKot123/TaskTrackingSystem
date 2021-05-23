@@ -53,6 +53,7 @@ namespace TaskTrackingSystem
             });
 
             // In production, the Angular files will be served from this directory
+            services.AddSwaggerGen();
 
             services.AddScoped<DbContext, DatabaseContext>();
 
@@ -123,6 +124,13 @@ namespace TaskTrackingSystem
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             IdentityModelEventSource.ShowPII = false;
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(sw =>
+            {
+                sw.SwaggerEndpoint("/swagger/v1/swagger.json", "site");
+            });
 
             if (env.IsDevelopment())
             {

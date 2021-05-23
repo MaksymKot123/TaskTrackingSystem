@@ -83,6 +83,7 @@ namespace TaskTrackingSystem.Controllers
         }
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
+        [HttpDelete]
         public IActionResult Delete([FromBody] ProjectView proj)
         {
             var project = new ProjectDTO()
