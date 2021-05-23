@@ -35,7 +35,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// This method returns all projects of employee, which you can get by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns>A list of DTO projects</returns>
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
         public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
         {
             var user = _unifOfWork.GetUserWithDetails(email);
@@ -43,7 +43,6 @@ namespace TaskTrackingSystem.BLL.Services
                 user.Projects.AsEnumerable());
 
             return projects;
-
         }
 
         /// <summary>
@@ -99,7 +98,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// <summary>
         /// This method returns all projects from database
         /// </summary>
-        /// <returns>A list of DTO projects</returns>
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
         public IEnumerable<ProjectDTO> GetAllProjects()
         {
             return _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectDTO>>(
@@ -131,7 +130,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// This method return DTO model of project by name
         /// </summary>
         /// <param name="name"></param>
-        /// <returns>DTO model of project</returns>
+        /// <returns><see cref="BLL.DTO.ProjectDTO"/></returns>
         public ProjectDTO GetProject(string name)
         {
             var proj = _unifOfWork.ProjectRepo.GetAll()

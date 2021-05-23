@@ -44,7 +44,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// Get users with specified role
         /// </summary>
         /// <param name="roleName"></param>
-        /// <returns>A list of DTO user models</returns>
+        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
         public async Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName)
         {
             var users = await _unitOfWork.UserManager.GetUsersInRoleAsync(roleName);
@@ -59,7 +59,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        /// <returns>A DTO user model</returns>
+        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
         public async Task<UserDTO> Authenticate(UserDTO user, string password)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
@@ -101,7 +101,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// </summary>
         /// <param name="newUser"></param>
         /// <param name="password"></param>
-        /// <returns>DTO user model</returns>
+        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
         public async Task<UserDTO> Register(UserDTO newUser, string password)
         {
             if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(newUser.Email)))
@@ -229,7 +229,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// <summary>
         /// This method return all DTO user models
         /// </summary>
-        /// <returns>A list of DTO user models</returns>
+        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
         public IEnumerable<UserDTO> GetAllUsers()
         {
             var users = _unitOfWork.UserManager.Users.AsEnumerable();
@@ -240,7 +240,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// This method returns a DTO model of user. User can be got by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns>A DTO model of user</returns>
+        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
         public async Task<UserDTO> GetUser(string email)
         {
             if (email == null)

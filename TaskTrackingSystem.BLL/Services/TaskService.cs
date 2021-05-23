@@ -30,12 +30,13 @@ namespace TaskTrackingSystem.BLL.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
         /// <summary>
         /// This method return a list of DTO tasks of project.
         /// Project can be got by name
         /// </summary>
         /// <param name="projectName"></param>
-        /// <returns></returns>
+        /// <returns>A list of <see cref="BLL.DTO.TaskDTO"/></returns>
         public IEnumerable<TaskDTO> GetTasksOfProject(string projectName)
         {
             var tasks = _unitOfWork.ProjectRepo.GetAll()
