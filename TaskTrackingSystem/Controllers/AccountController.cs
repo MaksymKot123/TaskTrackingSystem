@@ -23,6 +23,7 @@ namespace TaskTrackingSystem.Controllers
         /// <see cref="BLL.Interfaces.IUserService"/>
         /// </summary>
         private readonly IUserService _userService;
+
         /// <summary>
         /// Constructor for account controller. Via dependency injection 
         /// it will get a user service
@@ -38,6 +39,7 @@ namespace TaskTrackingSystem.Controllers
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns>A list of <see cref="BLL.DTO.UserDTO"/> with a specific role</returns>
+        
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
         public IEnumerable<UserDTO> GetUsersByRole([FromQuery]string roleName)
@@ -105,6 +107,7 @@ namespace TaskTrackingSystem.Controllers
         /// <param name="projName"></param>
         /// <param name="user"></param>
         /// <returns></returns>
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost("addtoproject")]
         public IActionResult AddToProject(string projName, [FromBody] UserDTO user)
         {
@@ -121,12 +124,6 @@ namespace TaskTrackingSystem.Controllers
             { 
                 return BadRequest(e2.Message); 
             }
-            catch(Exception e3)
-            {
-                return BadRequest(e3.Message);
-            }
-            
-            
         }
     }
 }

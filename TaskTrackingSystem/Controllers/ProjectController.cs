@@ -159,8 +159,7 @@ namespace TaskTrackingSystem.Controllers
             catch(ProjectException e)
             {
                 return BadRequest(e.Message);
-            }
-            
+            } 
         }
     }
 }
