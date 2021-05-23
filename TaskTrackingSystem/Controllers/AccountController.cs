@@ -73,7 +73,7 @@ namespace TaskTrackingSystem.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns>Status code 200 if registration was succesful.
-        /// Otherwise you will get status code ??? and will see error message 
+        /// Otherwise you will get status code 400 and will see error message 
         /// on registration page</returns>
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegisterView user)

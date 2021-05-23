@@ -19,11 +19,20 @@ namespace TaskTrackingSystem.Controllers
     {
         private readonly IProjectService _projService;
 
+        /// <summary>
+        /// Constructor for project controller. Via dependency injection 
+        /// it will get a project service
+        /// </summary>
+        /// <param name="projService"></param>
         public ProjectController(IProjectService projService)
         {
             _projService = projService;
         }
 
+        /// <summary>
+        /// This method returns all projects from database
+        /// </summary>
+        /// <returns>A list of project</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet("all")]
         public IEnumerable<ProjectView> Get()
@@ -40,6 +49,12 @@ namespace TaskTrackingSystem.Controllers
                 Status = x.Status.ToString()
             });
         }
+
+        /// <summary>
+        /// This method returns a list of projects, which has some employee
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>A list of projects</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpGet]
         public IEnumerable<ProjectView> GetEmployeesProjects(string email)
@@ -57,6 +72,12 @@ namespace TaskTrackingSystem.Controllers
                 });
         }
 
+        /// <summary>
+        /// This method adds new project to database
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <returns>If there are not any errors you will get status code 200. 
+        /// Otherwise, you will get status code 400</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
         public IActionResult AddProject([FromBody] ProjectView proj)
@@ -82,9 +103,15 @@ namespace TaskTrackingSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// This methods deletes a project from database
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <returns>If there are not any errors you will get status code 200. 
+        /// Otherwise, you will get status code 400</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete]
-        public IActionResult Delete([FromBody] ProjectView proj)
+        public IActionResult DeleteProject([FromBody] ProjectView proj)
         {
             var project = new ProjectDTO()
             {
@@ -103,6 +130,13 @@ namespace TaskTrackingSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        /// <summary>
+        /// This methods changes project's info
+        /// </summary>
+        /// <param name="proj"></param>
+        /// <returns>If there are not any errors you will get status code 200. 
+        /// Otherwise, you will get status code 400</returns>
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         public IActionResult EditProject([FromBody] ProjectView proj)
