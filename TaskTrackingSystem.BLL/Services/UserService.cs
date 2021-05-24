@@ -52,15 +52,7 @@ namespace TaskTrackingSystem.BLL.Services
             if (userFromDatabase == null)
                 throw new UserException("User not found");
 
-            var projects = userFromDatabase.Projects;
-
-            while(projects.Count > 0)
-            {
-                var proj = projects.First();
-                proj.Employees.Remove(userFromDatabase);
-                _unitOfWork.ProjectRepo.Edit(proj);
-                _unitOfWork.SaveChanges();
-            }
+            this.DeleteEmployeesProject(user.Email);
 
             _unitOfWork.UserManager.DeleteAsync(userFromDatabase)
                 .GetAwaiter().GetResult();
@@ -285,9 +277,13 @@ namespace TaskTrackingSystem.BLL.Services
             _unitOfWork.UserManager.UpdateAsync(user).GetAwaiter().GetResult();
 
             if (roles.Contains("Employee"))
-                DeleteEmployeesProject(userEmail);
+                this.DeleteEmployeesProject(userEmail);
         }
 
+        /// <summary>
+        /// This method removes employee's projects
+        /// </summary>
+        /// <param name="email"></param>
         private void DeleteEmployeesProject(string email)
         {
             var user = _unitOfWork.GetUserWithDetails(email);
