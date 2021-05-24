@@ -87,7 +87,7 @@ namespace TaskTrackingSystem.Controllers
         /// Otherwise you will get status code 400 and will see error message 
         /// on registration page</returns>
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] RegisterView user)
+        public IActionResult Register([FromBody] RegisterView user)
         {
             var usr = new UserDTO()
             {
@@ -97,7 +97,7 @@ namespace TaskTrackingSystem.Controllers
 
             try
             {
-                var responce = await _userService.Register(usr, user.Password);
+                var responce = _userService.Register(usr, user.Password).GetAwaiter().GetResult();
                 return Ok();
             }
             catch(UserException e)
@@ -129,6 +129,26 @@ namespace TaskTrackingSystem.Controllers
             catch (UserException e2) 
             { 
                 return BadRequest(e2.Message); 
+            }
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
+        [HttpDelete]
+        public IActionResult DeleteUser([FromBody] UserView user)
+        {
+            var usr = new UserDTO()
+            {
+                Email = user.Email,
+                Name = user.Name,
+            };
+            try
+            {
+                _userService.DeleteUser(usr);
+                return Ok();
+            }
+            catch(UserException e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }

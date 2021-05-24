@@ -112,6 +112,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         {
             return db.Users
                 .Include(x => x.Projects)
+                .ThenInclude(x => x.Tasks)
                 .FirstOrDefault(x => x.Email.Equals(email));
         }
     }

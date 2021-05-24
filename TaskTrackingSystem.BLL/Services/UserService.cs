@@ -41,6 +41,33 @@ namespace TaskTrackingSystem.BLL.Services
         }
 
         /// <summary>
+        /// This method deletes user from database. If user is not found, a user
+        /// exception will be thrown
+        /// </summary>
+        /// <param name="user"></param>
+        public void DeleteUser(UserDTO user)
+        {
+            var userFromDatabase = _unitOfWork.GetUserWithDetails(user.Email);
+
+            if (userFromDatabase == null)
+                throw new UserException("User not found");
+
+            var projects = userFromDatabase.Projects;
+
+            while(projects.Count > 0)
+            {
+                var proj = projects.First();
+                proj.Employees.Remove(userFromDatabase);
+                _unitOfWork.ProjectRepo.Edit(proj);
+                _unitOfWork.SaveChanges();
+            }
+
+            _unitOfWork.UserManager.DeleteAsync(userFromDatabase)
+                .GetAwaiter().GetResult();
+            _unitOfWork.SaveChanges();
+        }
+
+        /// <summary>
         /// Get users with specified role
         /// </summary>
         /// <param name="roleName"></param>
@@ -181,26 +208,6 @@ namespace TaskTrackingSystem.BLL.Services
             proj.Employees.Add(userFromDatabase);
             userFromDatabase.Projects.Add(proj);
             _unitOfWork.SaveChanges();
-        }
-
-        /// <summary>
-        /// This method deletes user from database. If user is not found, a user
-        /// exception will be thrown
-        /// </summary>
-        /// <param name="user"></param>
-        public async void DeleteUser(UserDTO user)
-        {
-            var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
-
-            if (usr != null)
-            {
-                await _unitOfWork.UserManager.DeleteAsync(usr);
-                _unitOfWork.SaveChanges();
-            }
-            else
-            {
-                throw new UserException("User not found");
-            }
         }
 
         /// <summary>

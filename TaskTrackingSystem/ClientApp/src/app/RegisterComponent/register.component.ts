@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpParams } from "@angular/common/http";
 import { RegistrationService } from "../Services/registration.service";
 import { OnInit } from "@angular/core";
@@ -19,18 +19,17 @@ export class RegisterComponent implements OnInit {
   myForm: FormGroup;
   error: any;
 
-  constructor(private regServ: RegistrationService) { }
+  constructor(private regServ: RegistrationService, private fb: FormBuilder) { }
+
+  readonly RegEx = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
 
   ngOnInit() {
-    this.myForm = new FormGroup({
-      "name": new FormControl("", Validators.required),
-      "email": new FormControl("", [
-        Validators.required,
-        Validators.email
-      ]),
-      "password": new FormControl("", Validators.required),
-      "confirmPassword": new FormControl("", Validators.required)
-    });
+    this.myForm = this.fb.group({
+      "name": ["", Validators.required],
+      "email": ["", [Validators.required, Validators.email]],
+      "password": ["", [Validators.required, Validators.pattern(this.RegEx)]],
+      "confirmPassword": ["", Validators.required],
+    })
   }
 
   submit() {
@@ -38,6 +37,7 @@ export class RegisterComponent implements OnInit {
     let email = this.myForm.controls["email"].value;
     let password = this.myForm.controls["password"].value;
     let confirmPassword = this.myForm.controls["confirmPassword"].value;
+
     if (password === confirmPassword) {
       let res = this.regServ.postData(email, password, name, URL)
         .subscribe(null, error => {

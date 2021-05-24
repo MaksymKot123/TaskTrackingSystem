@@ -22,7 +22,8 @@
     <input class="form-control" type="password" name="password" formControlName="password" />
     <div class="alert alert-danger"
          *ngIf="myForm.controls['password'].invalid && myForm.controls['password'].touched">
-      Enter the password
+      <p>Password must contain at least 6 charactes, 1 uppercase character,</p>
+      <p>1 lowercase character and one special character</p>
     </div>
   </div>
   <div class="form-group">
@@ -37,10 +38,10 @@
     </div>
   </div>
   <div class="form-group">
-    <button type="button" class="btn btn-primary" [disabled]="myForm.controls['confirmPassword'].invalid ||
+    <button type="submit" class="btn btn-primary" [disabled]="myForm.controls['confirmPassword'].invalid ||
             myForm.controls['password'].invalid || myForm.controls['name'].invalid
             || myForm.controls['email'].invalid || myForm.controls['password'].value !==
-            myForm.controls['confirmPassword'].value">
+            myForm.controls['confirmPassword'].value || myForm.invalid">
       Register
     </button>
     <div *ngIf="error != undefined" class="alert-danger alert" role="alert">
