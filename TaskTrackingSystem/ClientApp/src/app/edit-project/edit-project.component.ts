@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { EditProjectService } from "src/app/Services/editProject.service";
+import { ProjectDateValidator } from "src/app/DateValidator/projectdatevalidator";
 
 const URL = "project";
 
@@ -28,34 +29,37 @@ export class EditProjectComponent implements OnInit {
   constructor(private http: HttpClient, private projService: EditProjectService) { }
 
   ngOnInit() {
+    let date = new Date(this.endTime);
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let day = date.getDate() <= 9 ? "0" + date.getDate() : date.getDate();
+    let formatedDate = `${day}/${month}/${year}`;
     this.myForm = new FormGroup({
       "description": new FormControl(this.description, Validators.required),
-      "endTime": new FormControl(this.endTime, Validators.required),
+      "endTime": new FormControl(formatedDate, Validators.required),
       "clientEmail": new FormControl(this.clientEmail, [
         Validators.required,
         Validators.email
       ])
-    })
+    }, { validators: ProjectDateValidator })
   }
 
   edit() {
-    const endTime = this.myForm.controls["endTime"].value;
-    const description = this.myForm.controls["description"].value;
-    const clientEmail = this.myForm.controls["clientEmail"].value;
+    let wantToEdit = confirm("Do you want to edit this project?");
+    if (wantToEdit) {
+      const endTime = this.myForm.controls["endTime"].value;
+      const description = this.myForm.controls["description"].value;
+      const clientEmail = this.myForm.controls["clientEmail"].value;
 
-    const body = {
-      "Name": name,
-      "EndTime": endTime,
-      "Description": description,
-      "ClientEmail": clientEmail
-    };
+      const responce = this.projService.editProject(URL,
+        this.name, description, clientEmail, new Date(endTime).toISOString()).subscribe(null,
+          error => { this.error = error });
 
-    const responce = this.projService.editProject(URL,
-      this.name, description, clientEmail, endTime).subscribe(null,
-        error => { this.error = error });
-
-    this.ngOnInit();
+      this.ngOnInit();
+    }
   }
+
+  get MyForm() { return this.myForm.controls; }
 
   closeForm(value: { val: boolean }) {
     this.editProject = value;

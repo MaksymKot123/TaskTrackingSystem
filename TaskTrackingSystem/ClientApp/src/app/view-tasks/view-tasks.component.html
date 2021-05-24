@@ -8,35 +8,20 @@
 
     <button *ngIf="this.Role === 'Employee' && task.status !== 'Completed'"
             (click)="edit(task.taskName, task.projName, task.description,
-        'Completed', task.startTime, task.endTime)" class="btn btn-success">
+        'Completed', task.startTime, task.endTime)" class="btn btn-success w-100">
       Change status to "Completed"
     </button>
 
     <button *ngIf="this.Role !== 'Employee' && task.status !== 'Completed'"
       (click)="delete(task.taskName, task.projName, task.description,
-      task.status, task.startTime, task.endTime)" class="btn btn-danger">
+      task.status, task.startTime, task.endTime)" class="btn btn-danger w-100">
       Delete
     </button>
-    <!--<button class="btn-primary btn" type="button" (click)="toogle(proj.editProject)"
-          *ngIf="proj.editProject.val && proj.status !== 'Completed'">
-    Edit
-  </button>
-
-  <button type="button" class="btn btn-danger" (click)="delete(proj.name)"
-          *ngIf="proj.status !== 'Completed'">
-    Delete
-  </button>
-  <button class="btn btn-primary" type="button" (click)="toogle(proj.addTask)"
-          *ngIf="proj.addTask.val && proj.status !== 'Completed'">
-    Add new task
-  </button>
-  <button class="btn btn-primary" type="button" (click)="toogle(proj.showTasks)"
-          *ngIf="proj.showTasks.val">
-    Show tasks
-  </button>-->
     <div *ngIf="error != undefined" class="alert alert-danger">
       {{error.error}}
     </div>
   </div>
 </div>
-<button (click)="closeForm({ val: true })" class="btn btn-primary">Hide</button>
+<button (click)="closeForm({ val: true })" class="btn btn-secondary w-100">Hide</button>
+
+

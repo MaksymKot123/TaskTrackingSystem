@@ -25,6 +25,7 @@ export class AddUsersToProjectComponent implements OnInit {
 
   projects: IProject[] = [];
   error: any;
+  msg: string;
 
   @Input() selectedProject: string;
   @Output() selectedProjectChange = new EventEmitter<string>();
@@ -36,13 +37,16 @@ export class AddUsersToProjectComponent implements OnInit {
 
   getProjects() {
     this.projServ.getAllProjects(PROJ_URL).subscribe(x => this.projects = x,
-     error => { this.error = error });
-    //this.projServ.getProjects(PROJ_URL, this.userEmail).subscribe(x => this.projects = x);
+      error => { this.error = error });
   }
 
   addUserToProject() {
-    this.service.addUser(URL, this.selectedProject, this.userEmail).subscribe(null,
-      error => { this.error = error });
+    if (this.selectedProject != undefined) {
+      this.service.addUser(URL, this.selectedProject, this.userEmail).subscribe(() => {
+        this.msg = "Project was added to this user";
+      },
+        error => { this.error = error });
+    }
   }
 
   toogle(model: { val: boolean }) {

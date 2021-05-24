@@ -1,40 +1,105 @@
-<h1>Admins</h1>
-<div *ngFor="let admin of admins">
-  <p>{{admin.email}} | {{admin.name}}</p>
-  <button *ngIf="admin.email !== this.currentUserEmail" class="btn btn-danger" (click)="deleteUser(admin.email)">Delete</button>
-  <button *ngIf="admin.changeRole.val && admin.email !== this.currentUserEmail"
-    class="btn btn-primary" (click)="toogle(admin.changeRole)">Change role</button>
-  <change-role *ngIf="admin.email !== this.currentUserEmail && !admin.changeRole.val"
-    [usersEmail]="admin.email" [(changeRole)]="admin.changeRole"></change-role>
-</div>
-<h1>Managers</h1>
-<div *ngFor="let manager of managers">
-  <p>{{manager.email}} | {{manager.name}}</p>
-  <button *ngIf="manager.changeRole.val" class="btn btn-primary" (click)="toogle(manager.changeRole)">Change role</button>
-  <button (click)="deleteUser(manager.email)" class="btn btn-danger">Delete</button>
-  <change-role *ngIf="!manager.changeRole.val" [(changeRole)]="manager.changeRole"
-    [usersEmail]="manager.email"></change-role>
-</div>
-<h1>Employees</h1>
-<div *ngFor="let employee of employees">
-  <p>{{employee.email}} | {{employee.name}}</p>
-  <button *ngIf="employee.viewProjects.val" class="btn btn-info" (click)="toogle(employee.viewProjects)">
-    See projects
-  </button>
-  <button *ngIf="employee.addToProject.val" class="btn btn-primary" (click)="toogle(employee.addToProject)">
-    Add to project
-  </button>
-  <button *ngIf="employee.changeRole.val" class="btn btn-primary" (click)="toogle(employee.changeRole)">Change role</button>
-  <change-role *ngIf="!employee.changeRole.val" [(changeRole)]="employee.changeRole"
-    [usersEmail]="employee.email"></change-role>
-  <button (click)="deleteUser(employee.email)" class="btn btn-danger">Delete</button>
-  <div *ngIf="error != undefined" class="alert alert-danger">
-    {{error.error}}
+<br />
+<h4 class="text-center">Admins</h4>
+<br />
+<div class="card offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6" *ngFor="let admin of admins">
+  <div class="card-body">
+    <p class="card-title">Name: {{admin.name}}</p>
+    <p class="card-subtitle">Email: {{admin.email}}</p>
+    <br />
+    <div class="gridWrapper">
+      <div class="flexWrapper">
+        <button *ngIf="admin.changeRole.val && admin.email !== this.currentUserEmail"
+                class="btn btn-primary w-100" (click)="toogle(admin.changeRole)">
+          Change role
+        </button>
+        <change-role *ngIf="admin.email !== this.currentUserEmail && !admin.changeRole.val"
+                     [usersEmail]="admin.email" [(changeRole)]="admin.changeRole"></change-role>
+      </div>
+      <div>
+        <button *ngIf="admin.email !== this.currentUserEmail" class="btn btn-danger w-100"
+                (click)="deleteUser(admin.email)">
+          Delete
+        </button>
+        <div class="alert alert-success" role="alert" *ngIf="this.msg != undefined">
+          User has been deleted
+        </div>
+      </div>
+    </div>
   </div>
-  <add-user-to-project [userEmail]="employee.email" [(addToProject)]="employee.addToProject"
-                       *ngIf="!employee.addToProject.val"></add-user-to-project>
-  <view-projects-of-user [userEmail]="employee.email" *ngIf="!employee.viewProjects.val"
-                         [(viewProjects)]="employee.viewProjects">
-  </view-projects-of-user>
 </div>
+<div *ngIf="error != undefined" class="alert alert-danger">
+  {{error.error}}
+</div>
+<br />
+<h4 class="text-center">Managers</h4>
+<br />
+<div class="card offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6" *ngFor="let manager of managers">
+  <div class="card-body">
+    <p class="card-title">Name: {{manager.name}}</p>
+    <p class="card-subtitle">Email: {{manager.email}}</p>
+    <br />
+    <div class="gridWrapper">
+      <div class="flexWrapper">
+        <button *ngIf="manager.changeRole.val" class="btn btn-primary w-100" (click)="toogle(manager.changeRole)">Change role</button>
+        <change-role *ngIf="!manager.changeRole.val" [(changeRole)]="manager.changeRole"
+                     [usersEmail]="manager.email"></change-role>
+      </div>
+      <div>
+        <button (click)="deleteUser(manager.email)" class="btn btn-danger w-100">Delete</button>
+        <div class="alert alert-success" role="alert" *ngIf="this.msg != undefined">
+          User has been deleted
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="error != undefined" class="alert alert-danger">
+  {{error.error}}
+</div>
+<br />
+<h4 class="text-center">Employees</h4>
+<br />
+<div class="alert alert-success" role="alert" *ngIf="this.msg != undefined">
+  User has been deleted
+</div>
+<div *ngIf="error != undefined" class="alert alert-danger" role="alert">
+  {{error.error}}
+</div>
+<div class="card offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6" *ngFor="let employee of employees">
+  <div class="card-body">
+    <p class="card-title">Name: {{employee.name}}</p>
+    <p class="card-subtitle">Email: {{employee.email}}</p>
+    <br />
+    <div class="employeeGridWrapper">
+      <div class="flexWrapper">
+        <button *ngIf="employee.addToProject.val" class="btn btn-primary w-100 flexWrapper" (click)="toogle(employee.addToProject)">
+          Add to project
+        </button>
+        <add-user-to-project [userEmail]="employee.email" [(addToProject)]="employee.addToProject"
+                             *ngIf="!employee.addToProject.val"></add-user-to-project>
+      </div>
+      <div class="flexWrapper">
+        <button *ngIf="employee.viewProjects.val" class="btn btn-info w-100" (click)="toogle(employee.viewProjects)">
+          See projects
+        </button>
+        <view-projects-of-user [userEmail]="employee.email" *ngIf="!employee.viewProjects.val"
+                               [(viewProjects)]="employee.viewProjects">
+        </view-projects-of-user>
+      </div>
+      <div class="flexWrapper">
+        <button *ngIf="employee.changeRole.val" class="btn btn-primary"
+                (click)="toogle(employee.changeRole)">
+          Change role
+        </button>
+        <change-role *ngIf="!employee.changeRole.val" [(changeRole)]="employee.changeRole"
+                     [usersEmail]="employee.email"></change-role>
+      </div>
+      <div>
+        <button (click)="deleteUser(employee.email)" class="btn btn-danger w-100">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 

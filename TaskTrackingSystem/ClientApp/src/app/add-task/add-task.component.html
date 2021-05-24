@@ -8,7 +8,7 @@
     </div>
   </div>
   <div class="form-group">
-    <input name="projEndTime" formControlName="projEndTime" type="hidden" value="{{projEndTime}}"/>
+    <input name="projEndTime" formControlName="projEndTime" type="hidden" value="{{projEndTime}}" />
   </div>
   <div class="form-group">
     <label>Deadline</label>
@@ -25,12 +25,13 @@
   </div>
 
   <div class="form-group">
-    <button class="btn-primary" [disabled]="myForm.invalid || MyForm.endTime.errors">
-      Submit
+    <button class="btn-success btn w-100" type="submit" [disabled]="myForm.invalid || MyForm.endTime.errors">
+      Add
     </button>
   </div>
+  
 </form>
 <div *ngIf="error != undefined" class="alert alert-danger">
   {{error.error}}
 </div>
-<button (click)="closeForm({val: true})">Close</button>
+<button type="button" class="btn btn-secondary w-100" (click)="closeForm({val: true})">Close form</button>

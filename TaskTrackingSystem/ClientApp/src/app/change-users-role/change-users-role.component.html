@@ -4,13 +4,21 @@
   </option>
 </select>
 
-<button (click)="changeUsersRole()" class="btn btn-primary">
-  Change role
-</button>
-<p class="alert alert-success" *ngIf="this.msg != undefined">{{this.msg}}</p>
-<button (click)="closeForm({val: true})" class="btn-secondary btn">
-  Hide
-</button>
-<div class="alert alert-danger" *ngIf="error != undefined">
-  {{error.error}}
+<div class="flexWrapper">
+  <div>
+    <button (click)="changeUsersRole()" type="button" class="btn btn-success w-100">
+      Submit
+    </button>
+    <p class="alert alert-success" role="alert" *ngIf="this.msg != undefined">
+      {{this.msg}}
+    </p>
+  </div>
+  <div>
+    <button (click)="closeForm({val: true})" class="btn-secondary btn w-100">
+      Hide
+    </button>
+    <div class="alert alert-danger" *ngIf="error != undefined">
+      {{error.error}}
+    </div>
+  </div>
 </div>

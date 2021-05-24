@@ -28,9 +28,11 @@ export class ChangeUsersRoleComponent implements OnInit {
   }
 
   changeUsersRole() {
-    this.service.changeRole(URL, this.usersEmail, this.selectedRole).subscribe(() => {
-      this.msg = "Role has been changed";
-    }, error => { this.error = error });
+    if (this.selectedRole != undefined) {
+      this.service.changeRole(URL, this.usersEmail, this.selectedRole).subscribe(() => {
+        this.msg = "Role has been changed";
+      }, error => { this.error = error });
+    }
   }
 
   closeForm(value: { val: boolean }) {

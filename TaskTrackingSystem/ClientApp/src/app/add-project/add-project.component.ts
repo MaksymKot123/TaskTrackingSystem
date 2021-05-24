@@ -41,9 +41,8 @@ export class AddProjectComponent implements OnInit {
     const clientEmail = this.myForm.controls["clientEmail"].value;
     const description = this.myForm.controls["description"].value;
 
-    let responce = this.projServ.addNewProject("project/", projectName, deadLine,
+    this.projServ.addNewProject("project/", projectName, new Date(deadLine).toISOString(),
       clientEmail, description).subscribe(null, error => { this.error = error });
-    console.log(responce);
   }
 
   get MyForm() { return this.myForm.controls; }

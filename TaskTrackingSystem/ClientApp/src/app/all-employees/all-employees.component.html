@@ -1,17 +1,28 @@
-<h1>Employees</h1>
-<div *ngFor="let employee of employees">
-  <p>{{employee.email}} | {{employee.name}}</p>
-  <button *ngIf="employee.viewProjects.val" (click)="toogle(employee.viewProjects)">
-    See projects
-  </button>
-  <button *ngIf="employee.addToProject.val" (click)="toogle(employee.addToProject)">
-    Add to project
-  </button>
-  <add-user-to-project [userEmail]="employee.email" [(addToProject)]="employee.addToProject"
-    *ngIf="!employee.addToProject.val"></add-user-to-project>
-  <view-projects-of-user [userEmail]="employee.email" *ngIf="!employee.viewProjects.val"
-    [(viewProjects)]="employee.viewProjects">
-  </view-projects-of-user>
+<h4 class="text-center">Employees</h4>
+<div class="card offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6" *ngFor="let employee of employees">
+  <div class="card-body">
+    <p class="card-title">{{employee.name}}</p>
+    <p class="card-subtitle">{{employee.email}}</p>
+    <br />
+    <div class="managerGridWrapper">
+      <div class="flexWrapper">
+        <button *ngIf="employee.viewProjects.val" class="btn btn-info w-100"
+                (click)="toogle(employee.viewProjects)">
+          See projects
+        </button>
+        <view-projects-of-user [userEmail]="employee.email" *ngIf="!employee.viewProjects.val"
+          [(viewProjects)]="employee.viewProjects">
+        </view-projects-of-user>
+      </div>
+      <div class="flexWrapper">
+        <button *ngIf="employee.addToProject.val" class="btn btn-primary w-100" (click)="toogle(employee.addToProject)">
+          Add to project
+        </button>
+        <add-user-to-project [userEmail]="employee.email" [(addToProject)]="employee.addToProject"
+          *ngIf="!employee.addToProject.val"></add-user-to-project>
+      </div>
+    </div>
+  </div>
 </div>
 <div *ngIf="error != undefined" class="alert alert-danger">
   {{error.error}}

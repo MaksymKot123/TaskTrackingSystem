@@ -1,4 +1,4 @@
-<div *ngFor="let proj of projects" class="card">
+<div *ngFor="let proj of projects" class="card offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
   <div class="card-body">
     <h4 class="card-title">Name: {{proj.name}}</h4>
     <h5 class="card-title">Status: {{proj.status}}</h5>
@@ -6,77 +6,48 @@
     <h5 class="card-title">Client email: {{proj.clientEmail}}</h5>
     <h5 class="card-title">Start time: {{proj.startTime | date: "medium":"UTC" }}</h5>
     <h5 class="card-title">Deadline: {{proj.endTime | date: "medium":"UTC" }}</h5>
-    <button class="btn-primary btn" type="button" (click)="toogle(proj.editProject)"
-            *ngIf="proj.editProject.val && proj.status !== 'Completed'">
-      Edit
-    </button>
-
-    <button type="button" class="btn btn-danger" (click)="delete(proj.name)"
-            *ngIf="proj.status !== 'Completed'">
-      Delete
-    </button>
-    <button class="btn btn-primary" type="button" (click)="toogle(proj.addTask)"
-            *ngIf="proj.addTask.val && proj.status !== 'Completed'">
-      Add new task
-    </button>
-    <button class="btn btn-primary" type="button" (click)="toogle(proj.showTasks)"
-            *ngIf="proj.showTasks.val">
-      Show tasks
-    </button>
+    <div class="flexWrapper">
+      <div class="flexWrapper">
+        <button class="btn btn-primary w-100" type="button" (click)="toogle(proj.addTask)"
+                *ngIf="proj.addTask.val && proj.status !== 'Completed'">
+          Add new task
+        </button>
+        <add-task *ngIf="!proj.addTask.val" [projEndTime]="proj.endTime"
+          [projName]="proj.name" [(addTask)]="proj.addTask"></add-task>
+      </div>
+      <div class="flexWrapper">
+        <button class="btn btn-info w-100" type="button" (click)="toogle(proj.showTasks)"
+                *ngIf="proj.showTasks.val">
+          Show tasks
+        </button>
+        <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
+          *ngIf="!proj.showTasks.val"></view-tasks>
+      </div>
+      <br />
+      <div class="flexWrapper">
+        <button class="btn-primary btn w-100" type="button" (click)="toogle(proj.editProject)"
+                *ngIf="proj.editProject.val && proj.status !== 'Completed'">
+          Edit project
+        </button>
+        <edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
+          [name]="proj.name" [description]="proj.description"
+          [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>
+      </div>
+      <div class="flexWrapper">
+        <button type="button" class="btn btn-danger w-100" (click)="delete(proj.name)"
+                *ngIf="proj.status !== 'Completed'">
+          Delete project
+        </button>
+      </div>
+    </div>
     <div *ngIf="error != undefined" class="alert alert-danger">
       {{error.error}}
     </div>
-    <add-task *ngIf="!proj.addTask.val" [projEndTime]="proj.endTime" [projName]="proj.name" [(addTask)]="proj.addTask"></add-task>
-    <edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
-                  [name]="proj.name" [description]="proj.description"
-                  [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>
-    <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
-                *ngIf="!proj.showTasks.val"></view-tasks>
-
-
   </div>
 </div>
-<button type="button" class="btn btn-primary" *ngIf="addProject" (click)="addNewProject()">Add project</button>
+<button type="button" class="btn btn-primary w-100 offset-sm-1 col-sm-10 offset-md-2
+  col-md-8 offset-lg-3 col-lg-6" *ngIf="addProject" (click)="addNewProject()">
+  Add project
+</button>
+
 <add-project [(addProject)]="addProject" *ngIf="!addProject"></add-project>
-<!--<table>
-  <tr>
-    <th>Project name</th>
-    <th>Project status</th>
-    <th>Start of the project</th>
-    <th>Deadline of the project</th>
-    <th>Description</th>
-    <th>Email of the client</th>
-    <th>Percent of completion</th>
-  </tr>
-  <tr *ngFor="let proj of projects">
-    <td>{{proj.name}}</td>
-    <td>{{proj.status}}</td>
-    <td>{{proj.startTime | date: "medium":"UTC" }}</td>
-    <td>{{proj.endTime | date: "medium":"UTC"}}</td>
-    <td>{{proj.description}}</td>
-    <td>{{proj.clientEmail}}</td>
-    <td>{{proj.percentCompletion}}</td>
-    <td><button (click)="toogle(proj.editProject)" *ngIf="proj.editProject.val
-      && proj.status !== 'Completed'">Edit</button></td>
-    <td>
-      <button (click)="delete(proj.name)" *ngIf="proj.status !== 'Completed'">
-        Delete
-      </button>
-    </td>
-    <td>
-      <button (click)="toogle(proj.addTask)" *ngIf="proj.addTask.val &&
-      proj.status !== 'Completed'">
-        Add new task
-      </button>
-    </td>
-    <td><button (click)="toogle(proj.showTasks)" *ngIf="proj.showTasks.val">Show tasks</button></td>
-    <edit-project *ngIf="!proj.editProject.val" [(editProject)]="proj.editProject.val"
-      [name]="proj.name" [description]="proj.description"
-      [endTime]="proj.endTime" [clientEmail]="proj.clientEmail"></edit-project>
-    <add-task *ngIf="!proj.addTask.val" [projName]="proj.name" [(addTask)]="proj.addTask" ></add-task>
-    <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
-      *ngIf="!proj.showTasks.val" ></view-tasks>
-  </tr>
-</table>
-<button *ngIf="addProject" (click)="addNewProject()">Add project</button>
-<add-project [(addProject)]="addProject" *ngIf="!addProject"></add-project>-->

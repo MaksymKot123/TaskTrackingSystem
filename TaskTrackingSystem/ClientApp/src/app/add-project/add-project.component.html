@@ -1,4 +1,4 @@
-<form [formGroup]="myForm" novalidate (ngSubmit)="addNewProject()">
+<form [formGroup]="myForm" novalidate (ngSubmit)="addNewProject()" class="offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
   <div class="form-group">
     <label>Project name</label>
     <input class="form-control" name="projectName" formControlName="projectName" />
@@ -16,51 +16,29 @@
     </div>
   </div>
   <div class="form-group">
-    <!--<label>Start date</label>
-    <input class="form-control" type="date" name="startTime" formControlName="startTime" />
-    <div class="alert alert-danger"
-         *ngIf="myForm.controls['startTime'].invalid && myForm.controls['startTime'].touched">
-      Enter start date of the project
-    </div>
-
-    <div class="alert alert-danger"
-         *ngIf="myForm.controls['startTime'].value < Date.now()">
-      Enter correct start date of the project
-    </div>-->
-
     <label>Deadline</label>
     <input class="form-control" pattern="^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$"
-      name="endTime" formControlName="endTime" placeholder="MM/DD/YYYY" />
+           name="endTime" formControlName="endTime" placeholder="MM/DD/YYYY" />
 
     <div class="alert alert-danger"
          *ngIf="myForm.controls['endTime'].invalid && myForm.controls['endTime'].touched">
       Enter correct deadline
     </div>
-
-    <!--<div class="alert alert-danger"
-         *ngIf="myForm.controls['endTime'].value < Date.now()">
-      Enter correct deadline of the project
-    </div>-->
-
-
-    <!--<div class="alert alert-danger"
-         *ngIf="myForm.controls['startTime'].value > myForm.controls['endTime'].value">
-      Enter correct start date and deadline
-    </div>-->
   </div>
 
   <div class="form-group">
     <label>Description</label>
-    <input class="form-control" name="description" formControlName="description"/>
+    <input class="form-control" name="description" formControlName="description" />
   </div>
 
   <div class="form-group">
-    <button class="btn-primary" [disabled]="myForm.invalid || MyForm.endTime.errors">
+    <button class="btn-success btn w-100" type="submit" [disabled]="myForm.invalid || MyForm.endTime.errors">
       Submit
     </button>
   </div>
+  <div *ngIf="error != undefined" class="alert alert-danger">
+    {{error.error}}
+  </div>
+  <button (click)="closeForm(true)" class="btn btn-secondary w-100" type="button">Close form</button>
 </form>
-<div *ngIf="error != undefined" class="alert alert-danger">
-  {{error.error}}
-</div>
-<button (click)="closeForm(true)">Close</button>
+

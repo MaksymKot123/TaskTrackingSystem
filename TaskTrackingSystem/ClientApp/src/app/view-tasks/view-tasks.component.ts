@@ -41,15 +41,21 @@ export class ViewTasksComponent implements OnInit {
   }
 
   delete(taskName: string, projName: string, description: string, status: string,
-    startTime: string, endTime: string  ) {
-    this.editDeleteTasKServ.deleteTask(URL + "/project/", projName, taskName, description,
-      status, startTime, endTime).subscribe(null, error => { this.error = error });
+    startTime: string, endTime: string) {
+    let wantToDelete = confirm("Do you want to delete this task?");
+    if (wantToDelete) {
+      this.editDeleteTasKServ.deleteTask(URL + "/project/", projName, taskName, description,
+        status, startTime, endTime).subscribe(null, error => { this.error = error });
+    }
   }
 
   edit(taskName: string, projName: string, description: string, status: string,
     startTime: string, endTime: string) {
-    this.editDeleteTasKServ.editTask(URL, projName, taskName, description,
-      status, startTime, endTime).subscribe(null, error => { this.error = error });
+    let wantToEdit = confirm("Do you want to change task's status to \"Completed\"?");
+    if (wantToEdit) {
+      this.editDeleteTasKServ.editTask(URL, projName, taskName, description,
+        status, startTime, endTime).subscribe(null, error => { this.error = error });
+    }
   }
 
 }

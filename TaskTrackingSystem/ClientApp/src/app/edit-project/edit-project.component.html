@@ -27,7 +27,7 @@
   </div>
 
   <div class="form-group">
-    <button class="btn-primary" [disabled]="myForm.invalid">
+    <button class="btn-success btn w-100" [disabled]="myForm.invalid || MyForm.endTime.errors">
       Edit
     </button>
   </div>
@@ -35,6 +35,6 @@
     {{error.error}}
   </div>
   <div>
-    <button class="btn-primary" (click)="closeForm({val: true})">Hide</button>
+    <button class="btn-secondary btn w-100" (click)="closeForm({val: true})">Close form</button>
   </div>
 </form>

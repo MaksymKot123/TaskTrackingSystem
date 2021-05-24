@@ -1,12 +1,13 @@
 <p *ngIf="projects.length === 0; else list">This user does not have any projects</p>
 <ng-template #list>
-  <div>
+  <div class="flexWrapper">
     <p>A list of projects:</p>
     <ul *ngFor="let proj of projects" class="list-group">
       <li class="list-group-item">{{proj.name}}</li>
     </ul>
   </div>
 </ng-template>
-<button (click)="closeForm({val:true})" class="btn-secondary btn">
+<br />
+<button (click)="closeForm({val:true})" class="btn-secondary btn w-100">
   Hide
 </button>

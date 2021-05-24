@@ -1,9 +1,24 @@
-<select [(ngModel)]="selectedProject" class="form-control">
-  <option *ngFor="let proj of projects" [value]="proj.name" >{{proj.name}}</option>
-</select>
+<div>
+  <select [(ngModel)]="selectedProject" class="form-control">
+    <option *ngFor="let proj of projects" [value]="proj.name">{{proj.name}}</option>
+  </select>
+</div>
 
-<button (click)="addUserToProject()" class="btn btn-primary">Add to project</button>
-<button (click)="closeForm({val: true})" class="btn btn-secondary">Hide</button>
-<div *ngIf="error != undefined" class="alert alert-danger">
+<div>
+  <button (click)="addUserToProject()" type="button"
+    class="btn btn-success w-100">Add to project
+  </button>
+</div>
+<div>
+  <button (click)="closeForm({val: true})" type="button"
+    class="btn btn-secondary w-100">
+    Hide
+  </button>
+</div>
+
+<div *ngIf="this.msg != undefined" class="alert alert-success w-100" role="alert">
+  {{this.msg}}
+</div>
+<div *ngIf="error != undefined" class="alert alert-danger w-100">
   {{error.error}}
 </div>

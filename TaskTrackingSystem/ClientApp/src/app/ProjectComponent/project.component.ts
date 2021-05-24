@@ -53,8 +53,10 @@ export class ProjectComponent implements OnInit {
   }
 
   delete(name: string) {
-    let responce = this.delProjService.delete("project", name).subscribe(null,
-      error => { this.error = error });
-    console.log(responce);
+    let wantToDelete = confirm("Do you want to delete this project?");
+    if (wantToDelete) {
+      this.delProjService.delete("project", name).subscribe(null,
+        error => { this.error = error });
+    }
   }
 }
