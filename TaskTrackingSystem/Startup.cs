@@ -41,7 +41,6 @@ namespace TaskTrackingSystem
 
             services.AddDbContext<DatabaseContext>(config =>
                 config.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-                //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddCors(opt =>
             {
