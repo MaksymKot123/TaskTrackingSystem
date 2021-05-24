@@ -1,20 +1,23 @@
 <h1>Admins</h1>
 <div *ngFor="let admin of admins">
   <p>{{admin.email}} | {{admin.name}}</p>
+  <button *ngIf="admin.email !== this.currentUserEmail" class="btn btn-danger" (click)="deleteUser(admin.email)">Delete</button>
 </div>
 <h1>Managers</h1>
 <div *ngFor="let manager of managers">
   <p>{{manager.email}} | {{manager.name}}</p>
+  <button (click)="deleteUser(manager.email)" class="btn btn-danger">Delete</button>
 </div>
 <h1>Employees</h1>
 <div *ngFor="let employee of employees">
   <p>{{employee.email}} | {{employee.name}}</p>
-  <button *ngIf="employee.viewProjects.val" (click)="toogle(employee.viewProjects)">
+  <button *ngIf="employee.viewProjects.val" class="btn btn-primary" (click)="toogle(employee.viewProjects)">
     See projects
   </button>
-  <button *ngIf="employee.addToProject.val" (click)="toogle(employee.addToProject)">
+  <button *ngIf="employee.addToProject.val" class="btn btn-primary" (click)="toogle(employee.addToProject)">
     Add to project
   </button>
+  <button (click)="deleteUser(employee.email)" class="btn btn-danger">Delete</button>
   <div *ngIf="error != undefined" class="alert alert-danger">
     {{error.error}}
   </div>

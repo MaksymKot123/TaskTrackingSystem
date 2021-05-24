@@ -55,6 +55,7 @@
     <None Remove="ClientApp\src\app\Services\addTaskService.ts" />
     <None Remove="ClientApp\src\app\Services\addUserToProject.ts" />
     <None Remove="ClientApp\src\app\Services\deleteProject.service.ts" />
+    <None Remove="ClientApp\src\app\Services\deleteuserservice.ts" />
     <None Remove="ClientApp\src\app\Services\editDeleteTaskService.ts" />
     <None Remove="ClientApp\src\app\Services\editProject.service.ts" />
     <None Remove="ClientApp\src\app\Services\getAllProjects.service.ts" />
@@ -90,6 +91,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\Services\addTaskService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\addUserToProject.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\deleteProject.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\deleteuserservice.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\editProject.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\editDeleteTaskService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\getEmployeesProject.ts" />
