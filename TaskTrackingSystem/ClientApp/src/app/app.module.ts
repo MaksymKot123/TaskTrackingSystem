@@ -24,6 +24,7 @@ import { AllUsersComponent } from './all-users/all-users.component';
 import { AddUsersToProjectComponent } from './add-users-to-project/add-users-to-project.component';
 import { ViewProjectsOfUserComponent } from './view-projects-of-user/view-projects-of-user.component';
 import { AllEmployeesComponent } from './all-employees/all-employees.component';
+import { ChangeUsersRoleComponent } from './change-users-role/change-users-role.component';
 //import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
     AddUsersToProjectComponent,
     ViewProjectsOfUserComponent,
     AllEmployeesComponent,
+    ChangeUsersRoleComponent,
   ],
   imports: [
     BrowserModule,
