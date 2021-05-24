@@ -4,4 +4,5 @@ export interface IUser {
   role: string;
   addToProject: { val: boolean };
   viewProjects: { val: boolean };
+  changeRole: { val: boolean };
 }

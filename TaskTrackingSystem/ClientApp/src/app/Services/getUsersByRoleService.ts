@@ -30,6 +30,7 @@ export class GetUsersByRoleService {
           role: roleName,
           addToProject: { val: true },
           viewProjects: { val: true },
+          changeRole: { val: true },
         };
 
         return res;

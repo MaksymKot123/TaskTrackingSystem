@@ -2,21 +2,31 @@
 <div *ngFor="let admin of admins">
   <p>{{admin.email}} | {{admin.name}}</p>
   <button *ngIf="admin.email !== this.currentUserEmail" class="btn btn-danger" (click)="deleteUser(admin.email)">Delete</button>
+  <button *ngIf="admin.changeRole.val && admin.email !== this.currentUserEmail"
+    class="btn btn-primary" (click)="toogle(admin.changeRole)">Change role</button>
+  <change-role *ngIf="admin.email !== this.currentUserEmail && !admin.changeRole.val"
+    [usersEmail]="admin.email" [(changeRole)]="admin.changeRole"></change-role>
 </div>
 <h1>Managers</h1>
 <div *ngFor="let manager of managers">
   <p>{{manager.email}} | {{manager.name}}</p>
+  <button *ngIf="manager.changeRole.val" class="btn btn-primary" (click)="toogle(manager.changeRole)">Change role</button>
   <button (click)="deleteUser(manager.email)" class="btn btn-danger">Delete</button>
+  <change-role *ngIf="!manager.changeRole.val" [(changeRole)]="manager.changeRole"
+    [usersEmail]="manager.email"></change-role>
 </div>
 <h1>Employees</h1>
 <div *ngFor="let employee of employees">
   <p>{{employee.email}} | {{employee.name}}</p>
-  <button *ngIf="employee.viewProjects.val" class="btn btn-primary" (click)="toogle(employee.viewProjects)">
+  <button *ngIf="employee.viewProjects.val" class="btn btn-info" (click)="toogle(employee.viewProjects)">
     See projects
   </button>
   <button *ngIf="employee.addToProject.val" class="btn btn-primary" (click)="toogle(employee.addToProject)">
     Add to project
   </button>
+  <button *ngIf="employee.changeRole.val" class="btn btn-primary" (click)="toogle(employee.changeRole)">Change role</button>
+  <change-role *ngIf="!employee.changeRole.val" [(changeRole)]="employee.changeRole"
+    [usersEmail]="employee.email"></change-role>
   <button (click)="deleteUser(employee.email)" class="btn btn-danger">Delete</button>
   <div *ngIf="error != undefined" class="alert alert-danger">
     {{error.error}}

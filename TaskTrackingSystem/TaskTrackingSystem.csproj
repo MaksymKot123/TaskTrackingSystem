@@ -67,6 +67,7 @@
     <None Remove="ClientApp\src\app\Services\jwtParse.service.ts" />
     <None Remove="ClientApp\src\app\Services\Project.service.ts" />
     <None Remove="ClientApp\src\app\Services\registration.service.ts" />
+    <None Remove="ClientApp\src\app\Services\roleService.ts" />
     <None Remove="ClientApp\src\app\token-storage.service.ts" />
     <None Remove="ClientApp\src\app\user.service.ts" />
     <None Remove="ClientApp\src\app\Validators\datevalidator.ts" />
@@ -90,6 +91,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\Services\addNewProject.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\addTaskService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\addUserToProject.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\roleService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\deleteProject.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\deleteuserservice.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\editProject.service.ts" />
