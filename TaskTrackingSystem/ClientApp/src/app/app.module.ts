@@ -15,7 +15,7 @@ import { AdminComponent } from './AdminComponent/admin.component';
 import { NotFoundComponent } from './NotFoundComponent/notFound.component';
 import { ManagerComponent } from './ManagerComponent/manager.component';
 import { EmployeeComponent } from './EmployeeComponent/employee.component';
-import { ProjectComponent } from './project/project.component';
+import { ProjectComponent } from './ProjectComponent/project.component';
 import { AddProjectComponent } from './add-project/add-project.component';
 import { EditProjectComponent } from './edit-project/edit-project.component';
 import { AddTaskComponent } from './add-task/add-task.component';
@@ -25,12 +25,10 @@ import { AddUsersToProjectComponent } from './add-users-to-project/add-users-to-
 import { ViewProjectsOfUserComponent } from './view-projects-of-user/view-projects-of-user.component';
 import { AllEmployeesComponent } from './all-employees/all-employees.component';
 import { ChangeUsersRoleComponent } from './change-users-role/change-users-role.component';
-//import { ProjectComponent } from './ProjectComponent/project.component';
 
 const adminRoutes: Routes = [
   { path: '', component: ProjectComponent },
   { path: 'users', component: AllUsersComponent },
-  //{ path: 'deleteproject', component: DeleteProjectComponent }
 ];
 
 const managerRoutes: Routes = [

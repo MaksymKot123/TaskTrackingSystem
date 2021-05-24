@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GetUsersByRoleService } from "src/app/Services/getUsersByRoleService";
-import { IProject } from '../Interfaces/iproject';
 import { IUser } from '../Interfaces/iuser';
 import { DeleteUserService } from '../Services/deleteuserservice';
 import { GetProjectsOfUserService } from '../Services/getProjectsOfUser';
