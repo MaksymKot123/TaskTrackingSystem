@@ -1,23 +1,22 @@
-<div>
-  <h1>
-    ADNMIN PAGE
-  </h1>
-  <div class="row">
-    <div class="flex-column">
-      <div class="btn-group" role="group">
-        <button type="button" class="btn-primary btn" (click)="showProjectsList()">
-          Projects
-        </button>
-        <button type="button" class="btn-primary btn" (click)="showUsersList()">
-          Users
-        </button>
-        <button type="button" class="btn-primary btn" (click)="signOut()">
-          Sign out
-        </button>
-      </div>
-    </div>
-    <div class="col-ms-6">
-      <router-outlet></router-outlet>
-    </div>
+<nav class="sticky-top navbar navbar-expand-md navbar-light bg-light">
+  <a class="navbar-brand disabled" href="">Admin page</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="navbar-toggler-icon"></span> 
+  </button>
+
+  <div class="navbar-collapse collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav nav">
+      <li class="nav-item">
+        <a class="nav-link navText" routerLink="">Projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link navText" routerLink="users">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link navText" routerLink="/" (click)="signOut()">Sign out</a>
+      </li>
+    </ul>
   </div>
-</div>
+</nav>
+<router-outlet></router-outlet>
