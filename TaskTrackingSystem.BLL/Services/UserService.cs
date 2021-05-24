@@ -151,20 +151,22 @@ namespace TaskTrackingSystem.BLL.Services
                     var userFromDatabase = await _unitOfWork.UserManager
                         .FindByEmailAsync(usr.Email);
 
-                    var identityResult = await _unitOfWork.UserManager.
-                        AddToRoleAsync(userFromDatabase, "Employee");
+                    var identityResult = await _unitOfWork.UserManager
+                        .AddToRoleAsync(userFromDatabase, "Employee");//.GetAwaiter().GetResult();
                     if (identityResult.Succeeded)
                     {
-                        var roleName = _unitOfWork.UserManager
-                            .GetRolesAsync(userFromDatabase).Result
-                            .FirstOrDefault();
+                        var roles = await _unitOfWork.UserManager
+                            .GetRolesAsync(userFromDatabase);
+
+                        if (roles.Count == 0)
+                            throw new UserException("Error during registration");
 
                         var role = await _unitOfWork.RoleManager
-                            .FindByNameAsync(roleName);
+                            .FindByNameAsync(roles.First());
 
                         userFromDatabase.Role = role;
 
-                        _unitOfWork.SaveChanges();
+                        await _unitOfWork.UserManager.UpdateAsync(userFromDatabase);
                         return new UserDTO()
                         {
                             Email = userFromDatabase.Email,
@@ -263,6 +265,40 @@ namespace TaskTrackingSystem.BLL.Services
                 {
                     return _mapper.Map<UserDTO>(user);
                 }
+            }
+        }
+
+        public void ChangeUsersRole(string roleName, string userEmail)
+        {
+            var user = _unitOfWork.UserManager.FindByEmailAsync(userEmail).GetAwaiter().GetResult();//_unitOfWork.GetUserWithDetails(userEmail);
+
+            if (user == null)
+                throw new UserException("User not found");
+
+            var roles = _unitOfWork.UserManager.GetRolesAsync(user).GetAwaiter()
+                .GetResult().AsEnumerable();
+            if (roles.Count() == 1 && roles.First().Equals(roleName))
+                throw new UserException($"This user is already {roleName.ToLower()}");
+            
+            _unitOfWork.UserManager.RemoveFromRolesAsync(user, roles).GetAwaiter().GetResult();
+            _unitOfWork.UserManager.AddToRoleAsync(user, roleName).GetAwaiter().GetResult();
+            _unitOfWork.UserManager.UpdateAsync(user).GetAwaiter().GetResult();
+
+            if (roles.Contains("Employee"))
+                DeleteEmployeesProject(userEmail);
+        }
+
+        private void DeleteEmployeesProject(string email)
+        {
+            var user = _unitOfWork.GetUserWithDetails(email);
+            var projects = user.Projects;
+            
+            while(projects.Count > 0)
+            {
+                var proj = projects.First();
+                proj.Employees.Remove(user);
+                _unitOfWork.ProjectRepo.Edit(proj);
+                _unitOfWork.SaveChanges();
             }
         }
 

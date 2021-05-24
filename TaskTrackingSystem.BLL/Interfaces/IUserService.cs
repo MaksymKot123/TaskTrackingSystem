@@ -71,5 +71,7 @@ namespace TaskTrackingSystem.BLL.Interfaces
         /// <param name="roleName"></param>
         /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
         Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName);
+
+        void ChangeUsersRole(string roleName, string userEmail);
     }
 }

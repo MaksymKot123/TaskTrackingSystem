@@ -34,12 +34,27 @@ namespace TaskTrackingSystem.Controllers
             _userService = userService;
         }
 
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
+        public IActionResult ChangeUsersRole(string roleName, [FromBody] UserView user)
+        {
+            try
+            {
+                _userService.ChangeUsersRole(roleName, user.Email);
+                return Ok();
+            }
+            catch(UserException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         /// <summary>
         /// This method returns a list of users with a specific role
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns>A list of <see cref="ViewModels.UserView"/> with a specific role</returns>
-        
+
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
         public IEnumerable<UserView> GetUsersByRole([FromQuery]string roleName)
