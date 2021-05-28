@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
     let token: string;
     let role: string;
     let name: string;
+    let exp: number;
 
     localStorage.clear();
 
@@ -61,6 +62,8 @@ export class LoginComponent implements OnInit {
       localStorage.setItem("name", name);
       email = jsonToken.email;
       localStorage.setItem("email", email);
+      exp = jsonToken.exp;
+      localStorage.setItem("expirateAt", exp.toString());
 
       if (role === 'Admin') {
         this.router.navigateByUrl("admin");

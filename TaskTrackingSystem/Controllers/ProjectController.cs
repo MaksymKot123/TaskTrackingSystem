@@ -83,6 +83,9 @@ namespace TaskTrackingSystem.Controllers
         [HttpPost]
         public IActionResult AddProject([FromBody] ProjectView proj)
         {
+            if (proj == null)
+                return BadRequest(); 
+
             var newProj = new ProjectDTO()
             {
                 ClientEmail = proj.ClientEmail,
@@ -100,6 +103,8 @@ namespace TaskTrackingSystem.Controllers
             }
             catch(ProjectException e)
             {
+                if (e.Message.Equals("Project not found"))
+                    return NotFound(e.Message);
                 return BadRequest(e.Message);
             }
         }
@@ -114,6 +119,9 @@ namespace TaskTrackingSystem.Controllers
         [HttpDelete]
         public IActionResult DeleteProject([FromBody] ProjectView proj)
         {
+            if (proj == null)
+                return BadRequest();
+
             var project = new ProjectDTO()
             {
                 Name =proj.Name,
@@ -128,6 +136,8 @@ namespace TaskTrackingSystem.Controllers
             }
             catch (ProjectException e)
             {
+                if (e.Message.Equals("Project not found"))
+                    return NotFound(e.Message);
                 return BadRequest(e.Message);
             }
         }
@@ -142,6 +152,9 @@ namespace TaskTrackingSystem.Controllers
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         public IActionResult EditProject([FromBody] ProjectView proj)
         {
+            if (proj == null)
+                return BadRequest(); 
+
             var project = new ProjectDTO()
             {
                 ClientEmail = proj.ClientEmail,
@@ -158,6 +171,8 @@ namespace TaskTrackingSystem.Controllers
             }
             catch(ProjectException e)
             {
+                if (e.Message.Equals("Project not found"))
+                    return NotFound(e.Message);
                 return BadRequest(e.Message);
             } 
         }

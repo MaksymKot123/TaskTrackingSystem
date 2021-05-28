@@ -10,6 +10,7 @@ using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.BLL.Exceptions;
 using TaskTrackingSystem.ViewModels;
+using System.Net;
 
 namespace TaskTrackingSystem.Controllers
 {
@@ -38,12 +39,15 @@ namespace TaskTrackingSystem.Controllers
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
         public IActionResult ChangeUsersRole(string roleName, [FromBody] UserView user)
         {
+            if (user == null || roleName == null)
+                return BadRequest(); 
+
             try
             {
                 _userService.ChangeUsersRole(roleName, user.Email);
                 return Ok();
             }
-            catch(UserException e)
+            catch (UserException e)
             {
                 return BadRequest(e.Message);
             }
@@ -54,17 +58,16 @@ namespace TaskTrackingSystem.Controllers
         /// </summary>
         /// <param name="roleName"></param>
         /// <returns>A list of <see cref="ViewModels.UserView"/> with a specific role</returns>
-
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpGet]
-        public IEnumerable<UserView> GetUsersByRole([FromQuery]string roleName)
+        public async Task<IEnumerable<UserView>> GetUsersByRole([FromQuery] string roleName)
         {
-            return _userService.GetUsersByRole(roleName).GetAwaiter().GetResult()
-                .Select(x => new UserView()
-                {
-                    Email = x.Email,
-                    Name = x.Name
-                });
+            var users = await _userService.GetUsersByRole(roleName);
+            return users.Select(x => new UserView()
+            {
+                Email = x.Email,
+                Name = x.Name
+            });
         }
 
         /// <summary>
@@ -78,6 +81,9 @@ namespace TaskTrackingSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginView user)
         {
+            if (user == null)
+                return BadRequest();
+
             var usr = new UserDTO()
             {
                 Email = user.Email,
@@ -88,22 +94,25 @@ namespace TaskTrackingSystem.Controllers
                 var res = await _userService.Authenticate(usr, user.Password);
                 return Ok(res.Token);
             }
-            catch(UserException e)
+            catch (UserException e)
             {
-                return BadRequest(e.Message);
+                return StatusCode(403, e.Message);
             }
-            
+
         }
         /// <summary>
         /// This method uses user service for registering new users
         /// </summary>
         /// <param name="user"></param>
-        /// <returns>Status code 200 if registration was succesful.
+        /// <returns>Status code 201 if registration was succesful.
         /// Otherwise you will get status code 400 and will see error message 
         /// on registration page</returns>
         [HttpPost]
-        public IActionResult Register([FromBody] RegisterView user)
+        public async Task<IActionResult> Register([FromBody] RegisterView user)
         {
+            if (user == null)
+                return BadRequest();
+
             var usr = new UserDTO()
             {
                 Email = user.Email,
@@ -112,10 +121,10 @@ namespace TaskTrackingSystem.Controllers
 
             try
             {
-                var responce = _userService.Register(usr, user.Password).GetAwaiter().GetResult();
-                return Ok();
+                await _userService.Register(usr, user.Password);
+                return StatusCode(401);
             }
-            catch(UserException e)
+            catch (UserException e)
             {
                 return BadRequest(e.Message);
             }
@@ -131,6 +140,9 @@ namespace TaskTrackingSystem.Controllers
         [HttpPost("addtoproject")]
         public IActionResult AddToProject(string projName, [FromBody] UserView user)
         {
+            if (projName == null || user == null)
+                return BadRequest();
+
             try
             {
                 var usr = new UserDTO() { Email = user.Email, Name = user.Name };
@@ -149,8 +161,11 @@ namespace TaskTrackingSystem.Controllers
 
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
         [HttpDelete]
-        public IActionResult DeleteUser([FromBody] UserView user)
+        public async Task<IActionResult> DeleteUser([FromBody] UserView user)
         {
+            if (user == null)
+                return BadRequest();
+
             var usr = new UserDTO()
             {
                 Email = user.Email,
@@ -158,11 +173,13 @@ namespace TaskTrackingSystem.Controllers
             };
             try
             {
-                _userService.DeleteUser(usr);
+                await _userService.DeleteUser(usr);
                 return Ok();
             }
             catch(UserException e)
             {
+                if (e.Message.Equals("User not found"))
+                    return NotFound(e.Message);
                 return BadRequest(e.Message);
             }
         }

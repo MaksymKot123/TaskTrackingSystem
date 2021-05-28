@@ -40,7 +40,7 @@ namespace TaskTrackingSystem.BLL.Interfaces
         /// Delete user
         /// </summary>
         /// <param name="user"></param>
-        void DeleteUser(UserDTO user);
+        Task DeleteUser(UserDTO user);
 
         /// <summary>
         /// Add user to project. Project can be got by name

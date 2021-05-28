@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTrackingSystem", "TaskT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTrackingSystem.DAL", "TaskTrackingSystem.DAL\TaskTrackingSystem.DAL.csproj", "{5A06AF62-2F8B-4FF5-9FE6-7B622D942276}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackingSystem.BLL", "TaskTrackingSystem.BLL\TaskTrackingSystem.BLL.csproj", "{B998E777-B4B5-4150-8D00-8527C51CD8DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTrackingSystem.BLL", "TaskTrackingSystem.BLL\TaskTrackingSystem.BLL.csproj", "{B998E777-B4B5-4150-8D00-8527C51CD8DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

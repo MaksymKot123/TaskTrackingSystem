@@ -45,7 +45,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// exception will be thrown
         /// </summary>
         /// <param name="user"></param>
-        public void DeleteUser(UserDTO user)
+        public async Task DeleteUser(UserDTO user)
         {
             var userFromDatabase = _unitOfWork.GetUserWithDetails(user.Email);
 
@@ -54,8 +54,7 @@ namespace TaskTrackingSystem.BLL.Services
 
             this.DeleteEmployeesProject(user.Email);
 
-            _unitOfWork.UserManager.DeleteAsync(userFromDatabase)
-                .GetAwaiter().GetResult();
+            await _unitOfWork.UserManager.DeleteAsync(userFromDatabase);
             _unitOfWork.SaveChanges();
         }
 
@@ -90,8 +89,7 @@ namespace TaskTrackingSystem.BLL.Services
 
                 if (res.Succeeded)
                 {
-                    var role = _unitOfWork.UserManager.GetRolesAsync(usr)
-                    .GetAwaiter().GetResult().FirstOrDefault();
+                    var role = await _unitOfWork.UserManager.GetRolesAsync(usr);
 
                     return new UserDTO()
                     {
@@ -99,7 +97,7 @@ namespace TaskTrackingSystem.BLL.Services
                         Id = usr.Id,
                         Name = usr.Name,
                         Projects = _mapper.Map<ICollection<ProjectDTO>>(usr.Projects),
-                        Token = _jwtGenerator.CreateToken(usr, role),
+                        Token = _jwtGenerator.CreateToken(usr, role.FirstOrDefault()),
                     };
                 }
                 else
@@ -144,7 +142,7 @@ namespace TaskTrackingSystem.BLL.Services
                         .FindByEmailAsync(usr.Email);
 
                     var identityResult = await _unitOfWork.UserManager
-                        .AddToRoleAsync(userFromDatabase, "Employee");//.GetAwaiter().GetResult();
+                        .AddToRoleAsync(userFromDatabase, "Employee");
                     if (identityResult.Succeeded)
                     {
                         var roles = await _unitOfWork.UserManager
@@ -260,21 +258,21 @@ namespace TaskTrackingSystem.BLL.Services
             }
         }
 
-        public void ChangeUsersRole(string roleName, string userEmail)
+        public async void ChangeUsersRole(string roleName, string userEmail)
         {
-            var user = _unitOfWork.UserManager.FindByEmailAsync(userEmail).GetAwaiter().GetResult();//_unitOfWork.GetUserWithDetails(userEmail);
+            var user = await _unitOfWork.UserManager.FindByEmailAsync(userEmail);//.GetAwaiter().GetResult();//_unitOfWork.GetUserWithDetails(userEmail);
 
             if (user == null)
                 throw new UserException("User not found");
 
-            var roles = _unitOfWork.UserManager.GetRolesAsync(user).GetAwaiter()
-                .GetResult().AsEnumerable();
+            var roles = await _unitOfWork.UserManager.GetRolesAsync(user);//.GetAwaiter()
+                //.GetResult().AsEnumerable();
             if (roles.Count() == 1 && roles.First().Equals(roleName))
                 throw new UserException($"This user is already {roleName.ToLower()}");
-            
-            _unitOfWork.UserManager.RemoveFromRolesAsync(user, roles).GetAwaiter().GetResult();
-            _unitOfWork.UserManager.AddToRoleAsync(user, roleName).GetAwaiter().GetResult();
-            _unitOfWork.UserManager.UpdateAsync(user).GetAwaiter().GetResult();
+
+            await _unitOfWork.UserManager.RemoveFromRolesAsync(user, roles);//.GetAwaiter().GetResult();
+            await _unitOfWork.UserManager.AddToRoleAsync(user, roleName);//.GetAwaiter().GetResult();
+            await _unitOfWork.UserManager.UpdateAsync(user);//.GetAwaiter().GetResult();
 
             if (roles.Contains("Employee"))
                 this.DeleteEmployeesProject(userEmail);

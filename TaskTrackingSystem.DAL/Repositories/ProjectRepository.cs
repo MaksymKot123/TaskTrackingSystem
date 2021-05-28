@@ -92,6 +92,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         public IEnumerable<Project> GetAll() 
             => db.Projects
             .Include(x => x.Tasks)
-            .Include(x => x.Employees);
+            .Include(x => x.Employees)
+            .AsEnumerable();
     }
 }

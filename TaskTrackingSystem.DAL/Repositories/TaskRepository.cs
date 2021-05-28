@@ -118,7 +118,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// Get all tasks with details from database
         /// </summary>
         /// <returns>A list of <see cref="DAL.Models.TaskProject"/></returns>
-        public IEnumerable<TaskProject> GetAll() 
-            => db.Tasks.Include(x => x.Project).ThenInclude(x => x.Tasks);
+        public IEnumerable<TaskProject> GetAll()
+            => db.Tasks.Include(x => x.Project);
     }
 }
