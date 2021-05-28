@@ -6,6 +6,7 @@ using TaskTrackingSystem.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using TaskTrackingSystem.DAL.DbContext;
 
 namespace TaskTrackingSystem.DAL.Repositories
 {

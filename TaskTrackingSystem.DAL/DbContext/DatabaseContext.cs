@@ -4,8 +4,9 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TaskTrackingSystem.DAL.Models;
 
-namespace TaskTrackingSystem.DAL.Models
+namespace TaskTrackingSystem.DAL.DbContext
 {
     public class DatabaseContext : IdentityDbContext<User>
     {
@@ -14,7 +15,6 @@ namespace TaskTrackingSystem.DAL.Models
 
         public DatabaseContext(DbContextOptions<DatabaseContext> option) : base(option)
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
