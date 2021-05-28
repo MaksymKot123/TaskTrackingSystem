@@ -25,7 +25,7 @@ using Microsoft.AspNetCore.Authorization;
 using TaskTrackingSystem.DAL.DbContext;
 using TaskTrackingSystem.BLL.Automapper;
 
-namespace TaskTrackingSystem
+namespace TaskTrackingSystem.PL
 {
     public class Startup
     {
