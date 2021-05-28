@@ -30,7 +30,6 @@ namespace TaskTrackingSystem.BLL.ProjectStatusUpdater
 
                 if (proj.Tasks.Count > 0 && !proj.Status.Equals(Status.Completed))
                 {
-                    var oldStatus = proj.Status;
                     var completedTasksCount = proj.Tasks
                         .Count(x => x.Status.Equals(Status.Completed));
                     var tasksCount = proj.Tasks.Count;
@@ -41,7 +40,6 @@ namespace TaskTrackingSystem.BLL.ProjectStatusUpdater
 
                     if (proj.PercentCompletion == 100.0)
                     {
-
                         proj.Status = Status.Completed;
                         uow.ProjectRepo.Edit(proj);
                         EmailSender.EmailSender.SendEmail(proj.ClientEmail, proj.Status);

@@ -37,14 +37,14 @@ namespace TaskTrackingSystem.Controllers
 
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
-        public IActionResult ChangeUsersRole(string roleName, [FromBody] UserView user)
+        public async Task<IActionResult> ChangeUsersRole(string roleName, [FromBody] UserView user)
         {
             if (user == null || roleName == null)
                 return BadRequest(); 
 
             try
             {
-                _userService.ChangeUsersRole(roleName, user.Email);
+                await _userService.ChangeUsersRole(roleName, user.Email);
                 return Ok();
             }
             catch (UserException e)
@@ -96,7 +96,7 @@ namespace TaskTrackingSystem.Controllers
             }
             catch (UserException e)
             {
-                return StatusCode(403, e.Message);
+                return StatusCode(409, e.Message);
             }
 
         }
@@ -121,8 +121,8 @@ namespace TaskTrackingSystem.Controllers
 
             try
             {
-                await _userService.Register(usr, user.Password);
-                return StatusCode(401);
+                var newUser = await _userService.Register(usr, user.Password);
+                return Created("", newUser);
             }
             catch (UserException e)
             {

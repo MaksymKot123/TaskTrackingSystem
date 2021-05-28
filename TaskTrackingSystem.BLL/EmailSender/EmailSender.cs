@@ -23,9 +23,11 @@ namespace TaskTrackingSystem.BLL.EmailSender
             var from = new MailAddress(MailAddress, EmailSenderName);
             var to = new MailAddress(clientEmail);
 
-            var mail = new MailMessage(from, to);
-            mail.Subject = EmailSubject;
-            mail.IsBodyHtml = true;
+            var mail = new MailMessage(from, to)
+            {
+                Subject = EmailSubject,
+                IsBodyHtml = true
+            };
 
             switch (status)
             {
@@ -43,10 +45,12 @@ namespace TaskTrackingSystem.BLL.EmailSender
                     break;
             }
 
-            var smtp = new SmtpClient(SmtpAddress, SmtpPort);
-            smtp.UseDefaultCredentials = true;
-            smtp.Credentials = new NetworkCredential(MailAddress, MailPassword);
-            smtp.EnableSsl = true;
+            var smtp = new SmtpClient(SmtpAddress, SmtpPort)
+            {
+                UseDefaultCredentials = true,
+                Credentials = new NetworkCredential(MailAddress, MailPassword),
+                EnableSsl = true
+            };
             smtp.Send(mail);
         }
 

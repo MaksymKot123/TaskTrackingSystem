@@ -18,48 +18,48 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <summary>
         /// <see cref="DAL.Models.DatabaseContext"/>
         /// </summary>
-        private readonly DatabaseContext db;
+        private readonly DatabaseContext _db;
 
-        private UserManager<User> userManager;
-        private RoleManager<IdentityRole> roleManager;
-        private SignInManager<User> signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<User> _signInManager;
 
         /// <summary>
         /// <see cref="DAL.Interfaces.ITaskRepository"/>
         /// </summary>
-        private ITaskRepository taskRepo;
+        private readonly ITaskRepository _taskRepo;
 
         /// <summary>
         /// <see cref="DAL.Interfaces.IRepository{T}"/>
         /// </summary>
-        private IRepository<Project> projectRepo;
+        private readonly IRepository<Project> _projectRepo;
 
         private bool disposedValue;
 
         public UnitOfWork(DatabaseContext db, UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager)
         {
-            this.db = db;
-            this.userManager = userManager;
-            this.roleManager = roleManager;
-            this.signInManager = signInManager;
-            taskRepo = new TaskRepository(db);  
-            projectRepo = new ProjectRepository(db);
+            this._db = db;
+            this._userManager = userManager;
+            this._roleManager = roleManager;
+            this._signInManager = signInManager;
+            _taskRepo = new TaskRepository(db);  
+            _projectRepo = new ProjectRepository(db);
         }
 
         public UserManager<User> UserManager
         {
-            get => userManager;
+            get => _userManager;
         }
 
         public RoleManager<IdentityRole> RoleManager
         {
-            get => roleManager;
+            get => _roleManager;
         }
 
         public SignInManager<User> SignInManager
         {
-            get => signInManager;
+            get => _signInManager;
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// </summary>
         public ITaskRepository TaskRepo
         {
-            get => taskRepo ??= new TaskRepository(db);
+            get => _taskRepo;
         }
 
         /// <summary>
@@ -75,12 +75,12 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// </summary>
         public IRepository<Project> ProjectRepo
         {
-            get => projectRepo ??= new ProjectRepository(db);
+            get => _projectRepo;
         }
 
         public void SaveChanges()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
@@ -89,10 +89,10 @@ namespace TaskTrackingSystem.DAL.Repositories
             {
                 if (disposing)
                 {
-                    userManager.Dispose();
-                    roleManager.Dispose();
-                    projectRepo.Dispose();
-                    taskRepo.Dispose();
+                    _userManager.Dispose();
+                    _roleManager.Dispose();
+                    _projectRepo.Dispose();
+                    _taskRepo.Dispose();
                 }
                 disposedValue = true;
             }
@@ -111,7 +111,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <returns><see cref="DAL.Models.User"/></returns>
         public User GetUserWithDetails(string email)
         {
-            return db.Users
+            return _db.Users
                 .Include(x => x.Projects)
                 .ThenInclude(x => x.Tasks)
                 .FirstOrDefault(x => x.Email.Equals(email));

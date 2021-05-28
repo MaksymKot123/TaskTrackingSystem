@@ -13,11 +13,11 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <summary>
         /// <see cref="DAL.Models.DatabaseContext"/>
         /// </summary>
-        public DatabaseContext db { get; set; }
+        private readonly DatabaseContext _db;
 
         public UserRepository(DatabaseContext context)
         {
-            db = context;
+            _db = context;
         }
 
         /// <summary>
@@ -26,10 +26,10 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Create(User item)
         {
-            var entity = db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
+            var entity = _db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
             if (entity != null)
             {
-                db.Users.Add(item);
+                _db.Users.Add(item);
             }
         }
 
@@ -39,10 +39,10 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Delete(User item)
         {
-            var entity = db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
+            var entity = _db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
             if (entity != null)
             {
-                db.Users.Remove(entity);
+                _db.Users.Remove(entity);
             }
                 
         }
@@ -53,18 +53,18 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Edit(User item)
         {
-            var entity = db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
+            var entity = _db.Users.FirstOrDefault(x => x.Email.Equals(item.Email));
             if (entity != null)
             {
                 entity.Name = item.Name;
-                db.Entry(entity).State = EntityState.Modified;
+                _db.Entry(entity).State = EntityState.Modified;
             }
             
         }
 
         public void Dispose()
         {
-            db.Dispose();
+            _db.Dispose();
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (email == null)
                 return null;
             else
-                return db.Users
+                return _db.Users
                     .Include(x => x.Projects)
                     .FirstOrDefault(x => x.Email.Equals(email));
         }
@@ -86,6 +86,6 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// Get all users with details
         /// </summary>
         /// <returns>A list of <see cref="DAL.Models.User"/></returns>
-        public IEnumerable<User> GetAll() => db.Users.Include(x => x.Projects);
+        public IEnumerable<User> GetAll() => _db.Users.Include(x => x.Projects);
     }
 }

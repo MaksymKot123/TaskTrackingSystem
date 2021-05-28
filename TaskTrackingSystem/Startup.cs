@@ -22,6 +22,8 @@ using TaskTrackingSystem.BLL.Security;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Authorization;
+using TaskTrackingSystem.DAL.DbContext;
+using TaskTrackingSystem.BLL.Automapper;
 
 namespace TaskTrackingSystem
 {
@@ -34,7 +36,6 @@ namespace TaskTrackingSystem
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
@@ -120,7 +121,6 @@ namespace TaskTrackingSystem
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             IdentityModelEventSource.ShowPII = false;
@@ -139,7 +139,6 @@ namespace TaskTrackingSystem
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             
@@ -165,9 +164,6 @@ namespace TaskTrackingSystem
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())

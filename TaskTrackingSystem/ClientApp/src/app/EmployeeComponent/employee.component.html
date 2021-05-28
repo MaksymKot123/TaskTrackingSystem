@@ -13,23 +13,30 @@
   </div>
 </nav>
 
-<br /><h3 class="text-center">A list of your current projects</h3><br />
-<div *ngFor="let proj of projects" class="card offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
-  <div class="card-body">
-    <h4 class="card-title">Name: {{proj.name}}</h4>
-    <h5 class="card-title">Status: {{proj.status}}</h5>
-    <h5 class="card-title">Completed at {{proj.percentCompletion | number: "1.0-0"}}%</h5>
-    <h5 class="card-title">Client email: {{proj.clientEmail}}</h5>
-    <h5 class="card-title">Start time: {{proj.startTime | date: "medium":"UTC" }}</h5>
-    <h5 class="card-title">Deadline: {{proj.endTime | date: "medium":"UTC" }}</h5>
-    <button class="btn btn-primary w-100" type="button" (click)="toogle(proj.showTasks)"
-            *ngIf="proj.showTasks.val">
-      Show tasks
-    </button>
-    <div *ngIf="error != undefined" class="alert alert-danger">
-      {{error.error}}
-    </div>
-    <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
-                *ngIf="!proj.showTasks.val"></view-tasks>
-  </div>
+<br />
+<div *ngIf="projects.length === 0; else list" class="offset-sm-1 col-sm-10
+  offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+  <h3 class="text-center">You don't have any project</h3>
 </div>
+<ng-template #list>
+  <h3 class="text-center">A list of your current projects</h3><br />
+  <div *ngFor="let proj of projects" class="card offset-sm-1 col-sm-10 offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+    <div class="card-body">
+      <h4 class="card-title">Name: {{proj.name}}</h4>
+      <h5 class="card-title">Status: {{proj.status}}</h5>
+      <h5 class="card-title">Completed at {{proj.percentCompletion | number: "1.0-0"}}%</h5>
+      <h5 class="card-title">Client email: {{proj.clientEmail}}</h5>
+      <h5 class="card-title">Start time: {{proj.startTime | date: "medium":"UTC" }}</h5>
+      <h5 class="card-title">Deadline: {{proj.endTime | date: "medium":"UTC" }}</h5>
+      <button class="btn btn-primary w-100" type="button" (click)="toogle(proj.showTasks)"
+              *ngIf="proj.showTasks.val">
+        Show tasks
+      </button>
+      <div *ngIf="error != undefined" class="alert alert-danger">
+        {{error.error}}
+      </div>
+      <view-tasks [projectName]="proj.name" [(seeTasks)]="proj.showTasks"
+                  *ngIf="!proj.showTasks.val"></view-tasks>
+    </div>
+  </div>
+</ng-template>

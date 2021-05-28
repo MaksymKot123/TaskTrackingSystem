@@ -1,27 +1,32 @@
-<div *ngFor="let task of tasks" class="card">
-  <div class="card-body">
-    <h4 class="card-title">Task's name: {{task.taskName}}</h4>
-    <h5 class="card-title">Status: {{task.status}}</h5>
-    <h5 class="card-title">Start time: {{task.startTime | date: "medium":"UTC" }}</h5>
-    <h5 class="card-title">Deadline: {{task.endTime | date: "medium":"UTC" }}</h5>
-    <h5 class="card-title">Description: {{task.description}}</h5>
+<div *ngIf="tasks.length === 0; else list">
+  <h4 class="text-center">There is not any task for this project</h4>
+</div>
+<ng-template #list>
+  <div *ngFor="let task of tasks" class="card">
+    <div class="card-body">
+      <h4 class="card-title">Task's name: {{task.taskName}}</h4>
+      <h5 class="card-title">Status: {{task.status}}</h5>
+      <h5 class="card-title">Start time: {{task.startTime | date: "medium":"UTC" }}</h5>
+      <h5 class="card-title">Deadline: {{task.endTime | date: "medium":"UTC" }}</h5>
+      <h5 class="card-title">Description: {{task.description}}</h5>
 
-    <button *ngIf="this.Role === 'Employee' && task.status !== 'Completed'"
-            (click)="edit(task.taskName, task.projName, task.description,
+      <button *ngIf="this.Role === 'Employee' && task.status !== 'Completed'"
+              (click)="edit(task.taskName, task.projName, task.description,
         'Completed', task.startTime, task.endTime)" class="btn btn-success w-100">
-      Change status to "Completed"
-    </button>
+        Change status to "Completed"
+      </button>
 
-    <button *ngIf="this.Role !== 'Employee' && task.status !== 'Completed'"
-      (click)="delete(task.taskName, task.projName, task.description,
+      <button *ngIf="this.Role !== 'Employee' && task.status !== 'Completed'"
+              (click)="delete(task.taskName, task.projName, task.description,
       task.status, task.startTime, task.endTime)" class="btn btn-danger w-100">
-      Delete
-    </button>
-    <div *ngIf="error != undefined" class="alert alert-danger">
-      {{error.error}}
+        Delete
+      </button>
+      <div *ngIf="error != undefined" class="alert alert-danger">
+        {{error.error}}
+      </div>
     </div>
   </div>
-</div>
+</ng-template>
 <button (click)="closeForm({ val: true })" class="btn btn-secondary w-100">Hide</button>
 
 

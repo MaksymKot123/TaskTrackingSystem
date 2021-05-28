@@ -14,11 +14,11 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <summary>
         /// <see cref="DAL.Models.DatabaseContext"/>
         /// </summary>
-        public DatabaseContext db { get; set; }
+        private readonly DatabaseContext _db;
 
         public ProjectRepository(DatabaseContext context)
         {
-            db = context;
+            _db = context;
         }
 
         /// <summary>
@@ -27,11 +27,11 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Create(Project item)
         {
-            var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
+            var project = _db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
 
             if (project == null)
             {
-                db.Projects.Add(item);
+                _db.Projects.Add(item);
             }
             
         }
@@ -42,12 +42,12 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Delete(Project item)
         {
-            var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
+            var project = _db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
 
             if (project != null)
             {
 
-                db.Projects.Remove(project);
+                _db.Projects.Remove(project);
             }
         }
 
@@ -57,18 +57,18 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Edit(Project item)
         {
-            var project = db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
+            var project = _db.Projects.FirstOrDefault(x => x.Name.Equals(item.Name));
 
             if (project != null)
             {
-                db.Entry(project).State = EntityState.Modified;
+                _db.Entry(project).State = EntityState.Modified;
             }
             
         }
 
         public void Dispose()
         {
-            db.Dispose();
+            _db.Dispose();
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <returns><see cref="DAL.Models.Project"/></returns>
         public Project Get(string name)
         {
-            var proj = db.Projects
+            var proj = _db.Projects
                 .Include(x => x.Tasks)
                 .Include(x => x.Employees)
                 .FirstOrDefault(x => x.Name.Equals(name));
@@ -91,7 +91,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// </summary>
         /// <returns>A list <see cref="DAL.Models.Project"/></returns>
         public IEnumerable<Project> GetAll() 
-            => db.Projects
+            => _db.Projects
             .Include(x => x.Tasks)
             .Include(x => x.Employees)
             .AsEnumerable();

@@ -29,7 +29,6 @@ export class AllUsersComponent implements OnInit {
   employees: IUser[] = [];
   managers: IUser[] = [];
   error: any;
-  msg: string;
 
   currentUserEmail: string;
 
@@ -61,7 +60,7 @@ export class AllUsersComponent implements OnInit {
   deleteUser(email: string) {
     let wantToDelete = confirm("Do you want to delete this user?");
     if (wantToDelete) {
-      this.delUsersServ.delete(URL, email).subscribe(() => this.msg = "User has been deleted");
+      this.delUsersServ.delete(URL, email).subscribe();
     }
   }
 }

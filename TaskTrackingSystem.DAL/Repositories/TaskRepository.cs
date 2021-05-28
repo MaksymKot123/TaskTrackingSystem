@@ -14,11 +14,11 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <summary>
         /// <see cref="DAL.Models.DatabaseContext"/>
         /// </summary>
-        public DatabaseContext db { get; set; }
+        private readonly DatabaseContext _db;
 
         public TaskRepository(DatabaseContext context)
         {
-            db = context;
+            _db = context;
         }
 
         /// <summary>
@@ -27,13 +27,13 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Create(TaskProject item)
         {
-            var entity = db.Tasks
+            var entity = _db.Tasks
                 .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) && 
                 x.Project.Name.Equals(item.Project.Name));
 
             if (entity == null)
             {
-                db.Tasks.Add(item);
+                _db.Tasks.Add(item);
             }
             
         }
@@ -44,13 +44,13 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Delete(TaskProject item)
         {
-            var entity = db.Tasks
+            var entity = _db.Tasks
                 .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) && 
                 x.Project.Name.Equals(item.Project.Name));
 
             if (entity != null)
             {
-                db.Tasks.Remove(entity);
+                _db.Tasks.Remove(entity);
             }
             
         }
@@ -61,7 +61,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <param name="item"></param>
         public void Edit(TaskProject item)
         {
-            var entity = db.Tasks
+            var entity = _db.Tasks
                 .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) &&
                 x.Project.Name.Equals(item.Project.Name));
 
@@ -72,13 +72,13 @@ namespace TaskTrackingSystem.DAL.Repositories
                 entity.EndTime = item.EndTime;
                 entity.Description = item.Description;
                 
-                db.Entry(entity).State = EntityState.Modified;
+                _db.Entry(entity).State = EntityState.Modified;
             } 
         }
 
         public void Dispose()
         {
-            db.Dispose();
+            _db.Dispose();
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             if (name == null)
                 return null;
             else
-                return db.Tasks.Include(x => x.Project)
+                return _db.Tasks.Include(x => x.Project)
                     .FirstOrDefault(x => x.TaskName.Equals(name));
         }
 
@@ -107,7 +107,7 @@ namespace TaskTrackingSystem.DAL.Repositories
                 return null;
             else
             {
-                return db.Tasks
+                return _db.Tasks
                     .Include(x => x.Project)
                     .ThenInclude(x => x.Tasks)
                     .FirstOrDefault(x => x.TaskName.Equals(taskName) &&
@@ -120,6 +120,6 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// </summary>
         /// <returns>A list of <see cref="DAL.Models.TaskProject"/></returns>
         public IEnumerable<TaskProject> GetAll()
-            => db.Tasks.Include(x => x.Project);
+            => _db.Tasks.Include(x => x.Project);
     }
 }

@@ -26,7 +26,7 @@ export class ViewTasksComponent implements OnInit {
   @Output() seeTasksChange = new EventEmitter<{ val: boolean }>();
   isClosedForm = false;
 
-  tasks: ITask[];
+  tasks: ITask[] = [];
   error: any;
 
   showTasks() {

@@ -6,7 +6,7 @@ using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.DAL.Models;
 
-namespace TaskTrackingSystem.BLL
+namespace TaskTrackingSystem.BLL.Automapper
 {
     public class AutomapperProfile : Profile
     {

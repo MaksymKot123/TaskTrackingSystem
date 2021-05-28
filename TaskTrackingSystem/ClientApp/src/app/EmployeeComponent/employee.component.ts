@@ -28,7 +28,6 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit() {
     this.showProject();
-    console.log(EMAIL);
   }
 
   projects: IProject[] = [];
