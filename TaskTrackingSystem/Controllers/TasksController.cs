@@ -121,7 +121,7 @@ namespace TaskTrackingSystem.Controllers
         /// This method deletes a task of project
         /// </summary>
         /// <param name="task"></param>
-        /// <returns>If there are not any errors you will get status code 200. 
+        /// <returns>If there are not any errors you will get status code 204. 
         /// Otherwise, you will get status code 400</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete("project")]

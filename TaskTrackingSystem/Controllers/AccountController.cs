@@ -35,6 +35,14 @@ namespace TaskTrackingSystem.Controllers
             _userService = userService;
         }
 
+        /// <summary>
+        /// This method changes users role
+        /// </summary>
+        /// <param name="roleName"></param>
+        /// <param name="user"></param>
+        /// <returns>Status code 200 if role was succesfully edited.
+        /// Otherwise you will get status code 400 and will see error message
+        /// </returns>
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
         public async Task<IActionResult> ChangeUsersRole(string roleName, [FromBody] UserView user)
@@ -100,6 +108,7 @@ namespace TaskTrackingSystem.Controllers
             }
 
         }
+
         /// <summary>
         /// This method uses user service for registering new users
         /// </summary>
@@ -135,7 +144,9 @@ namespace TaskTrackingSystem.Controllers
         /// </summary>
         /// <param name="projName"></param>
         /// <param name="user"></param>
-        /// <returns></returns>
+        /// <returns>Status code 200 if user was succesfully added to project.
+        /// Otherwise you will get status code 400 and will see error message
+        /// </returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost("addtoproject")]
         public IActionResult AddToProject(string projName, [FromBody] UserView user)
@@ -159,6 +170,13 @@ namespace TaskTrackingSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// This method deletes user from database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>Status code 204 if deleting was succesful.
+        /// Otherwise you will get NotFound error if user is not found or status
+        /// code 400 for other errors and will see error message</returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> DeleteUser([FromBody] UserView user)

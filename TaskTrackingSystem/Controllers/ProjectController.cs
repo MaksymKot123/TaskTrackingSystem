@@ -78,7 +78,8 @@ namespace TaskTrackingSystem.Controllers
         /// </summary>
         /// <param name="proj"></param>
         /// <returns>If there are not any errors you will get status code 200. 
-        /// Otherwise, you will get status code 400</returns>
+        /// Otherwise, you will get NotFound error or status code 400 for other errors
+        /// </returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpPost]
         public IActionResult AddProject([FromBody] ProjectView proj)
@@ -114,7 +115,8 @@ namespace TaskTrackingSystem.Controllers
         /// </summary>
         /// <param name="proj"></param>
         /// <returns>If there are not any errors you will get status code 200. 
-        /// Otherwise, you will get status code 400</returns>
+        /// Otherwise, you will get NotFound error or status code 400 for other errors
+        /// </returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         [HttpDelete]
         public IActionResult DeleteProject([FromBody] ProjectView proj)
@@ -147,7 +149,8 @@ namespace TaskTrackingSystem.Controllers
         /// </summary>
         /// <param name="proj"></param>
         /// <returns>If there are not any errors you will get status code 200. 
-        /// Otherwise, you will get status code 400</returns>
+        /// Otherwise, you will get NotFound error or status code 400 for other errors
+        /// </returns>
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager")]
         public IActionResult EditProject([FromBody] ProjectView proj)
