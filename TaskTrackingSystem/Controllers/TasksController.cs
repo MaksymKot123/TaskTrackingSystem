@@ -100,7 +100,7 @@ namespace TaskTrackingSystem.Controllers
             var changedTask = new TaskDTO()
             {
                 Description = task.Description,
-                Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),//BLL.Enums.StatusDTO(task.Status),
+                Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
