@@ -96,7 +96,7 @@ namespace TaskTrackingSystem.Controllers
             }
             catch (UserException e)
             {
-                return StatusCode(409, e.Message);
+                return Unauthorized(e.Message);
             }
 
         }
@@ -174,7 +174,7 @@ namespace TaskTrackingSystem.Controllers
             try
             {
                 await _userService.DeleteUser(usr);
-                return Ok();
+                return StatusCode(204);
             }
             catch(UserException e)
             {

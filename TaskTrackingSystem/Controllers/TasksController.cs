@@ -139,7 +139,7 @@ namespace TaskTrackingSystem.Controllers
             try
             {
                 _taskService.Delete(taskDTO);
-                return Ok();
+                return StatusCode(204);
             }
             catch(TaskException e)
             {

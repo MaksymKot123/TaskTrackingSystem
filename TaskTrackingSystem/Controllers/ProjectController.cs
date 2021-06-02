@@ -132,7 +132,7 @@ namespace TaskTrackingSystem.Controllers
             try
             {
                 _projService.DeleteProject(project);
-                return Ok();
+                return StatusCode(204);
             }
             catch (ProjectException e)
             {
