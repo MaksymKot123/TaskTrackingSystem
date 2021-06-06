@@ -1,29 +1,25 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { IProject } from "../Interfaces/iproject";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { HeadersService } from "./headersService";
 
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`,
-});
 
 @Injectable({
   providedIn: "root"
 })
 export class GetEmployeesProjectService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
 
   getProjects(url: string, email: string): Observable<IProject[]> {
     return this.http.get<IProject[]>(url, {
-      headers: headers,
+      headers: this.headers.getHeaders(),
       params: new HttpParams().set("email", email)
     }).pipe(map(data => {
       let arr = data;
       return arr.map(function (proj: IProject) {
-        let res: IProject = {
+        return {
           name: proj.name,
           status: proj.status,
           clientEmail: proj.clientEmail,
@@ -36,8 +32,6 @@ export class GetEmployeesProjectService {
           addTask: { val: true },
           showTasks: { val: true },
         };
-
-        return res;
       })
     }));
   }

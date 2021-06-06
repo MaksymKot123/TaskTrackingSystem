@@ -47,6 +47,7 @@
             myForm.controls['confirmPassword'].value || myForm.invalid">
         Register
       </button>
+      <p *ngIf="registered" class="alert alert-success text-success">You have been registered</p>
       <div *ngIf="error != undefined" class="alert-danger alert" role="alert">
         {{error.error}}
       </div>

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using TaskTrackingSystem.BLL.DTO;
-using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.BLL.Automapper
@@ -12,7 +8,7 @@ namespace TaskTrackingSystem.BLL.Automapper
     {
         public AutomapperProfile()
         {
-            CreateMap<Project, ProjectDTO>()
+            CreateMap<Project, ProjectDto>()
                 .ForMember(dest => dest.ClientEmail, src => src.MapFrom(x => x.ClientEmail))
                 .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
                 .ForMember(dest => dest.EndTime, src => src.MapFrom(x => x.EndTime))
@@ -25,7 +21,7 @@ namespace TaskTrackingSystem.BLL.Automapper
                 .ForMember(dest => dest.Employees, src => src.MapFrom(x => x.Employees))
                 .ReverseMap();
 
-            CreateMap<User, UserDTO>()
+            CreateMap<User, UserDto>()
                 .ForMember(dest => dest.Email, src => src.MapFrom(x => x.Email))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, src => src.MapFrom(x => x.Name))
@@ -33,7 +29,7 @@ namespace TaskTrackingSystem.BLL.Automapper
                 .ForMember(dest => dest.Projects, src => src.MapFrom(x => x.Projects))
                 .ReverseMap();
 
-            CreateMap<TaskProject, TaskDTO>()
+            CreateMap<TaskProject, TaskDto>()
                 .ForMember(dest => dest.Description, src => src.MapFrom(x => x.Description))
                 .ForMember(dest => dest.EndTime, src => src.MapFrom(x => x.EndTime))
                 .ForMember(dest => dest.Id, src => src.MapFrom(x => x.Id))
@@ -45,6 +41,6 @@ namespace TaskTrackingSystem.BLL.Automapper
 
             CreateMap<DAL.Enums.Status, BLL.Enums.StatusDTO>()
                 .ReverseMap();
-        }        
+        }
     }
 }

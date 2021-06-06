@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using TaskTrackingSystem;
 
 namespace TaskTrackingSystem.BLL.DTO
 {
     /// <summary>
     /// DTO model of project
     /// </summary>
-    public class ProjectDTO
+    public class ProjectDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +16,7 @@ namespace TaskTrackingSystem.BLL.DTO
         public string Description { get; set; }
         public string ClientEmail { get; set; }
         public double PercentCompletion { get; set; }
-        public ICollection<UserDTO> Employees { get; set; }
-        public ICollection<TaskDTO> Tasks { get; set; }
+        public ICollection<UserDto> Employees { get; set; }
+        public ICollection<TaskDto> Tasks { get; set; }
     }
 }

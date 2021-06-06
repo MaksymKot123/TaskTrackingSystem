@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TaskTrackingSystem.BLL.DTO;
 
 namespace TaskTrackingSystem.BLL.Interfaces
@@ -15,25 +14,25 @@ namespace TaskTrackingSystem.BLL.Interfaces
         /// </summary>
         /// <param name="projectName"></param>
         /// <param name="task"></param>
-        void AddToProject(string projectName, TaskDTO task);
+        void AddToProject(string projectName, TaskDto task);
 
         /// <summary>
         /// Change task's info
         /// </summary>
         /// <param name="task"></param>
-        void Change(TaskDTO task);
+        void Change(TaskDto task);
 
         /// <summary>
         /// Delete task
         /// </summary>
         /// <param name="task"></param>
-        void Delete(TaskDTO task);
+        void Delete(TaskDto task);
 
         /// <summary>
         /// Get project's all DTO task models
         /// </summary>
         /// <param name="projectName"></param>
-        /// <returns>A list of <see cref="BLL.DTO.TaskDTO"/></returns>
-        IEnumerable<TaskDTO> GetTasksOfProject(string projectName);
+        /// <returns>A list of <see cref="BLL.DTO.TaskDto"/></returns>
+        IEnumerable<TaskDto> GetTasksOfProject(string projectName);
     }
 }

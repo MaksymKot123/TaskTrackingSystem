@@ -1,17 +1,12 @@
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable, OnInit } from "@angular/core";
 import { IProject } from "../Interfaces/iproject";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators"; 
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { HeadersService } from "./headersService";
 
 const URL = "https:localhost:44351/project";
-
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +15,8 @@ export class ProjectService implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) { }
+  constructor(private http: HttpClient, private fb: FormBuilder,
+    private headers: HeadersService) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
@@ -33,29 +29,28 @@ export class ProjectService implements OnInit {
   }
 
   addNewProject(body: object) {
-    return this.http.post(URL, JSON.stringify(body), { headers: headers });
+    return this.http.post(URL, JSON.stringify(body), { headers: this.headers.getHeaders() });
   }
 
   getAllProjects(url: string): Observable<IProject[]> {
-    return this.http.get<IProject[]>(url, { headers: headers }).pipe(map(data => {
-      let arr = data;
-      return arr.map(function (proj: IProject) {
-        let res: IProject = {
-          name: proj.name,
-          status: proj.status,
-          clientEmail: proj.clientEmail,
-          startTime: proj.startTime,
-          endTime: proj.endTime,
-          description: proj.description,
-          percentCompletion: Math.round(proj.percentCompletion,),
-          editProject: { val: true },
-          deleteProject: { val: true },
-          addTask: { val: true },
-          showTasks: { val: true },
-        };
-
-        return res;
-      })
+    return this.http.get<IProject[]>(url, { headers: this.headers.getHeaders() })
+      .pipe(map(data => {
+        let arr = data;
+        return arr.map(function (proj: IProject) {
+          return {
+            name: proj.name,
+            status: proj.status,
+            clientEmail: proj.clientEmail,
+            startTime: proj.startTime,
+            endTime: proj.endTime,
+            description: proj.description,
+            percentCompletion: Math.round(proj.percentCompletion,),
+            editProject: { val: true },
+            deleteProject: { val: true },
+            addTask: { val: true },
+            showTasks: { val: true },
+          }
+        })
     }));
   }
 

@@ -1,17 +1,14 @@
-import { HttpClient, HttpHeaders} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { HeadersService } from "./headersService";
 
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
 
 @Injectable({
   providedIn: "root",
 })
 export class AddNewProjectService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
+  
 
   addNewProject(url: string, name: string, deadline: string, clientEmail: string,
     description: string) {
@@ -22,6 +19,6 @@ export class AddNewProjectService {
       "EndTime": deadline,
       "Description": description
     };
-    return this.http.post(url, JSON.stringify(body), { headers: headers });
+    return this.http.post(url, JSON.stringify(body), { headers: this.headers.getHeaders() });
   }
 }

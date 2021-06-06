@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 export class AdminComponent {
   constructor(private router: Router) {
     if (localStorage.getItem("role") !== "Admin") {
-      this.router.navigateByUrl("");
+      this.router.navigateByUrl("not-found");
     }
   }
 

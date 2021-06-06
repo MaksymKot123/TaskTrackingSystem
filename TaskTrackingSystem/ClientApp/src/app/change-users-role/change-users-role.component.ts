@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RoleService } from "src/app/Services/roleService";
 
 const URL = "https://localhost:44351/account";
@@ -6,10 +6,9 @@ const URL = "https://localhost:44351/account";
 
 @Component({
   selector: 'change-role',
-  templateUrl: './change-users-role.component.html',
-  styleUrls: ['./change-users-role.component.css']
+  templateUrl: './change-users-role.component.html'
 })
-export class ChangeUsersRoleComponent implements OnInit {
+export class ChangeUsersRoleComponent {
 
   constructor(private service: RoleService) { }
 
@@ -23,9 +22,6 @@ export class ChangeUsersRoleComponent implements OnInit {
   msg: string;
 
   Roles = ["Admin", "Manager", "Employee"];
-
-  ngOnInit() {
-  }
 
   changeUsersRole() {
     if (this.selectedRole != undefined) {

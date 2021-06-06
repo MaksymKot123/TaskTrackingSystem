@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { GetUsersByRoleService } from "src/app/Services/getUsersByRoleService";
-import { IProject } from '../Interfaces/iproject';
 import { IUser } from '../Interfaces/iuser';
 import { GetProjectsOfUserService } from '../Services/getProjectsOfUser';
 
@@ -10,8 +9,7 @@ const EMPLOYEE = "Employee";
 
 @Component({
   selector: 'all-employees',
-  templateUrl: './all-employees.component.html',
-  styleUrls: ['./all-employees.component.css']
+  templateUrl: './all-employees.component.html'
 })
 export class AllEmployeesComponent implements OnInit {
 

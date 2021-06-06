@@ -1,17 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using TaskTrackingSystem.BLL.DTO;
-using TaskTrackingSystem.BLL.Interfaces;
-using AutoMapper;
-using TaskTrackingSystem.DAL.Interfaces;
-using TaskTrackingSystem.DAL.Repositories;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using TaskTrackingSystem.DAL.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.BLL.Exceptions;
+using TaskTrackingSystem.BLL.Interfaces;
+using TaskTrackingSystem.DAL.Interfaces;
+using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -45,7 +41,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// exception will be thrown
         /// </summary>
         /// <param name="user"></param>
-        public async Task DeleteUser(UserDTO user)
+        public async Task DeleteUser(UserDto user)
         {
             var userFromDatabase = _unitOfWork.GetUserWithDetails(user.Email);
 
@@ -62,11 +58,11 @@ namespace TaskTrackingSystem.BLL.Services
         /// Get users with specified role
         /// </summary>
         /// <param name="roleName"></param>
-        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
-        public async Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName)
+        /// <returns>A list of <see cref="BLL.DTO.UserDto"/></returns>
+        public async Task<IEnumerable<UserDto>> GetUsersByRole(string roleName)
         {
             var users = await _unitOfWork.UserManager.GetUsersInRoleAsync(roleName);
-            return _mapper.Map<IEnumerable<UserDTO>>(users);
+            return _mapper.Map<IEnumerable<UserDto>>(users);
         }
 
         /// <summary>
@@ -77,8 +73,8 @@ namespace TaskTrackingSystem.BLL.Services
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
-        public async Task<UserDTO> Authenticate(UserDTO user, string password)
+        /// <returns><see cref="BLL.DTO.UserDto"/></returns>
+        public async Task<UserDto> Authenticate(UserDto user, string password)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
 
@@ -91,12 +87,12 @@ namespace TaskTrackingSystem.BLL.Services
                 {
                     var role = await _unitOfWork.UserManager.GetRolesAsync(usr);
 
-                    return new UserDTO()
+                    return new UserDto()
                     {
                         Email = usr.Email,
                         Id = usr.Id,
                         Name = usr.Name,
-                        Projects = _mapper.Map<ICollection<ProjectDTO>>(usr.Projects),
+                        Projects = _mapper.Map<ICollection<ProjectDto>>(usr.Projects),
                         Token = _jwtGenerator.CreateToken(usr, role.FirstOrDefault()),
                     };
                 }
@@ -116,12 +112,12 @@ namespace TaskTrackingSystem.BLL.Services
         /// by other user, or password pattern is invalid
         /// a user exception will be throwns
         /// </summary>
-        /// <param name="newUser"></param>
+        /// <param name="user"></param>
         /// <param name="password"></param>
-        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
-        public async Task<UserDTO> Register(UserDTO newUser, string password)
+        /// <returns><see cref="BLL.DTO.UserDto"/></returns>
+        public async Task<UserDto> Register(UserDto user, string password)
         {
-            if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(newUser.Email)))
+            if (_unitOfWork.UserManager.Users.Any(x => x.Email.Equals(user.Email)))
             {
                 throw new UserException("This email is already taken");
             }
@@ -129,9 +125,9 @@ namespace TaskTrackingSystem.BLL.Services
             {
                 var usr = new User()
                 {
-                    Email = newUser.Email,
-                    Name = newUser.Name,
-                    UserName = newUser.Email,
+                    Email = user.Email,
+                    Name = user.Name,
+                    UserName = user.Email,
                 };
 
                 var res = await _unitOfWork.UserManager.CreateAsync(usr, password);
@@ -157,12 +153,12 @@ namespace TaskTrackingSystem.BLL.Services
                         userFromDatabase.Role = role;
 
                         await _unitOfWork.UserManager.UpdateAsync(userFromDatabase);
-                        return new UserDTO()
+                        return new UserDto()
                         {
                             Email = userFromDatabase.Email,
                             Id = userFromDatabase.Id,
                             Name = userFromDatabase.Name,
-                            Projects = _mapper.Map<ICollection<ProjectDTO>>(
+                            Projects = _mapper.Map<ICollection<ProjectDto>>(
                                 userFromDatabase.Projects),
                             Role = role,
                         };
@@ -184,7 +180,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// </summary>
         /// <param name="projectName"></param>
         /// <param name="user"></param>
-        public void AddToProject(string projectName, UserDTO user)
+        public void AddToProject(string projectName, UserDto user)
         {
             var proj = _unitOfWork.ProjectRepo.Get(projectName);
             var userFromDatabase = _unitOfWork.GetUserWithDetails(user.Email);
@@ -196,7 +192,7 @@ namespace TaskTrackingSystem.BLL.Services
 
             if (proj.Employees.Contains(userFromDatabase))
                 throw new ProjectException("User has already this project");
-          
+
             proj.Employees.Add(userFromDatabase);
             userFromDatabase.Projects.Add(proj);
             _unitOfWork.SaveChanges();
@@ -208,7 +204,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// be thrown
         /// </summary>
         /// <param name="user"></param>
-        public async void EditUser(UserDTO user)
+        public async void EditUser(UserDto user)
         {
             var usr = await _unitOfWork.UserManager.FindByEmailAsync(user.Email);
 
@@ -228,19 +224,19 @@ namespace TaskTrackingSystem.BLL.Services
         /// <summary>
         /// This method return all DTO user models
         /// </summary>
-        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
-        public IEnumerable<UserDTO> GetAllUsers()
+        /// <returns>A list of <see cref="BLL.DTO.UserDto"/></returns>
+        public IEnumerable<UserDto> GetAllUsers()
         {
             var users = _unitOfWork.UserManager.Users.AsEnumerable();
-            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         }
 
         /// <summary>
         /// This method returns a DTO model of user. User can be got by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
-        public async Task<UserDTO> GetUser(string email)
+        /// <returns><see cref="BLL.DTO.UserDto"/></returns>
+        public async Task<UserDto> GetUser(string email)
         {
             if (email == null)
                 return null;
@@ -253,7 +249,7 @@ namespace TaskTrackingSystem.BLL.Services
                 }
                 else
                 {
-                    return _mapper.Map<UserDTO>(user);
+                    return _mapper.Map<UserDto>(user);
                 }
             }
         }
@@ -285,8 +281,8 @@ namespace TaskTrackingSystem.BLL.Services
         {
             var user = _unitOfWork.GetUserWithDetails(email);
             var projects = user.Projects;
-            
-            while(projects.Count > 0)
+
+            while (projects.Count > 0)
             {
                 var proj = projects.First();
                 proj.Employees.Remove(user);

@@ -1,15 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using TaskTrackingSystem.BLL.DTO;
+using TaskTrackingSystem.BLL.Exceptions;
+using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.DAL.Interfaces;
 using TaskTrackingSystem.DAL.Models;
-using TaskTrackingSystem.BLL.DTO;
-using TaskTrackingSystem.BLL;
-using TaskTrackingSystem.BLL.Interfaces;
-using AutoMapper;
-using System.Linq;
-using TaskTrackingSystem.BLL.EmailSender;
-using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -35,11 +32,11 @@ namespace TaskTrackingSystem.BLL.Services
         /// This method returns all projects of employee, which you can get by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
-        public IEnumerable<ProjectDTO> GetEmployeesProjects(string email)
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDto"/></returns>
+        public IEnumerable<ProjectDto> GetEmployeesProjects(string email)
         {
             var user = _unifOfWork.GetUserWithDetails(email);
-            var projects = _mapper.Map<IEnumerable<ProjectDTO>>(
+            var projects = _mapper.Map<IEnumerable<ProjectDto>>(
                 user.Projects.AsEnumerable());
 
             return projects;
@@ -50,7 +47,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// not any project with this name, a project exception will be thrown
         /// </summary>
         /// <param name="project"></param>
-        public void DeleteProject(ProjectDTO project)
+        public void DeleteProject(ProjectDto project)
         {
             var proj = _unifOfWork.ProjectRepo.Get(project.Name);
 
@@ -70,7 +67,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// This method edits project's info
         /// </summary>
         /// <param name="project"></param>
-        public void EditProject(ProjectDTO project)
+        public void EditProject(ProjectDto project)
         {
             var name = project.Name;
 
@@ -98,10 +95,10 @@ namespace TaskTrackingSystem.BLL.Services
         /// <summary>
         /// This method returns all projects from database
         /// </summary>
-        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
-        public IEnumerable<ProjectDTO> GetAllProjects()
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDto"/></returns>
+        public IEnumerable<ProjectDto> GetAllProjects()
         {
-            return _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectDTO>>(
+            return _mapper.Map<IEnumerable<Project>, IEnumerable<ProjectDto>>(
                 _unifOfWork.ProjectRepo.GetAll());
         }
 
@@ -110,7 +107,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// a same name with a new project, a project exception will be thrown
         /// </summary>
         /// <param name="project"></param>
-        public void AddProject(ProjectDTO project)
+        public void AddProject(ProjectDto project)
         {
             var proj = _unifOfWork.ProjectRepo.Get(project.Name);
             if (proj == null)
@@ -130,26 +127,26 @@ namespace TaskTrackingSystem.BLL.Services
         /// This method return DTO model of project by name
         /// </summary>
         /// <param name="name"></param>
-        /// <returns><see cref="BLL.DTO.ProjectDTO"/></returns>
-        public ProjectDTO GetProject(string name)
+        /// <returns><see cref="BLL.DTO.ProjectDto"/></returns>
+        public ProjectDto GetProject(string name)
         {
             var proj = _unifOfWork.ProjectRepo.GetAll()
                 .FirstOrDefault(x => x.Name.Equals(name));
 
             if (proj != null)
             {
-                return new ProjectDTO()
+                return new ProjectDto()
                 {
                     ClientEmail = proj.ClientEmail,
                     Description = proj.Description,
-                    Employees = _mapper.Map<ICollection<UserDTO>>(proj.Employees),
+                    Employees = _mapper.Map<ICollection<UserDto>>(proj.Employees),
                     EndTime = proj.EndTime,
                     Id = proj.Id,
                     Name = proj.Name,
                     PercentCompletion = proj.PercentCompletion,
                     StartTime = proj.StartTime,
                     Status = _mapper.Map<BLL.Enums.StatusDTO>(proj.Status),
-                    Tasks = _mapper.Map<ICollection<TaskDTO>>(proj.Tasks)
+                    Tasks = _mapper.Map<ICollection<TaskDto>>(proj.Tasks)
                 };
             }
             else

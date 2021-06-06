@@ -1,17 +1,14 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { HeadersService } from "./headersService";
 
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
 
 @Injectable({
   providedIn: "root"
 })
 export class DeleteUserService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
+
 
   delete(url: string, email: string) {
     const body = {
@@ -21,7 +18,7 @@ export class DeleteUserService {
 
     return this.http.request("delete", url, {
       body: body,
-      headers: headers
+      headers: this.headers.getHeaders()
     });
   }
 }

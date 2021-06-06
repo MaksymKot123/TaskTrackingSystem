@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TaskTrackingSystem.DAL.Interfaces;
+﻿using System.Linq;
 using TaskTrackingSystem.DAL.Enums;
-using Microsoft.EntityFrameworkCore;
-using TaskTrackingSystem.BLL.EmailSender;
+using TaskTrackingSystem.DAL.Interfaces;
 
 namespace TaskTrackingSystem.BLL.ProjectStatusUpdater
 {

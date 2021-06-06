@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskTrackingSystem.BLL.Enums
+﻿namespace TaskTrackingSystem.BLL.Enums
 {
     public enum StatusDTO
     {

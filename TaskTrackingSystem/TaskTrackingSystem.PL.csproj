@@ -63,6 +63,7 @@
     <None Remove="ClientApp\src\app\Services\getProjectsOfUser.ts" />
     <None Remove="ClientApp\src\app\Services\getTasksOfProjectService.ts" />
     <None Remove="ClientApp\src\app\Services\getUsersByRoleService.ts" />
+    <None Remove="ClientApp\src\app\Services\headersService.ts" />
     <None Remove="ClientApp\src\app\Services\jwtAuth.service.ts" />
     <None Remove="ClientApp\src\app\Services\jwtParse.service.ts" />
     <None Remove="ClientApp\src\app\Services\Project.service.ts" />
@@ -91,6 +92,7 @@
     <TypeScriptCompile Include="ClientApp\src\app\Services\addNewProject.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\addTaskService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\addUserToProject.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\Services\headersService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\roleService.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\deleteProject.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\Services\deleteuserservice.ts" />

@@ -1,14 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AddNewProjectService } from "src/app/Services/addNewProject.service";
 import { ProjectDateValidator } from "src/app/DateValidator/projectdatevalidator";
 
 
 @Component({
   selector: 'add-project',
-  templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.css']
+  templateUrl: './add-project.component.html'
 })
 export class AddProjectComponent implements OnInit {
 

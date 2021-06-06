@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.BLL.DTO;
-using Microsoft.AspNetCore.Authorization;
-using TaskTrackingSystem.ViewModels;
 using TaskTrackingSystem.BLL.Exceptions;
+using TaskTrackingSystem.BLL.Interfaces;
+using TaskTrackingSystem.ViewModels;
 
 namespace TaskTrackingSystem.Controllers
 {
@@ -55,7 +53,7 @@ namespace TaskTrackingSystem.Controllers
         /// The employee can be got by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns>A list of <see cref="BLL.DTO.ProjectDTO"/></returns>
+        /// <returns>A list of <see cref="BLL.DTO.ProjectDto"/></returns>
         [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin, Manager, Employee")]
         [HttpGet]
         public IEnumerable<ProjectView> GetEmployeesProjects(string email)
@@ -85,9 +83,9 @@ namespace TaskTrackingSystem.Controllers
         public IActionResult AddProject([FromBody] ProjectView proj)
         {
             if (proj == null)
-                return BadRequest(); 
+                return BadRequest();
 
-            var newProj = new ProjectDTO()
+            var newProj = new ProjectDto()
             {
                 ClientEmail = proj.ClientEmail,
                 Description = proj.Description,
@@ -102,7 +100,7 @@ namespace TaskTrackingSystem.Controllers
                 _projService.AddProject(newProj);
                 return Ok();
             }
-            catch(ProjectException e)
+            catch (ProjectException e)
             {
                 if (e.Message.Equals("Project not found"))
                     return NotFound(e.Message);
@@ -124,9 +122,9 @@ namespace TaskTrackingSystem.Controllers
             if (proj == null)
                 return BadRequest();
 
-            var project = new ProjectDTO()
+            var project = new ProjectDto()
             {
-                Name =proj.Name,
+                Name = proj.Name,
                 ClientEmail = proj.ClientEmail,
                 EndTime = proj.EndTime,
             };
@@ -156,9 +154,9 @@ namespace TaskTrackingSystem.Controllers
         public IActionResult EditProject([FromBody] ProjectView proj)
         {
             if (proj == null)
-                return BadRequest(); 
+                return BadRequest();
 
-            var project = new ProjectDTO()
+            var project = new ProjectDto()
             {
                 ClientEmail = proj.ClientEmail,
                 Description = proj.Description,
@@ -172,12 +170,12 @@ namespace TaskTrackingSystem.Controllers
                 _projService.EditProject(project);
                 return Ok();
             }
-            catch(ProjectException e)
+            catch (ProjectException e)
             {
                 if (e.Message.Equals("Project not found"))
                     return NotFound(e.Message);
                 return BadRequest(e.Message);
-            } 
+            }
         }
     }
 }

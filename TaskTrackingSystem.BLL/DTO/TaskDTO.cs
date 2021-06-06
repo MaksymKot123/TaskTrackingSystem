@@ -1,13 +1,11 @@
 ﻿using System;
-using TaskTrackingSystem;
-using TaskTrackingSystem.BLL;
 
 namespace TaskTrackingSystem.BLL.DTO
 {
     /// <summary>
     /// DTO model of project's task
     /// </summary>
-    public class TaskDTO
+    public class TaskDto
     {
         public int Id { get; set; }
         public string TaskName { get; set; }
@@ -15,6 +13,6 @@ namespace TaskTrackingSystem.BLL.DTO
         public DateTime EndTime { get; set; }
         public Enums.StatusDTO Status { get; set; }
         public string Description { get; set; }
-        public ProjectDTO Project { get; set; }
+        public ProjectDto Project { get; set; }
     }
 }

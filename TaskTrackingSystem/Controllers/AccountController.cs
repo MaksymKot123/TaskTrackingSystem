@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TaskTrackingSystem.BLL;
-using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.BLL.Exceptions;
+using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.ViewModels;
-using System.Net;
 
 namespace TaskTrackingSystem.Controllers
 {
@@ -48,7 +44,7 @@ namespace TaskTrackingSystem.Controllers
         public async Task<IActionResult> ChangeUsersRole(string roleName, [FromBody] UserView user)
         {
             if (user == null || roleName == null)
-                return BadRequest(); 
+                return BadRequest();
 
             try
             {
@@ -92,7 +88,7 @@ namespace TaskTrackingSystem.Controllers
             if (user == null)
                 return BadRequest();
 
-            var usr = new UserDTO()
+            var usr = new UserDto()
             {
                 Email = user.Email,
             };
@@ -122,7 +118,7 @@ namespace TaskTrackingSystem.Controllers
             if (user == null)
                 return BadRequest();
 
-            var usr = new UserDTO()
+            var usr = new UserDto()
             {
                 Email = user.Email,
                 Name = user.Name,
@@ -156,7 +152,7 @@ namespace TaskTrackingSystem.Controllers
 
             try
             {
-                var usr = new UserDTO() { Email = user.Email, Name = user.Name };
+                var usr = new UserDto() { Email = user.Email, Name = user.Name };
                 _userService.AddToProject(projName, usr);
                 return Ok();
             }
@@ -164,9 +160,9 @@ namespace TaskTrackingSystem.Controllers
             {
                 return BadRequest(e1.Message);
             }
-            catch (UserException e2) 
-            { 
-                return BadRequest(e2.Message); 
+            catch (UserException e2)
+            {
+                return BadRequest(e2.Message);
             }
         }
 
@@ -184,7 +180,7 @@ namespace TaskTrackingSystem.Controllers
             if (user == null)
                 return BadRequest();
 
-            var usr = new UserDTO()
+            var usr = new UserDto()
             {
                 Email = user.Email,
                 Name = user.Name,
@@ -194,7 +190,7 @@ namespace TaskTrackingSystem.Controllers
                 await _userService.DeleteUser(usr);
                 return StatusCode(204);
             }
-            catch(UserException e)
+            catch (UserException e)
             {
                 if (e.Message.Equals("User not found"))
                     return NotFound(e.Message);

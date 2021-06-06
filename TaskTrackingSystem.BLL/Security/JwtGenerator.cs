@@ -5,10 +5,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TaskTrackingSystem.BLL;
-using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.BLL.Interfaces;
-using TaskTrackingSystem.DAL;
 using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.BLL.Security
@@ -31,14 +28,14 @@ namespace TaskTrackingSystem.BLL.Security
         /// <returns>JWT token</returns>
         public string CreateToken(User user, string role)
         {
-            var claims = new List<Claim> 
-            { 
+            var claims = new List<Claim>
+            {
                 new Claim(ClaimTypes.Email, user.UserName),
                 new Claim(ClaimTypes.Role, role),
                 new Claim(ClaimTypes.Name, user.Name)
             };
 
-            var credentials = new SigningCredentials(_key, 
+            var credentials = new SigningCredentials(_key,
                 SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor()

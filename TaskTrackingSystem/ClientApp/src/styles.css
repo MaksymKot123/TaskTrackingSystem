@@ -80,3 +80,9 @@ html {
   flex-direction: column;
   padding: 150px 0px;
 }
+
+#homePage {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+}

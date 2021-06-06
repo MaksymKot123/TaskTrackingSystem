@@ -1,29 +1,26 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TaskTrackingSystem.DAL.Models;
-using AutoMapper;
-using TaskTrackingSystem.BLL;
-using TaskTrackingSystem.DAL.Interfaces;
-using TaskTrackingSystem.DAL.Repositories;
-using TaskTrackingSystem.BLL.Services;
-using TaskTrackingSystem.BLL.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using TaskTrackingSystem.BLL.Security;
-using Microsoft.IdentityModel.Logging;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Authorization;
-using TaskTrackingSystem.DAL.DbContext;
 using TaskTrackingSystem.BLL.Automapper;
+using TaskTrackingSystem.BLL.Interfaces;
+using TaskTrackingSystem.BLL.Security;
+using TaskTrackingSystem.BLL.Services;
+using TaskTrackingSystem.DAL.DbContext;
+using TaskTrackingSystem.DAL.Interfaces;
+using TaskTrackingSystem.DAL.Models;
+using TaskTrackingSystem.DAL.Repositories;
 
 namespace TaskTrackingSystem.PL
 {
@@ -141,7 +138,7 @@ namespace TaskTrackingSystem.PL
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-            
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -151,9 +148,9 @@ namespace TaskTrackingSystem.PL
 
             app.UseRouting();
             app.UseCors();
-            
+
             app.UseAuthentication();
-            app.UseAuthorization(); 
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

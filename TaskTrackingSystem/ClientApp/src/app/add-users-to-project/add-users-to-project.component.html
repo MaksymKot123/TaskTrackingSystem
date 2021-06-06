@@ -3,7 +3,6 @@
     <option *ngFor="let proj of projects" [value]="proj.name">{{proj.name}}</option>
   </select>
 </div>
-
 <div>
   <button (click)="addUserToProject()" type="button"
     class="btn btn-success w-100">Add to project
@@ -15,7 +14,6 @@
     Hide
   </button>
 </div>
-
 <div *ngIf="this.msg != undefined" class="alert alert-success w-100" role="alert">
   {{this.msg}}
 </div>

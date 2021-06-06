@@ -2,22 +2,18 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IProject } from '../Interfaces/iproject';
 import { AddUserToProjectService } from "../Services/addUserToProject";
 import { GetAllProjectsService } from '../Services/getAllProjects.service';
-//import { GetAllProjectsService } from '../Services/getAllProjects.service';
-import { GetProjectsOfUserService } from '../Services/getProjectsOfUser';
 
 const URL = "https://localhost:44351/account/addtoproject";
 const PROJ_URL = "https://localhost:44351/project/all";
 
 @Component({
   selector: 'add-user-to-project',
-  templateUrl: './add-users-to-project.component.html',
-  styleUrls: ['./add-users-to-project.component.css']
+  templateUrl: './add-users-to-project.component.html'
 })
 export class AddUsersToProjectComponent implements OnInit {
 
   constructor(private service: AddUserToProjectService,
-    private projServ: GetAllProjectsService
-    /*private projServ: GetProjectsOfUserService*/) { }
+    private projServ: GetAllProjectsService) { }
 
   ngOnInit() {
     this.getProjects();
@@ -58,9 +54,4 @@ export class AddUsersToProjectComponent implements OnInit {
     this.addToProjectChange.emit(value);
     this.isClosedForm = !this.isClosedForm;
   }
-
-
-
-
-
 }

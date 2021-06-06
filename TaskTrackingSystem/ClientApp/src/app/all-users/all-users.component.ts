@@ -14,8 +14,7 @@ const Employee = "Employee";
 
 @Component({
   selector: 'app-all-users',
-  templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.css']
+  templateUrl: './all-users.component.html'
 })
 export class AllUsersComponent implements OnInit {
 

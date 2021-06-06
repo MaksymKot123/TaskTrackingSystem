@@ -1,15 +1,12 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using TaskTrackingSystem.BLL.DTO;
+using TaskTrackingSystem.BLL.Exceptions;
+using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.DAL.Interfaces;
 using TaskTrackingSystem.DAL.Models;
-using TaskTrackingSystem.BLL.DTO;
-using TaskTrackingSystem.BLL;
-using TaskTrackingSystem.BLL.Interfaces;
-using AutoMapper;
-using System.Linq;
-using TaskTrackingSystem.BLL.ProjectStatusUpdater;
-using TaskTrackingSystem.BLL.Exceptions;
 
 namespace TaskTrackingSystem.BLL.Services
 {
@@ -36,14 +33,14 @@ namespace TaskTrackingSystem.BLL.Services
         /// Project can be got by name
         /// </summary>
         /// <param name="projectName"></param>
-        /// <returns>A list of <see cref="BLL.DTO.TaskDTO"/></returns>
-        public IEnumerable<TaskDTO> GetTasksOfProject(string projectName)
+        /// <returns>A list of <see cref="BLL.DTO.TaskDto"/></returns>
+        public IEnumerable<TaskDto> GetTasksOfProject(string projectName)
         {
             var tasks = _unitOfWork.ProjectRepo.GetAll()
                 .FirstOrDefault(x => x.Name.Equals(projectName))
                 .Tasks.AsEnumerable();
 
-            var res = _mapper.Map<IEnumerable<TaskDTO>>(tasks);
+            var res = _mapper.Map<IEnumerable<TaskDto>>(tasks);
 
             return res;
         }
@@ -57,7 +54,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// </summary>
         /// <param name="projectName"></param>
         /// <param name="task"></param>
-        public void AddToProject(string projectName, TaskDTO task)
+        public void AddToProject(string projectName, TaskDto task)
         {
             var proj = _unitOfWork.ProjectRepo.Get(projectName);
             if (proj != null)
@@ -88,7 +85,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// is same as name of DTO task from parameter, a task exception will be thrown
         /// </summary>
         /// <param name="task"></param>
-        public void Change(TaskDTO task)
+        public void Change(TaskDto task)
         {
             var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);
             if (tsk != null)
@@ -108,7 +105,7 @@ namespace TaskTrackingSystem.BLL.Services
         /// is same as name of DTO task from parameter, a task exception will be thrown
         /// </summary>
         /// <param name="task"></param>
-        public void Delete(TaskDTO task)
+        public void Delete(TaskDto task)
         {
             var tsk = _unitOfWork.TaskRepo.GetWithDetails(task.TaskName, task.Project.Name);
             if (tsk != null)

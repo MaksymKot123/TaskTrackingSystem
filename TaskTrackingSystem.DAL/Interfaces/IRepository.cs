@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.DAL.Interfaces
 {

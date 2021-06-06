@@ -1,19 +1,15 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map } from "rxjs/operators";
 import { ITask } from "../Interfaces/itask";
+import { HeadersService } from "./headersService";
 
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
 
 @Injectable({
   providedIn: "root"
 })
 export class GetTasksFromProjectService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
 
   tasks: ITask[];
 
@@ -24,21 +20,19 @@ export class GetTasksFromProjectService {
       .set("Name", projectName);
 
     return this.http.get<ITask[]>(url, {
-      headers: headers,
+      headers: this.headers.getHeaders(),
       params: params
     }).pipe(map(data => {
       let arr = data;
       return arr.map(function (task: ITask) {
-        let res: ITask = {
+        return {
           taskName: task.taskName,
           projName: task.projName,
           description: task.description,
           endTime: task.endTime,
           startTime: task.startTime,
           status: task.status
-        };
-
-        return res;
+        }
       })
     }));
   }

@@ -1,17 +1,13 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { HeadersService } from "./headersService";
 
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
 
 @Injectable({
   providedIn: "root",
 })
 export class AddNewTaskService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
 
   addNewTask(url: string, projName: string, taskName: string, deadline: string,
     description: string) {
@@ -22,6 +18,6 @@ export class AddNewTaskService {
       "ProjName": projName,
     };
 
-    return this.http.post(url, body, { headers: headers });
+    return this.http.post(url, body, { headers: this.headers.getHeaders() });
   }
 }

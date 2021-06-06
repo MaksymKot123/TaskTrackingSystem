@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TaskTrackingSystem.BLL.Exceptions;
 using TaskTrackingSystem.BLL.DTO;
+using TaskTrackingSystem.BLL.Exceptions;
 using TaskTrackingSystem.BLL.Interfaces;
 using TaskTrackingSystem.ViewModels;
 
@@ -41,14 +40,14 @@ namespace TaskTrackingSystem.Controllers
         [HttpPost]
         public IActionResult AddTaskToProject([FromBody] TaskView task)
         {
-            var newTask = new TaskDTO()
+            var newTask = new TaskDto()
             {
                 Description = task.Description,
                 Status = BLL.Enums.StatusDTO.Started,
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
-                Project = new ProjectDTO() { Name = task.ProjName }
+                Project = new ProjectDto() { Name = task.ProjName }
             };
 
             try
@@ -97,21 +96,21 @@ namespace TaskTrackingSystem.Controllers
         [HttpPut]
         public IActionResult EditTaskOfProject([FromBody] TaskView task)
         {
-            var changedTask = new TaskDTO()
+            var changedTask = new TaskDto()
             {
                 Description = task.Description,
                 Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
-                Project = new ProjectDTO() { Name = task.ProjName }
+                Project = new ProjectDto() { Name = task.ProjName }
             };
             try
             {
                 _taskService.Change(changedTask);
                 return Ok();
             }
-            catch(TaskException e)
+            catch (TaskException e)
             {
                 return BadRequest(e.Message);
             }
@@ -127,24 +126,24 @@ namespace TaskTrackingSystem.Controllers
         [HttpDelete("project")]
         public IActionResult DeleteTaskInProject([FromBody] TaskView task)
         {
-            var taskDTO = new TaskDTO()
+            var taskDTO = new TaskDto()
             {
                 Description = task.Description,
                 Status = (BLL.Enums.StatusDTO)Enum.Parse(typeof(BLL.Enums.StatusDTO), task.Status, true),
                 StartTime = DateTime.Now,
                 TaskName = task.TaskName,
                 EndTime = task.EndTime,
-                Project = new ProjectDTO() { Name = task.ProjName }
+                Project = new ProjectDto() { Name = task.ProjName }
             };
             try
             {
                 _taskService.Delete(taskDTO);
                 return StatusCode(204);
             }
-            catch(TaskException e)
+            catch (TaskException e)
             {
                 return BadRequest(e.Message);
-            } 
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { EditProjectService } from "src/app/Services/editProject.service";
 import { ProjectDateValidator } from "src/app/DateValidator/projectdatevalidator";
 
@@ -9,8 +9,7 @@ const URL = "project";
 
 @Component({
   selector: 'edit-project',
-  templateUrl: './edit-project.component.html',
-  styleUrls: ['./edit-project.component.css']
+  templateUrl: './edit-project.component.html'
 })
 export class EditProjectComponent implements OnInit {
 
@@ -51,9 +50,9 @@ export class EditProjectComponent implements OnInit {
       const description = this.myForm.controls["description"].value;
       const clientEmail = this.myForm.controls["clientEmail"].value;
 
-      const responce = this.projService.editProject(URL,
-        this.name, description, clientEmail, new Date(endTime).toISOString()).subscribe(null,
-          error => { this.error = error });
+      this.projService.editProject(URL,
+        this.name, description, clientEmail, new Date(endTime).toISOString())
+        .subscribe(null, error => { this.error = error });
 
       this.ngOnInit();
     }

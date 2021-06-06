@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -11,6 +11,5 @@ export class RegistrationService {
   postData(email: string, password: string, name: string, url: string) {
     const body = { "Email": email, "Name": name, "Password": password };
     return this.http.post(url, body);
-
   }
 }

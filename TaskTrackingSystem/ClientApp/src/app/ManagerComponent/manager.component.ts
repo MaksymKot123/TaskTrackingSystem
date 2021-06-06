@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 export class ManagerComponent {
   constructor(private router: Router) {
     if (localStorage.getItem("role") !== "Manager") {
-      this.router.navigateByUrl("/");
+      this.router.navigateByUrl("/not-found");
     }
   }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TaskTrackingSystem.BLL.DTO;
 using TaskTrackingSystem.DAL.Interfaces;
@@ -20,57 +19,57 @@ namespace TaskTrackingSystem.BLL.Interfaces
         /// <summary>
         /// Get all DTO user models
         /// </summary>
-        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
-        IEnumerable<UserDTO> GetAllUsers();
+        /// <returns>A list of <see cref="BLL.DTO.UserDto"/></returns>
+        IEnumerable<UserDto> GetAllUsers();
 
         /// <summary>
         /// Get user by email
         /// </summary>
         /// <param name="email"></param>
-        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
-        Task<UserDTO> GetUser(string email);
+        /// <returns><see cref="BLL.DTO.UserDto"/></returns>
+        Task<UserDto> GetUser(string email);
 
         /// <summary>
         /// Change users info
         /// </summary>
         /// <param name="user"></param>
-        void EditUser(UserDTO user);
+        void EditUser(UserDto user);
 
         /// <summary>
         /// Delete user
         /// </summary>
         /// <param name="user"></param>
-        Task DeleteUser(UserDTO user);
+        Task DeleteUser(UserDto user);
 
         /// <summary>
         /// Add user to project. Project can be got by name
         /// </summary>
         /// <param name="projectName"></param>
         /// <param name="user"></param>
-        void AddToProject(string projectName, UserDTO user);
+        void AddToProject(string projectName, UserDto user);
 
         /// <summary>
         /// Register a new account
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        /// <returns><see cref="BLL.DTO.UserDTO"/></returns>
-        Task<UserDTO> Register(UserDTO user, string password);
+        /// <returns><see cref="BLL.DTO.UserDto"/></returns>
+        Task<UserDto> Register(UserDto user, string password);
 
         /// <summary>
         /// Get JWT token of user
         /// </summary>
         /// <param name="user"></param>
         /// <param name="password"></param>
-        /// <returns><see cref="BLL.DTO.UserDTO"/> with JWT token</returns>
-        Task<UserDTO> Authenticate(UserDTO user, string password);
+        /// <returns><see cref="BLL.DTO.UserDto"/> with JWT token</returns>
+        Task<UserDto> Authenticate(UserDto user, string password);
 
         /// <summary>
         /// Get users with specific role
         /// </summary>
         /// <param name="roleName"></param>
-        /// <returns>A list of <see cref="BLL.DTO.UserDTO"/></returns>
-        Task<IEnumerable<UserDTO>> GetUsersByRole(string roleName);
+        /// <returns>A list of <see cref="BLL.DTO.UserDto"/></returns>
+        Task<IEnumerable<UserDto>> GetUsersByRole(string roleName);
 
         Task ChangeUsersRole(string roleName, string userEmail);
     }

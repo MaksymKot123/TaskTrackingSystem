@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TaskTrackingSystem.DAL.Models;
-using TaskTrackingSystem.DAL.Interfaces;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
+using System.Linq;
 using TaskTrackingSystem.DAL.DbContext;
+using TaskTrackingSystem.DAL.Interfaces;
+using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.DAL.Repositories
 {
@@ -43,7 +41,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             this._userManager = userManager;
             this._roleManager = roleManager;
             this._signInManager = signInManager;
-            _taskRepo = new TaskRepository(db);  
+            _taskRepo = new TaskRepository(db);
             _projectRepo = new ProjectRepository(db);
         }
 

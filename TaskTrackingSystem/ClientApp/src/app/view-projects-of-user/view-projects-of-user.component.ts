@@ -6,8 +6,7 @@ const URL = "https://localhost:44351/project";
 
 @Component({
   selector: 'view-projects-of-user',
-  templateUrl: './view-projects-of-user.component.html',
-  styleUrls: ['./view-projects-of-user.component.css']
+  templateUrl: './view-projects-of-user.component.html'
 })
 export class ViewProjectsOfUserComponent implements OnInit {
 

@@ -1,24 +1,19 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
+import { HeadersService } from "./headersService";
 
 
 @Injectable({
   providedIn: "root"
 })
 export class RoleService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
 
   changeRole(url: string, usersEmail: string, roleName: string) {
     const body = { "email": usersEmail };
 
     return this.http.put(url, body, {
-      headers: headers,
+      headers: this.headers.getHeaders(),
       params: new HttpParams().set("roleName", roleName),
     });
   }

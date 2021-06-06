@@ -1,18 +1,14 @@
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
+import { HeadersService } from "./headersService";
 
 
 @Injectable({
   providedIn: "root"
 })
 export class EditDeleteTaskService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
+
 
   editTask(url: string, projName: string, taskName: string, description: string,
     status: string, startTime: string, endTime: string) {
@@ -25,18 +21,11 @@ export class EditDeleteTaskService {
       "Description": description
     };
 
-    return this.http.put(url, body, { headers: headers });
+    return this.http.put(url, body, { headers: this.headers.getHeaders() });
   }
 
   deleteTask(url: string, projName: string, taskName: string, description: string,
     status: string, startTime: string, endTime: string) {
-    //const params = new HttpParams()
-    //  .set("TaskName", taskName)
-    //  .set("ProjName", projName)
-    //  .set("StartTime", startTime)
-    //  .set("EndTime", endTime)
-    //  .set("Status", status)
-    //  .set("Description", description);
 
     const body = {
       "TaskName": taskName,
@@ -49,12 +38,7 @@ export class EditDeleteTaskService {
 
     return this.http.request("delete", url, {
       body: body,
-      headers: headers
+      headers: this.headers.getHeaders()
     });
-
-    //return this.http.delete(url, {
-    //  headers: headers,
-    //  params: params
-    //});
   }
 }

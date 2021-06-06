@@ -1,7 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { OnInit } from "@angular/core";
 import { JwtAuthService } from "../Services/jwtAuth.service";
 import { JwtParseService } from "../Services/jwtParse.service";
 
@@ -9,8 +8,7 @@ const URL = "https://localhost:44351/account/login";
 
 @Component({
   selector: "login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"],
+  templateUrl: "./login.component.html"
 })
 
 export class LoginComponent implements OnInit {
@@ -72,7 +70,7 @@ export class LoginComponent implements OnInit {
       } else if (role === "Employee") {
         this.router.navigateByUrl("employee");
       } else {
-        this.router.navigateByUrl("");
+        this.router.navigateByUrl("nof-found");
       }
 
     }, error => {

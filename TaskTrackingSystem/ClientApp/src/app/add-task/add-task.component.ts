@@ -7,8 +7,7 @@ const URL = "https://localhost:44351/tasks/";
 
 @Component({
   selector: 'add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css']
+  templateUrl: './add-task.component.html'
 })
 export class AddTaskComponent implements OnInit {
 
@@ -51,5 +50,4 @@ export class AddTaskComponent implements OnInit {
     this.addTaskChange.emit(value);
     this.isClosedForm = !this.isClosedForm;
   }
-
 }

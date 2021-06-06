@@ -1,23 +1,18 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { HttpClient, HttpClientModule, HttpParams } from "@angular/common/http";
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegistrationService } from "../Services/registration.service";
-import { OnInit } from "@angular/core";
 
 const URL = "https://localhost:44351/account";
 
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
-  styles: [`
-    input.ng-touched.ng-invalid {border:solid red 2px;}
-    input.ng-touched.ng-valid {border:solid green 2px;}
-  `],
 })
 export class RegisterComponent implements OnInit {
 
   myForm: FormGroup;
   error: any;
+  registered: boolean;
 
   constructor(private regServ: RegistrationService, private fb: FormBuilder) { }
 
@@ -39,8 +34,8 @@ export class RegisterComponent implements OnInit {
     let confirmPassword = this.myForm.controls["confirmPassword"].value;
 
     if (password === confirmPassword) {
-      let res = this.regServ.postData(email, password, name, URL)
-        .subscribe(null, error => {
+      this.regServ.postData(email, password, name, URL)
+        .subscribe(() => { this.registered = true }, error => {
           console.log(error);
           this.error = error;
         });

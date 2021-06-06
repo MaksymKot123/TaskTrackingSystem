@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using TaskTrackingSystem.DAL.Models;
-using TaskTrackingSystem.DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using TaskTrackingSystem.DAL.DbContext;
+using TaskTrackingSystem.DAL.Interfaces;
+using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.DAL.Repositories
 {
@@ -15,6 +14,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <see cref="DAL.Models.DatabaseContext"/>
         /// </summary>
         private readonly DatabaseContext _db;
+        private bool disposedValue;
 
         public ProjectRepository(DatabaseContext context)
         {
@@ -33,7 +33,7 @@ namespace TaskTrackingSystem.DAL.Repositories
             {
                 _db.Projects.Add(item);
             }
-            
+
         }
 
         /// <summary>
@@ -63,12 +63,25 @@ namespace TaskTrackingSystem.DAL.Repositories
             {
                 _db.Entry(project).State = EntityState.Modified;
             }
-            
+
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _db.Dispose();
+                }
+                disposedValue = true;
+            }
         }
 
         public void Dispose()
         {
-            _db.Dispose();
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -90,7 +103,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// Get all project from database
         /// </summary>
         /// <returns>A list <see cref="DAL.Models.Project"/></returns>
-        public IEnumerable<Project> GetAll() 
+        public IEnumerable<Project> GetAll()
             => _db.Projects
             .Include(x => x.Tasks)
             .Include(x => x.Employees)

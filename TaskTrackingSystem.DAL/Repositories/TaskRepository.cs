@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using TaskTrackingSystem.DAL.Models;
-using TaskTrackingSystem.DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using TaskTrackingSystem.DAL.DbContext;
+using TaskTrackingSystem.DAL.Interfaces;
+using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.DAL.Repositories
 {
@@ -15,6 +14,7 @@ namespace TaskTrackingSystem.DAL.Repositories
         /// <see cref="DAL.Models.DatabaseContext"/>
         /// </summary>
         private readonly DatabaseContext _db;
+        private bool disposedValue;
 
         public TaskRepository(DatabaseContext context)
         {
@@ -28,14 +28,14 @@ namespace TaskTrackingSystem.DAL.Repositories
         public void Create(TaskProject item)
         {
             var entity = _db.Tasks
-                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) && 
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) &&
                 x.Project.Name.Equals(item.Project.Name));
 
             if (entity == null)
             {
                 _db.Tasks.Add(item);
             }
-            
+
         }
 
         /// <summary>
@@ -45,14 +45,14 @@ namespace TaskTrackingSystem.DAL.Repositories
         public void Delete(TaskProject item)
         {
             var entity = _db.Tasks
-                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) && 
+                .FirstOrDefault(x => x.TaskName.Equals(item.TaskName) &&
                 x.Project.Name.Equals(item.Project.Name));
 
             if (entity != null)
             {
                 _db.Tasks.Remove(entity);
             }
-            
+
         }
 
         /// <summary>
@@ -71,14 +71,27 @@ namespace TaskTrackingSystem.DAL.Repositories
                 entity.Status = item.Status;
                 entity.EndTime = item.EndTime;
                 entity.Description = item.Description;
-                
+
                 _db.Entry(entity).State = EntityState.Modified;
-            } 
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _db.Dispose();
+                }
+                disposedValue = true;
+            }
         }
 
         public void Dispose()
         {
-            _db.Dispose();
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>

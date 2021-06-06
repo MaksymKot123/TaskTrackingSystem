@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TaskTrackingSystem.DAL.Enums
+﻿namespace TaskTrackingSystem.DAL.Enums
 {
     public enum Status
     {

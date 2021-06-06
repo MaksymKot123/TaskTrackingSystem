@@ -7,8 +7,7 @@ const URL = "https://localhost:44351/tasks";
 
 @Component({
   selector: 'view-tasks',
-  templateUrl: './view-tasks.component.html',
-  styleUrls: ['./view-tasks.component.css']
+  templateUrl: './view-tasks.component.html'
 })
 export class ViewTasksComponent implements OnInit {
 
@@ -57,5 +56,4 @@ export class ViewTasksComponent implements OnInit {
         status, startTime, endTime).subscribe(null, error => { this.error = error });
     }
   }
-
 }

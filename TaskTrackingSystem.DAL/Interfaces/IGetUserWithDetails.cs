@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TaskTrackingSystem.DAL.Models;
+﻿using TaskTrackingSystem.DAL.Models;
 
 namespace TaskTrackingSystem.DAL.Interfaces
 {

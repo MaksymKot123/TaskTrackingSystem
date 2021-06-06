@@ -1,18 +1,13 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-
-const token = localStorage.getItem("access_token");
-const headers = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'Authorization': `Bearer ${token}`
-});
+import { HttpClient } from "@angular/common/http";
+import { HeadersService } from "./headersService";
 
 @Injectable({
   providedIn: "root"
 })
 export class EditProjectService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private headers: HeadersService) { }
 
   editProject(url: string, name: string, description: string,
     clientEmail: string, endTime: string) {
@@ -23,6 +18,6 @@ export class EditProjectService {
       "EndTime": endTime,
     };
 
-    return this.http.put(url, body, { headers: headers });
+    return this.http.put(url, body, { headers: this.headers.getHeaders() });
   }
 }
