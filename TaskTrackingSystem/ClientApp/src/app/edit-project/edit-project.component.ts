@@ -46,15 +46,29 @@ export class EditProjectComponent implements OnInit {
   edit() {
     let wantToEdit = confirm("Do you want to edit this project?");
     if (wantToEdit) {
-      const endTime = this.myForm.controls["endTime"].value;
+      let endTime:string = this.myForm.controls["endTime"].value;
       const description = this.myForm.controls["description"].value;
       const clientEmail = this.myForm.controls["clientEmail"].value;
-
+      let a: string = "";
+      if (endTime[1] == '/' && endTime[3] == '/') {
+        a += endTime[2] + '/' + endTime[0] + '/' + endTime.substring(4, endTime.length);
+      }
+      else if (endTime[2] == '/' && endTime[4] == '/') {
+        a += endTime[3] + '/' + endTime.substring(0, 2) + '/' + endTime.substring(5, endTime.length);
+      }
+      else if (endTime[1] == '/' && endTime[4] == '/') {
+        a += endTime.substring(2, 4) + '/' + endTime[0] + '/' + endTime.substring(5, endTime.length);
+      }
+      else {
+        a += endTime.substring(3, 5) + '/' + endTime.substring(0, 2) + '/' + endTime.substring(6, endTime.length);
+      }
+      console.log(endTime, description, clientEmail);
+      console.log(a);
+      let date = new Date(a);
+      console.log(date);
       this.projService.editProject(URL,
-        this.name, description, clientEmail, new Date(endTime).toISOString())
+        this.name, description, clientEmail, date.toISOString())
         .subscribe(null, error => { this.error = error });
-
-      this.ngOnInit();
     }
   }
 

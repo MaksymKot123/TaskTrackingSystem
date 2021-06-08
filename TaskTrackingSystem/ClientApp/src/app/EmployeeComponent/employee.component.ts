@@ -1,5 +1,3 @@
-import { HttpHeaders } from "@angular/common/http";
-import { Route } from "@angular/compiler/src/core";
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { IProject } from "../Interfaces/iproject";
